@@ -3,3105 +3,892 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LIVRARIA.PT — Second-Hand English Books in Portugal</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=DM+Mono:wght@400;500&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>LIVRARIA.PT — Second-hand English Books in Portugal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ===== RESET & ROOT ===== */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-img { display: block; max-width: 100%; }
-
 :root {
-  --bg: #ECEAE4;
-  --white: #FFFFFF;
-  --ink: #1C1916;
-  --ink-mid: #4A4540;
-  --ink-soft: #7A746E;
-  --terracotta: #B8471A;
-  --terracotta-hover: #9D3A12;
-  --border: #D4CEC7;
-  --border-dark: #B0A89E;
-  --mono: 'DM Mono', monospace;
-  --cond: 'Barlow Condensed', sans-serif;
-  --body: 'Barlow', sans-serif;
-}
-
-html { font-size: 16px; }
-body { font-family: var(--body); background: var(--bg); color: var(--ink); min-height: 100vh; }
-
-/* ===== NAV ===== */
-nav {
-  background: var(--bg);
-  border-bottom: 1px solid var(--border-dark);
-  padding: 0 2.5rem;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-}
-
-.nav-logo {
-  font-family: var(--cond);
-  font-weight: 800;
-  font-size: 1.125rem;
-  letter-spacing: 0.05em;
-  color: var(--ink);
-  cursor: pointer;
-  text-transform: uppercase;
-}
-
-.nav-center {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-
-.nav-link {
-  font-family: var(--cond);
-  font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-mid);
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: color 0.15s;
-  padding: 0;
-}
-.nav-link:hover { color: var(--ink); }
-.nav-link.active { color: var(--terracotta); }
-
-.nav-cart-btn {
-  background: var(--ink);
-  color: var(--white);
-  border: none;
-  padding: 0.45rem 1.1rem;
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: background 0.15s;
-}
-.nav-cart-btn:hover { background: var(--terracotta); }
-
-.cart-count {
-  background: var(--terracotta);
-  color: white;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  padding: 1px 5px;
-  min-width: 20px;
-  text-align: center;
-}
-.nav-cart-btn:hover .cart-count { background: var(--white); color: var(--terracotta); }
-
-/* ===== PAGES ===== */
-.page { display: none; }
-.page.active { display: block; }
-
-/* ===== BUTTONS ===== */
-.btn-solid {
-  background: var(--ink);
-  color: var(--white);
-  border: none;
-  padding: 0.8rem 1.75rem;
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.15s;
-  display: inline-block;
-}
-.btn-solid:hover { background: var(--terracotta); }
-
-.btn-ghost {
-  background: transparent;
-  color: var(--ink);
-  border: 1.5px solid var(--ink);
-  padding: 0.8rem 1.75rem;
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.15s;
-  display: inline-block;
-}
-.btn-ghost:hover { background: var(--ink); color: var(--white); }
-
-.btn-terra {
-  background: var(--terracotta);
-  color: var(--white);
-  border: none;
-  padding: 0.8rem 1.75rem;
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.15s;
-  display: inline-block;
-}
-.btn-terra:hover { background: var(--terracotta-hover); }
-
-/* ===== HOME PAGE ===== */
-.home-hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  padding: 5rem 2.5rem 4rem;
-  min-height: calc(100vh - 56px - 200px);
-  align-items: center;
-}
-
-.hero-left h1 {
-  font-family: var(--cond);
-  font-weight: 900;
-  font-size: clamp(3rem, 7vw, 5.5rem);
-  line-height: 1.0;
-  letter-spacing: -0.01em;
-  margin-bottom: 1.25rem;
-  text-transform: none;
-}
-
-.hero-left p {
-  color: var(--ink-mid);
-  font-size: 1rem;
-  line-height: 1.6;
-  max-width: 380px;
-  margin-bottom: 2rem;
-}
-
-.hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-
-.hero-right {
-  text-align: right;
-  padding-left: 3rem;
-}
-
-.hero-manifesto {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  color: var(--ink-mid);
-  line-height: 2;
-  letter-spacing: 0.03em;
-  text-align: left;
-  display: inline-block;
-}
-
-.home-divider {
-  border: none;
-  border-top: 1px solid var(--border-dark);
-  margin: 0 2.5rem;
-}
-
-.featured-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 2.5rem 2.5rem 1.5rem;
-}
-
-.featured-label {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.35rem;
-}
-
-.featured-title {
-  font-family: var(--cond);
-  font-weight: 900;
-  font-size: 2rem;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-}
-
-.featured-source-toggle {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.pill-btn {
-  padding: 0.45rem 1rem;
-  border-radius: 999px;
-  font-family: var(--body);
-  font-size: 0.82rem;
-  font-weight: 500;
-  cursor: pointer;
-  border: 1px solid var(--border-dark);
-  background: var(--white);
-  color: var(--ink-mid);
-  transition: all 0.15s;
-}
-.pill-btn.active, .pill-btn:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
-
-/* Featured books strip */
-.featured-strip {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--border-dark);
-  overflow: hidden;
-}
-
-.featured-book {
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-  aspect-ratio: 3/4;
-  border-right: 1px solid var(--border-dark);
-}
-.featured-book:last-child { border-right: none; }
-
-.featured-book img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.4s ease;
-  filter: brightness(0.92);
-}
-.featured-book:hover img { transform: scale(1.04); filter: brightness(1); }
-
-.featured-book-class {
-  position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  background: var(--terracotta);
-  color: white;
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  padding: 3px 8px;
-  text-transform: uppercase;
-}
-.class-a-badge { background: #2D5A3D; }
-.class-b-badge { background: var(--terracotta); }
-.class-c-badge { background: #7A5C2E; }
-.class-d-badge { background: #5A2D2D; }
-
-.featured-book-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.7));
-  padding: 2rem 0.85rem 0.85rem;
-  opacity: 0;
-  transition: opacity 0.25s;
-}
-.featured-book:hover .featured-book-overlay { opacity: 1; }
-.featured-book-overlay .book-name {
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 1rem;
-  color: white;
-}
-.featured-book-overlay .book-price {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.8);
-}
-
-/* Sell teaser section */
-.sell-teaser {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  border-top: 1px solid var(--border-dark);
-  border-bottom: 1px solid var(--border-dark);
-}
-
-.sell-teaser-left {
-  grid-column: span 1;
-  padding: 3rem 2.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border-right: 1px solid var(--border-dark);
-}
-
-.sell-teaser-left h2 {
-  font-family: var(--cond);
-  font-weight: 900;
-  font-size: 1.9rem;
-  line-height: 1.05;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-
-.sell-teaser-left p {
-  color: var(--ink-mid);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  margin-bottom: 1.75rem;
-}
-
-.class-cards {
-  display: contents;
-}
-
-.class-card {
-  padding: 2rem 1.5rem;
-  border-right: 1px solid var(--border-dark);
-  background: var(--white);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.class-card:last-child { border-right: none; }
-
-.class-big-letter {
-  font-family: var(--cond);
-  font-weight: 900;
-  font-size: 5rem;
-  line-height: 1;
-  color: var(--ink);
-  margin-bottom: auto;
-}
-
-.class-card-label {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.4rem;
-  margin-top: 3rem;
-}
-
-.class-card-desc {
-  font-size: 0.875rem;
-  color: var(--ink-mid);
-  line-height: 1.4;
-  font-weight: 400;
-}
-
-/* ===== BROWSE PAGE ===== */
-.browse-header-section {
-  padding: 2.5rem 2.5rem 0;
-  border-bottom: 1px solid var(--border-dark);
-}
-
-.browse-meta {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.35rem;
-}
-
-.browse-title {
-  font-family: var(--cond);
-  font-weight: 900;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  margin-bottom: 2rem;
-}
-
-/* Filter bar */
-.filter-bar {
-  padding: 1.25rem 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.filter-row {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.filter-label-text {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  min-width: 50px;
-}
-
-.seller-pills, .class-pills {
-  display: flex;
-  gap: 0.4rem;
-}
-
-.filter-pill {
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  font-family: var(--body);
-  font-size: 0.82rem;
-  font-weight: 500;
-  cursor: pointer;
-  border: 1px solid var(--border-dark);
-  background: transparent;
-  color: var(--ink-mid);
-  transition: all 0.15s;
-}
-.filter-pill:hover { border-color: var(--ink); color: var(--ink); }
-.filter-pill.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
-
-.class-pill-btn {
-  padding: 0.35rem 0.9rem;
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
-  cursor: pointer;
-  border: 1.5px solid var(--border-dark);
-  background: transparent;
-  color: var(--ink-mid);
-  transition: all 0.15s;
-}
-.class-pill-btn:hover { border-color: var(--ink); color: var(--ink); }
-.class-pill-btn.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
-
-.genre-select {
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid var(--border-dark);
-  background: transparent;
-  color: var(--ink);
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%231C1916' stroke-width='1.5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.75rem center;
-  padding-right: 2rem;
-}
-
-.price-range {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-}
-
-.price-in {
-  width: 70px;
-  padding: 0.38rem 0.6rem;
-  border: 1px solid var(--border-dark);
-  background: transparent;
-  font-family: var(--mono);
-  font-size: 0.75rem;
-  color: var(--ink);
-  text-align: center;
-}
-.price-in:focus { outline: none; border-color: var(--ink); }
-
-.search-input {
-  margin-left: auto;
-  padding: 0.38rem 1rem;
-  border: 1px solid var(--border-dark);
-  background: transparent;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: var(--ink);
-  width: 260px;
-}
-.search-input::placeholder { color: var(--ink-soft); }
-.search-input:focus { outline: none; border-color: var(--ink); }
-
-.showing-count {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  padding: 0.75rem 0 1rem;
-  border-bottom: 1px solid var(--border);
-}
-
-/* Book Grid */
-.books-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-left: 1px solid var(--border-dark);
-}
-
-.book-card {
-  border-right: 1px solid var(--border-dark);
-  border-bottom: 1px solid var(--border-dark);
-  cursor: pointer;
-  background: var(--bg);
-  transition: background 0.15s;
-  position: relative;
-  overflow: hidden;
-}
-.book-card:hover { background: var(--white); }
-
-.book-cover {
-  width: 100%;
-  aspect-ratio: 2/3;
-  overflow: hidden;
-  position: relative;
-}
-.book-cover img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.35s;
-}
-.book-card:hover .book-cover img { transform: scale(1.04); }
-
-.book-class-tag {
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  padding: 5px 9px;
-  color: white;
-  text-transform: uppercase;
-}
-
-.book-genre-tag {
-  position: absolute;
-  bottom: 0;
-  left: 0; right: 0;
-  background: rgba(28,25,22,0.75);
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-  padding: 5px 9px;
-  color: rgba(255,255,255,0.85);
-  text-transform: uppercase;
-}
-
-.book-info {
-  padding: 0.85rem 0.9rem 1rem;
-  border-top: 1px solid var(--border);
-}
-
-.book-title-text {
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.95rem;
-  line-height: 1.25;
-  letter-spacing: 0.01em;
-  margin-bottom: 0.2rem;
-  color: var(--ink);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.book-author-text {
-  font-size: 0.78rem;
-  color: var(--ink-soft);
-  margin-bottom: 0.6rem;
-}
-
-.book-seller-tag {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--terracotta);
-  margin-bottom: 0.6rem;
-}
-
-.book-bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.book-price-main {
-  font-family: var(--mono);
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--ink);
-}
-
-.book-price-retail {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  color: var(--ink-soft);
-  text-decoration: line-through;
-}
-
-.quick-add {
-  background: var(--ink);
-  color: white;
-  border: none;
-  width: 28px; height: 28px;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s;
-  font-family: var(--cond);
-  font-weight: 900;
-}
-.quick-add:hover { background: var(--terracotta); }
-
-.no-results {
-  grid-column: 1/-1;
-  text-align: center;
-  padding: 5rem 2rem;
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-/* ===== BOOK DETAIL SLIDE-IN ===== */
-.book-drawer {
-  position: fixed;
-  top: 56px;
-  right: 0;
-  width: 440px;
-  height: calc(100vh - 56px);
-  background: var(--white);
-  border-left: 1px solid var(--border-dark);
-  z-index: 150;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}
-.book-drawer.open { transform: translateX(0); }
-
-.drawer-close {
-  position: sticky;
-  top: 0;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  padding: 1rem 1.25rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 10;
-}
-
-.drawer-close-btn {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--ink-soft);
-}
-.drawer-close-btn:hover { color: var(--ink); }
-
-.drawer-close-label {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.drawer-img {
-  width: 100%;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  display: block;
-  max-height: 340px;
-  object-position: top;
-}
-
-.drawer-body {
-  padding: 1.5rem 1.5rem 2rem;
-  flex: 1;
-}
-
-.drawer-badges {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-
-.drawer-badge {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 3px 8px;
-  color: white;
-}
-
-.drawer-title {
-  font-family: var(--cond);
-  font-weight: 800;
-  font-size: 1.6rem;
-  line-height: 1.1;
-  letter-spacing: 0.01em;
-  margin-bottom: 0.3rem;
-}
-
-.drawer-author {
-  font-size: 0.875rem;
-  color: var(--ink-soft);
-  margin-bottom: 0.4rem;
-}
-
-.drawer-genre {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--terracotta);
-  margin-bottom: 1rem;
-}
-
-.drawer-desc {
-  font-size: 0.875rem;
-  color: var(--ink-mid);
-  line-height: 1.7;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.drawer-condition {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  line-height: 1.7;
-  color: var(--ink-mid);
-  background: var(--bg);
-  padding: 0.85rem 1rem;
-  margin-bottom: 1.25rem;
-  border-left: 2px solid var(--terracotta);
-}
-
-.drawer-price-row {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  margin-bottom: 1.25rem;
-}
-
-.drawer-price {
-  font-family: var(--mono);
-  font-size: 1.75rem;
-  font-weight: 500;
-  color: var(--ink);
-}
-
-.drawer-retail {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--ink-soft);
-  text-decoration: line-through;
-}
-
-.drawer-save {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  background: var(--bg);
-  color: var(--ink-mid);
-  padding: 3px 8px;
-  letter-spacing: 0.04em;
-}
-
-.delivery-section { margin-bottom: 1.25rem; }
-
-.delivery-heading {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.6rem;
-}
-
-.delivery-opt {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.75rem 0.85rem;
-  border: 1.5px solid var(--border);
-  margin-bottom: 0.4rem;
-  cursor: pointer;
-  transition: border-color 0.15s;
-}
-.delivery-opt:hover, .delivery-opt.selected { border-color: var(--ink); }
-
-.delivery-opt input[type="radio"] { margin-top: 2px; accent-color: var(--ink); }
-
-.delivery-opt-title {
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.85rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-.delivery-opt-sub {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  color: var(--ink-soft);
-  margin-top: 0.15rem;
-  letter-spacing: 0.03em;
-}
-
-.drawer-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.btn-add-cart-full {
-  flex: 1;
-  background: var(--ink);
-  color: white;
-  border: none;
-  padding: 1rem;
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-.btn-add-cart-full:hover { background: var(--terracotta); }
-
-.btn-wishlist {
-  background: transparent;
-  border: 1.5px solid var(--border-dark);
-  padding: 1rem;
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: border-color 0.15s;
-}
-.btn-wishlist:hover { border-color: var(--ink); }
-
-/* ===== CART DRAWER ===== */
-.cart-drawer {
-  position: fixed;
-  top: 56px;
-  right: 0;
-  width: 400px;
-  height: calc(100vh - 56px);
-  background: var(--white);
-  border-left: 1px solid var(--border-dark);
-  z-index: 300;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
-.cart-drawer.open { transform: translateX(0); }
-
-.cart-drawer-header {
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--border-dark);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.cart-drawer-label {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-mid);
-}
-
-.cart-drawer-close {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.cart-drawer-body { flex: 1; overflow-y: auto; padding: 1.25rem 1.5rem; }
-
-.cart-empty {
-  padding: 3rem 0;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.cart-item {
-  display: flex;
-  gap: 0.85rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.cart-item img {
-  width: 56px;
-  height: 72px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.cart-item-details { flex: 1; }
-
-.cart-item-title {
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.9rem;
-  margin-bottom: 0.2rem;
-}
-
-.cart-item-meta {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-  margin-bottom: 0.3rem;
-}
-
-.cart-item-delivery {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  color: var(--terracotta);
-  letter-spacing: 0.04em;
-}
-
-.cart-item-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-between;
-}
-
-.cart-item-price {
-  font-family: var(--mono);
-  font-size: 0.9rem;
-  color: var(--ink);
-}
-
-.cart-item-remove {
-  background: none;
-  border: none;
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  cursor: pointer;
-}
-.cart-item-remove:hover { color: var(--terracotta); }
-
-.cart-footer {
-  padding: 1.25rem 1.5rem;
-  border-top: 1px solid var(--border-dark);
-}
-
-.cart-totals { margin-bottom: 1rem; }
-
-.cart-total-row {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-mid);
-  margin-bottom: 0.4rem;
-}
-
-.cart-total-final {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--mono);
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--ink);
-  padding-top: 0.6rem;
-  border-top: 1px solid var(--border-dark);
-  margin-top: 0.4rem;
-}
-
-/* ===== SELL PAGE ===== */
-.sell-page-wrap {
-  min-height: calc(100vh - 56px);
-}
-
-/* Locked sell state */
-.sell-locked {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 8rem 2rem;
-  text-align: center;
-  min-height: calc(100vh - 56px);
-}
-
-.sell-locked-label {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.75rem;
-}
-
-.sell-locked h1 {
-  font-family: var(--cond);
-  font-weight: 900;
-  font-size: clamp(3rem, 8vw, 6rem);
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  line-height: 1;
-  margin-bottom: 1.5rem;
-}
-
-.sell-locked p {
-  color: var(--ink-mid);
-  font-size: 1rem;
-  line-height: 1.6;
-  max-width: 520px;
-  margin-bottom: 2.5rem;
-}
-
-.sell-locked hr {
-  border: none;
-  border-top: 1px solid var(--border-dark);
-  width: 100%;
-  margin: 3rem 0;
-}
-
-/* Sell with profile */
-.sell-full { padding: 3rem 2.5rem; }
-
-.sell-process-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  border: 1px solid var(--border-dark);
-  margin: 2rem 0;
-}
-
-.process-step {
-  padding: 1.75rem;
-  border-right: 1px solid var(--border-dark);
-}
-.process-step:last-child { border-right: none; }
-
-.process-num {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  color: var(--terracotta);
-  margin-bottom: 0.75rem;
-}
-
-.process-step h4 {
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  margin-bottom: 0.4rem;
-}
-
-.process-step p {
-  font-size: 0.82rem;
-  color: var(--ink-mid);
-  line-height: 1.5;
-}
-
-/* ===== QUALITY TEST ===== */
-.qt-page {
-  display: grid;
-  grid-template-columns: 340px 1fr;
-  min-height: calc(100vh - 56px);
-}
-
-.qt-sidebar {
-  background: var(--bg);
-  border-right: 1px solid var(--border-dark);
-  padding: 2.5rem;
-  position: sticky;
-  top: 56px;
-  height: calc(100vh - 56px);
-}
-
-.qt-breadcrumb {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.5rem;
-}
-
-.qt-page-title {
-  font-family: var(--cond);
-  font-weight: 900;
-  font-size: 2rem;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  margin-bottom: 2rem;
-}
-
-.qt-progress-label {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.5rem;
-}
-
-.qt-progress-bar {
-  height: 3px;
-  background: var(--border-dark);
-  margin-bottom: 1.75rem;
-  position: relative;
-}
-
-.qt-progress-fill {
-  height: 100%;
-  background: var(--terracotta);
-  transition: width 0.4s ease;
-}
-
-.qt-steps-list { margin-bottom: 2rem; }
-
-.qt-step-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--border);
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  color: var(--ink-soft);
-}
-
-.qt-step-item.current {
-  color: var(--ink);
-  font-weight: 500;
-}
-
-.qt-step-item.done { color: var(--ink-soft); }
-
-.qt-step-num { color: var(--ink-soft); margin-right: 0.5rem; }
-.qt-step-item.current .qt-step-num { color: var(--terracotta); }
-.qt-step-name { flex: 1; text-transform: uppercase; }
-.qt-step-item.current .qt-step-name { color: var(--ink); font-weight: 700; }
-.qt-check { color: var(--terracotta); font-size: 0.8rem; }
-
-.qt-why {
-  border-left: 2px solid var(--terracotta);
-  padding: 0.85rem 1rem;
-}
-
-.qt-why-label {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--terracotta);
-  margin-bottom: 0.5rem;
-}
-
-.qt-why p {
-  font-size: 0.82rem;
-  color: var(--ink-mid);
-  line-height: 1.6;
-}
-
-/* QT Main area */
-.qt-main {
-  padding: 2.5rem;
-  background: var(--bg);
-}
-
-.qt-card {
-  background: var(--white);
-  padding: 2.5rem;
-  max-width: 720px;
-}
-
-.qt-card h2 {
-  font-family: var(--cond);
-  font-weight: 800;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  margin-bottom: 0.5rem;
-}
-
-.qt-card p.sub {
-  color: var(--ink-mid);
-  font-size: 0.875rem;
-  line-height: 1.6;
-  margin-bottom: 1.75rem;
-}
-
-/* Forms */
-.form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
-
-.form-group { margin-bottom: 1rem; }
-
-.form-label {
-  display: block;
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.4rem;
-}
-
-.form-input, .form-select, .form-textarea {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid var(--border-dark);
-  background: var(--bg);
-  font-family: var(--body);
-  font-size: 0.9rem;
-  color: var(--ink);
-  transition: border-color 0.15s;
-}
-.form-input:focus, .form-select:focus, .form-textarea:focus {
-  outline: none;
-  border-color: var(--ink);
-}
-.form-input::placeholder, .form-textarea::placeholder { color: var(--ink-soft); }
-.form-textarea { min-height: 100px; resize: vertical; font-family: var(--mono); font-size: 0.82rem; }
-.form-select { appearance: none; -webkit-appearance: none; cursor: pointer; }
-
-/* Defect checklist */
-.defect-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
-.defect-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  padding: 0.85rem;
-  border: 1.5px solid var(--border);
-  cursor: pointer;
-  transition: border-color 0.15s;
-  background: var(--bg);
-}
-.defect-item:hover { border-color: var(--ink); }
-.defect-item.checked { border-color: var(--ink); background: var(--white); }
-
-.defect-item input[type="checkbox"] {
-  margin-top: 1px;
-  accent-color: var(--ink);
-  flex-shrink: 0;
-}
-
-.defect-item-text {}
-.defect-item-title {
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  margin-bottom: 0.2rem;
-}
-.defect-item-sub {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-}
-
-.grade-preview {
-  border-left: 2px solid var(--terracotta);
-  padding: 0.85rem 1rem;
-  background: var(--bg);
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-mid);
-}
-
-/* Photo upload grid */
-.photo-angles-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
-  margin-bottom: 1.25rem;
-}
-
-.photo-slot {
-  aspect-ratio: 1;
-  border: 1.5px dashed var(--border-dark);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: border-color 0.15s;
-  background: var(--bg);
-  position: relative;
-  overflow: hidden;
-}
-.photo-slot:hover { border-color: var(--ink); }
-.photo-slot.filled { border-style: solid; border-color: var(--ink); }
-
-.photo-slot input[type="file"] {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
-  width: 100%;
-  height: 100%;
-}
-
-.photo-slot-plus {
-  font-size: 1.25rem;
-  color: var(--ink-soft);
-  margin-bottom: 0.4rem;
-  font-weight: 300;
-}
-
-.photo-slot-label {
-  font-family: var(--mono);
-  font-size: 0.55rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  text-align: center;
-}
-
-.photo-slot img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.photo-slot-remove {
-  position: absolute;
-  top: 4px; right: 4px;
-  background: var(--ink);
-  color: white;
-  border: none;
-  width: 18px; height: 18px;
-  font-size: 0.6rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 5;
-}
-
-.photos-count {
-  border-left: 2px solid var(--terracotta);
-  padding: 0.75rem 1rem;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  color: var(--ink-mid);
-  background: var(--bg);
-  margin-bottom: 0;
-}
-
-/* Price slider */
-.price-slider-wrap { margin-bottom: 1.5rem; }
-
-.price-slider-label {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.5rem;
-  display: flex;
-  justify-content: space-between;
-}
-
-.price-slider {
-  width: 100%;
-  accent-color: var(--terracotta);
-  height: 2px;
-  margin-bottom: 0.6rem;
-}
-
-.price-slider-vals {
-  display: flex;
-  justify-content: space-between;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  color: var(--ink-soft);
-}
-
-.price-display {
-  font-family: var(--mono);
-  font-size: 2rem;
-  font-weight: 500;
-  color: var(--ink);
-  text-align: center;
-  margin: 0.5rem 0;
-}
-
-/* Nav buttons in QT */
-.qt-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 1.75rem;
-  border-top: 1px solid var(--border);
-  margin-top: 1.75rem;
-}
-
-.qt-back {
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--ink-mid);
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-.qt-back:hover { color: var(--ink); }
-
-/* QT Success */
-.qt-success {
-  background: var(--white);
-  padding: 3rem 2.5rem;
-  max-width: 720px;
-  text-align: center;
-}
-
-.qt-success-icon {
-  font-family: var(--mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--terracotta);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.pending-pulse {
-  width: 8px; height: 8px;
-  background: var(--terracotta);
-  border-radius: 50%;
-  animation: pulse 1.5s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.2; } }
-
-.qt-success h2 {
-  font-family: var(--cond);
-  font-weight: 900;
-  font-size: 2.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  margin-bottom: 0.75rem;
-}
-
-.qt-success p {
-  color: var(--ink-mid);
-  font-size: 0.9rem;
-  line-height: 1.7;
-  max-width: 480px;
-  margin: 0 auto 1.5rem;
-}
-
-/* ===== DASHBOARD ===== */
-.dashboard-wrap { padding: 2.5rem; }
-
-.dashboard-top {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-dark);
-}
-
-.dashboard-top h1 {
-  font-family: var(--cond);
-  font-weight: 900;
-  font-size: 2rem;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-}
-
-.dashboard-top p {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  color: var(--ink-soft);
-  margin-top: 0.3rem;
-}
-
-.dash-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--border-dark);
-  margin-bottom: 2rem;
-}
-
-.dash-stat {
-  padding: 1.5rem;
-  border-right: 1px solid var(--border-dark);
-}
-.dash-stat:last-child { border-right: none; }
-
-.dash-stat-label {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  margin-bottom: 0.5rem;
-}
-
-.dash-stat-val {
-  font-family: var(--cond);
-  font-weight: 800;
-  font-size: 2rem;
-  color: var(--ink);
-}
-
-.dash-listings-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-}
-
-.dash-listings-header h2 {
-  font-family: var(--cond);
-  font-weight: 800;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.no-listings-box {
-  border: 1.5px dashed var(--border-dark);
-  padding: 3.5rem 2rem;
-  text-align: center;
-  background: transparent;
-}
-
-.no-listings-box h3 {
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 1.1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  margin-bottom: 0.5rem;
-}
-
-.no-listings-box p {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-  margin-bottom: 1.25rem;
-  line-height: 1.6;
-}
-
-.example-listing-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  border: 1px solid var(--border-dark);
-  margin-bottom: 0.5rem;
-  opacity: 0.6;
-  background: transparent;
-}
-
-.example-tag {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  background: var(--border-dark);
-  color: var(--ink-mid);
-  padding: 2px 6px;
-  margin-bottom: 0.25rem;
-  display: inline-block;
-}
-
-.listing-row {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem;
-  border: 1px solid var(--border);
-  margin-bottom: 0.5rem;
-  background: var(--white);
-}
-
-.listing-row img { width: 48px; height: 64px; object-fit: cover; flex-shrink: 0; }
-.listing-info-col { flex: 1; }
-
-.listing-title-text {
-  font-family: var(--cond);
-  font-weight: 700;
-  font-size: 0.95rem;
-  text-transform: none;
-}
-
-.listing-meta-text {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-  margin-top: 0.15rem;
-}
-
-.status-pill {
-  font-family: var(--mono);
-  font-size: 0.6rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-}
-
-.status-pending { background: #FFF3E0; color: #E65100; }
-.status-approved { background: #E8F5E9; color: #2E7D32; }
-.status-sold { background: #F3E5F5; color: #6A1B9A; }
-
-.listing-price-col {
-  font-family: var(--mono);
-  font-size: 0.9rem;
-  color: var(--ink);
-  min-width: 60px;
-  text-align: right;
-}
-
-/* ===== PROFILE MODAL ===== */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(28,25,22,0.6);
-  z-index: 400;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-.modal-overlay.open { display: flex; }
-
-.modal-box {
-  background: var(--white);
-  width: 100%;
-  max-width: 480px;
-  padding: 2.5rem;
-  border: 1px solid var(--border-dark);
-  position: relative;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.modal-heading {
-  font-family: var(--cond);
-  font-weight: 900;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-  margin-bottom: 0.4rem;
-}
-
-.modal-sub {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-  margin-bottom: 1.75rem;
-  line-height: 1.6;
-}
-
-.modal-close-x {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  background: none;
-  border: none;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  color: var(--ink-soft);
-}
-.modal-close-x:hover { color: var(--ink); }
-
-/* ===== TOAST ===== */
-.toast {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  background: var(--ink);
-  color: white;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  padding: 0.85rem 1.5rem;
-  z-index: 999;
-  opacity: 0;
-  transition: all 0.3s;
-  white-space: nowrap;
-}
-.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-
-/* ===== UTILITY ===== */
-.overlay-dim {
-  position: fixed;
-  inset: 0;
-  background: rgba(28,25,22,0.3);
-  z-index: 140;
-  display: none;
-}
-.overlay-dim.open { display: block; }
-
+  --bg: #EAE5DA;
+  --bg-card: #F2EDE3;
+  --text: #1A1816;
+  --text-muted: #6B6558;
+  --accent: #B84020;
+  --accent-hover: #9A3418;
+  --border: #D4CFC4;
+  --white: #FDFAF5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;letter-spacing:0.05em;cursor:pointer;color:var(--text);text-decoration:none}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-link{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:14px;letter-spacing:0.12em;cursor:pointer;color:var(--text);text-transform:uppercase;text-decoration:none;padding:4px 0;transition:color 0.2s}
+.nav-link:hover,.nav-link.active{color:var(--accent)}
+.cart-btn{background:var(--text);color:var(--white);border:none;padding:8px 20px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.1em;cursor:pointer;display:flex;align-items:center;gap:8px;text-transform:uppercase}
+.cart-badge{background:var(--accent);color:#fff;border-radius:2px;padding:1px 6px;font-size:11px;font-weight:700;min-width:20px;text-align:center}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
+
+/* BUTTONS */
+.btn-primary{background:var(--text);color:var(--white);border:2px solid var(--text);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;transition:all 0.2s}
+.btn-primary:hover{background:var(--accent);border-color:var(--accent)}
+.btn-outline{background:transparent;color:var(--text);border:2px solid var(--text);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;transition:all 0.2s}
+.btn-outline:hover{background:var(--text);color:var(--white)}
+.btn-accent{background:var(--accent);color:#fff;border:2px solid var(--accent);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:13px;letter-spacing:0.1em;cursor:pointer;text-transform:uppercase;transition:all 0.2s}
+.btn-accent:hover{background:var(--accent-hover);border-color:var(--accent-hover)}
+
+/* SECTION LABELS */
+.section-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px}
+
+/* ============================================================
+   HOME PAGE
+============================================================ */
+.home-hero{padding:80px 40px 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto}
+.hero-left h1{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:72px;line-height:0.95;margin-bottom:24px}
+.hero-left p{font-size:16px;line-height:1.65;color:var(--text-muted);margin-bottom:36px;max-width:480px}
+.hero-buttons{display:flex;gap:12px}
+.hero-features{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.08em;color:var(--text-muted);line-height:2.2;text-transform:uppercase;text-align:right;border-left:1px solid var(--border);padding-left:40px}
+.home-featured{padding:0 40px 80px;max-width:1200px;margin:0 auto}
+.featured-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px}
+.section-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:36px;text-transform:uppercase;line-height:1}
+.featured-tabs{display:flex;gap:6px}
+.tab-btn{padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:0.08em;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);text-transform:uppercase;transition:all 0.15s}
+.tab-btn.active{background:var(--text);color:var(--white);border-color:var(--text)}
+
+/* BOOK GRID */
+.book-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.book-card{cursor:pointer;transition:transform 0.2s}
+.book-card:hover{transform:translateY(-4px)}
+.book-cover-wrap{position:relative;aspect-ratio:2/3;overflow:hidden;margin-bottom:12px;background:var(--border)}
+.book-cover-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.class-badge{position:absolute;top:8px;left:8px;background:rgba(250,246,238,0.92);color:var(--text);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.08em;padding:3px 8px;text-transform:uppercase}
+.book-info h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;margin-bottom:2px;line-height:1.2}
+.book-info .author{font-size:13px;color:var(--text-muted);margin-bottom:3px}
+.book-info .genre-tag{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.08em;color:var(--text-muted);text-transform:uppercase;margin-bottom:10px}
+.book-footer{display:flex;align-items:center;justify-content:space-between}
+.book-price{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px}
+.add-btn{background:var(--text);color:var(--white);border:none;padding:6px 12px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:11px;letter-spacing:0.06em;cursor:pointer;text-transform:uppercase;transition:background 0.2s}
+.add-btn:hover{background:var(--accent)}
+
+/* ============================================================
+   BROWSE PAGE
+============================================================ */
+.browse-header{padding:48px 40px 28px;max-width:1200px;margin:0 auto;border-bottom:1px solid var(--border)}
+.browse-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:56px;text-transform:uppercase;line-height:1}
+.filter-bar{padding:20px 40px;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:12px;border-bottom:1px solid var(--border)}
+.filter-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.filter-label{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);min-width:52px}
+.filter-group{display:flex;gap:4px}
+.filter-btn{padding:6px 15px;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:12px;letter-spacing:0.06em;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);text-transform:uppercase;transition:all 0.15s}
+.filter-btn.active{background:var(--text);color:var(--white);border-color:var(--text)}
+.filter-btn:hover:not(.active){border-color:var(--text)}
+.filter-select{padding:6px 12px;font-family:'Barlow Condensed',sans-serif;font-size:12px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;letter-spacing:0.04em;text-transform:uppercase;height:32px}
+.price-inputs{display:flex;align-items:center;gap:6px}
+.price-input{width:68px;padding:6px 10px;border:1px solid var(--border);background:transparent;font-family:'Barlow Condensed',sans-serif;font-size:12px;color:var(--text);height:32px}
+.price-input::placeholder{color:var(--text-muted)}
+.search-input{padding:6px 16px;border:1px solid var(--border);background:transparent;font-family:'Barlow',sans-serif;font-size:13px;color:var(--text);min-width:260px;margin-left:auto;height:32px}
+.search-input::placeholder{color:var(--text-muted)}
+.browse-results-bar{padding:14px 40px;max-width:1200px;margin:0 auto;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:0.12em;color:var(--text-muted);text-transform:uppercase}
+.browse-grid{padding:0 40px 80px;max-width:1200px;margin:0 auto}
+
+/* ============================================================
+   SELL PAGE
+============================================================ */
+.sell-landing{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 56px);text-align:center;padding:60px 40px}
+.sell-landing h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:96px;line-height:0.9;text-transform:uppercase;margin-bottom:28px}
+.sell-landing p{font-size:16px;line-height:1.7;color:var(--text-muted);max-width:540px;margin:0 auto 40px}
+
+/* ============================================================
+   QUALITY TEST
+============================================================ */
+.quality-test-layout{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 56px)}
+.qt-sidebar{padding:48px 36px;border-right:1px solid var(--border)}
+.qt-step-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.qt-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;text-transform:uppercase;margin-bottom:28px;line-height:1}
+.qt-progress-bar{height:2px;background:var(--border);margin-bottom:28px;position:relative}
+.qt-progress-fill{position:absolute;top:0;left:0;height:100%;background:var(--accent);transition:width 0.35s ease}
+.qt-steps{display:flex;flex-direction:column;margin-bottom:36px}
+.qt-step-item{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--border)}
+.qt-step-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.06em;color:var(--text-muted);min-width:22px}
+.qt-step-name{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)}
+.qt-step-item.active .qt-step-num,.qt-step-item.active .qt-step-name{color:var(--text)}
+.qt-step-item.completed .qt-step-num,.qt-step-item.completed .qt-step-name{color:var(--accent)}
+.qt-why-box{border-left:3px solid var(--accent);padding:14px 18px;background:var(--white)}
+.qt-why-box h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.12em;color:var(--accent);text-transform:uppercase;margin-bottom:7px}
+.qt-why-box p{font-size:13px;line-height:1.6;color:var(--text-muted)}
+.qt-content{padding:48px 56px}
+.qt-form-card{background:var(--white);padding:44px;max-width:580px}
+.qt-form-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:10px}
+.qt-form-subtitle{font-size:14px;color:var(--text-muted);line-height:1.65;margin-bottom:32px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group.full{grid-column:1/-1}
+.form-label{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-muted)}
+.form-input{padding:11px 14px;border:1px solid var(--border);background:var(--bg);font-family:'Barlow',sans-serif;font-size:14px;color:var(--text);transition:border-color 0.2s}
+.form-input:focus{outline:none;border-color:var(--text)}
+.form-input::placeholder{color:var(--text-muted);opacity:0.65}
+select.form-input{cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.04em}
+.qt-nav-row{max-width:580px;display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:28px;border-top:1px solid var(--border)}
+.btn-back{background:transparent;border:none;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.08em;cursor:pointer;color:var(--text-muted);text-transform:uppercase}
+.btn-back:hover{color:var(--text)}
+.condition-checkboxes{display:flex;flex-direction:column;gap:9px;margin-top:8px}
+.condition-check{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--text)}
+.condition-check input{accent-color:var(--accent);width:15px;height:15px;cursor:pointer}
+.photo-upload-area{border:2px dashed var(--border);padding:36px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:var(--bg);margin-top:8px}
+.photo-upload-area:hover{border-color:var(--text)}
+.photo-preview-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px}
+.photo-preview{aspect-ratio:1;object-fit:cover;width:100%}
+
+/* ============================================================
+   SELLERS DASHBOARD
+============================================================ */
+.sellers-layout{max-width:1200px;margin:0 auto;padding:48px 40px}
+.sellers-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:44px}
+.sellers-section-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:44px;text-transform:uppercase;line-height:1}
+.listing-placeholder{border:2px dashed var(--border);padding:64px;text-align:center}
+.listing-placeholder h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;text-transform:uppercase;margin-bottom:10px}
+.listing-placeholder p{color:var(--text-muted);font-size:14px;margin-bottom:24px;line-height:1.6}
+.pending-card{border:1px solid var(--border);padding:24px;display:grid;grid-template-columns:88px 1fr auto;gap:22px;align-items:start;margin-bottom:12px;background:var(--white)}
+.pending-badge{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.12em;padding:4px 10px;text-transform:uppercase;background:#FFF3CD;color:#7B5800}
+.listing-example-box{border:1px solid var(--border);padding:20px;margin-bottom:24px;background:var(--bg)}
+.listing-example-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.listing-example-content{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:start}
+.listing-example-thumb{width:56px;height:84px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:22px}
+
+/* ============================================================
+   CART
+============================================================ */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200}
+.cart-overlay.open{display:block}
+.cart-sidebar{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:var(--white);z-index:201;display:flex;flex-direction:column;transition:right 0.3s ease;padding:32px}
+.cart-sidebar.open{right:0}
+.cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.cart-header h2{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;text-transform:uppercase}
+.close-btn{background:none;border:none;cursor:pointer;font-size:24px;color:var(--text-muted);line-height:1}
+.cart-items{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:16px}
+.cart-item{display:grid;grid-template-columns:58px 1fr auto;gap:12px;align-items:start;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.cart-item-cover{width:58px;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--border)}
+.cart-item-info h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;margin-bottom:3px}
+.cart-item-info p{font-size:12px;color:var(--text-muted);margin-bottom:2px}
+.cart-item-price{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px}
+.remove-btn{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:18px;line-height:1}
+.remove-btn:hover{color:var(--accent)}
+.cart-footer{padding-top:20px;border-top:1px solid var(--border)}
+.cart-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.cart-total span{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:0.08em}
+.empty-cart{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--text-muted)}
+.empty-cart p{font-family:'Barlow Condensed',sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:0.1em}
+
+/* ============================================================
+   BOOK MODAL
+============================================================ */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:300}
+.modal-overlay.open{display:flex;align-items:center;justify-content:center}
+.book-modal{background:var(--white);width:90%;max-width:840px;max-height:90vh;overflow-y:auto;padding:48px;position:relative}
+.modal-close{position:absolute;top:18px;right:20px;background:none;border:none;cursor:pointer;font-size:26px;color:var(--text-muted);line-height:1}
+.modal-grid{display:grid;grid-template-columns:260px 1fr;gap:44px}
+.modal-cover{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--border)}
+.modal-badge-pill{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.08em;padding:4px 10px;background:var(--bg);margin-bottom:14px;text-transform:uppercase}
+.modal-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:30px;line-height:1.1;margin-bottom:5px}
+.modal-author{font-size:15px;color:var(--text-muted);margin-bottom:16px}
+.modal-price{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:34px;margin-bottom:20px}
+.modal-desc{font-size:14px;line-height:1.7;color:var(--text-muted);margin-bottom:22px}
+.modal-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;padding:18px;background:var(--bg)}
+.meta-item label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:2px}
+.meta-item span{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:13px}
+.modal-delivery h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px}
+.delivery-opt{display:flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid var(--border);cursor:pointer;transition:border-color 0.15s;margin-bottom:6px}
+.delivery-opt.sel{border-color:var(--text)}
+.delivery-opt label{font-family:'Barlow Condensed',sans-serif;font-size:13px;cursor:pointer;flex:1}
+.delivery-fee{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;color:var(--text-muted)}
+
+/* TOAST */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--text);color:var(--white);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;z-index:400;transition:transform 0.3s;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* HR separators */
+hr.thin{border:none;border-top:1px solid var(--border);margin:0}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ===================== NAV ===================== -->
 <nav>
-  <div class="nav-logo" onclick="showPage('home')">LIVRARIA.PT</div>
-  <div class="nav-center">
-    <button class="nav-link" id="nl-home" onclick="showPage('home')">HOME</button>
-    <button class="nav-link" id="nl-browse" onclick="showPage('browse')">BROWSE</button>
-    <button class="nav-link" id="nl-sell" onclick="showPage('sell')">SELL</button>
-    <button class="nav-link" id="nl-sellers" onclick="showPage('dashboard')">SELLERS</button>
-  </div>
-  <button class="nav-cart-btn" onclick="toggleCart()">
-    Cart <span class="cart-count" id="cart-count">00</span>
-  </button>
+  <span class="nav-logo" onclick="navigate('home')">LIVRARIA.PT</span>
+  <div class="nav-links">
+    <span class="nav-link active" data-page="home" onclick="navigate('home')">HOME</span>
+    <span class="nav-link" data-page="browse" onclick="navigate('browse')">BROWSE</span>
+    <span class="nav-link" data-page="sell" onclick="navigate('sell')">SELL</span>
+    <span class="nav-link" data-page="sellers" onclick="navigate('sellers')">SELLERS</span>
+  </div>
+  <button class="cart-btn" onclick="toggleCart()">CART <span class="cart-badge" id="cart-count">00</span></button>
 </nav>
 
-<!-- DIM OVERLAY -->
-<div class="overlay-dim" id="overlay-dim" onclick="closeAll()"></div>
+<!-- ===================== HOME ===================== -->
+<div class="page active" id="page-home">
+  <div class="home-hero">
+    <div class="hero-left">
+      <h1>Second-hand English editions, curated in Lisboa.</h1>
+      <p>The weight of a Penguin Classic, the scent of a 1970s hardback. We verify every spine, every page, every seller.</p>
+      <div class="hero-buttons">
+        <button class="btn-primary" onclick="navigate('browse')">BROWSE THE SHELF</button>
+        <button class="btn-outline" onclick="navigate('sell')">SELL A BOOK</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-features">
+        <div>(01) PLATFORM: CURATED RARITIES, VERIFIED BY HOUSE EXPERTS.</div>
+        <div>(02) PRIVATE: COMMUNITY MARKETPLACE, CONDITION-TESTED.</div>
+        <div>(03) PICKUP IN LISBOA, PORTO, CASCAIS — OR CTT SHIPPING.</div>
+      </div>
+    </div>
+  </div>
+  <hr class="thin">
+  <div class="home-featured">
+    <div class="featured-header">
+      <div>
+        <div class="section-label">FEATURED</div>
+        <div class="section-title">FROM THE ARCHIVE</div>
+      </div>
+      <div class="featured-tabs">
+        <button class="tab-btn active" onclick="featuredTab('platform',this)">Platform Stock</button>
+        <button class="tab-btn" onclick="featuredTab('private',this)">Private Sellers</button>
+      </div>
+    </div>
+    <div class="book-grid" id="home-grid"></div>
+  </div>
+</div>
+
+<!-- ===================== BROWSE ===================== -->
+<div class="page" id="page-browse">
+  <div class="browse-header">
+    <div class="section-label" id="browse-shelf-label">THE SHELF · 15 TITLES TOTAL</div>
+    <div class="browse-title">BROWSE THE CATALOGUE</div>
+  </div>
+  <div class="filter-bar">
+    <div class="filter-row">
+      <span class="filter-label">SELLER</span>
+      <div class="filter-group">
+        <button class="filter-btn active" onclick="setFilter('seller','all',this)">All sellers</button>
+        <button class="filter-btn" onclick="setFilter('seller','platform',this)">Platform</button>
+        <button class="filter-btn" onclick="setFilter('seller','private',this)">Private</button>
+      </div>
+      <input class="search-input" type="text" placeholder="Search title, author, genre…" id="search-input" oninput="applyFilters()">
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">CLASS</span>
+      <div class="filter-group">
+        <button class="filter-btn active" onclick="setFilter('class','all',this)">ANY</button>
+        <button class="filter-btn" onclick="setFilter('class','A',this)">CLASS A</button>
+        <button class="filter-btn" onclick="setFilter('class','B',this)">CLASS B</button>
+        <button class="filter-btn" onclick="setFilter('class','C',this)">CLASS C</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <span class="filter-label">GENRE</span>
+      <select class="filter-select" id="genre-filter" onchange="applyFilters()">
+        <option value="">ALL GENRES</option>
+        <option value="Fiction">FICTION</option>
+        <option value="Fantasy">FANTASY</option>
+        <option value="Science Fiction">SCIENCE FICTION</option>
+        <option value="Non-Fiction">NON-FICTION</option>
+        <option value="Romance">ROMANCE</option>
+        <option value="Mystery">MYSTERY</option>
+        <option value="Biography">BIOGRAPHY</option>
+        <option value="Thriller">THRILLER</option>
+      </select>
+      <span class="filter-label" style="margin-left:16px">PRICE €</span>
+      <div class="price-inputs">
+        <input class="price-input" type="number" placeholder="min" id="price-min" oninput="applyFilters()">
+        <span style="color:var(--text-muted);font-size:12px">—</span>
+        <input class="price-input" type="number" placeholder="max" id="price-max" oninput="applyFilters()">
+      </div>
+    </div>
+  </div>
+  <div class="browse-results-bar" id="browse-bar">SHOWING 15 OF 15</div>
+  <div class="browse-grid">
+    <div class="book-grid" id="browse-grid"></div>
+  </div>
+</div>
+
+<!-- ===================== SELL (landing) ===================== -->
+<div class="page" id="page-sell">
+  <div class="sell-landing">
+    <div class="section-label">BECOME A SELLER</div>
+    <h1>START SELLING NOW</h1>
+    <p>You don't have a seller profile yet. Create yours in under two minutes — we'll walk you through the quality test, photo upload, and your first listing.</p>
+    <button class="btn-accent" onclick="navigate('quality-test')">CREATE YOUR SELLER PROFILE →</button>
+  </div>
+</div>
+
+<!-- ===================== QUALITY TEST ===================== -->
+<div class="page" id="page-quality-test">
+  <div class="quality-test-layout">
+
+    <!-- Sidebar -->
+    <div class="qt-sidebar">
+      <div class="qt-step-label" id="qt-step-label">STEP 01 OF 04: ACCOUNT</div>
+      <div class="qt-title">SELLER QUALITY TEST</div>
+      <div class="qt-progress-bar"><div class="qt-progress-fill" id="qt-progress" style="width:25%"></div></div>
+      <div class="qt-steps">
+        <div class="qt-step-item active" id="si-1"><span class="qt-step-num">01</span><span class="qt-step-name">ACCOUNT</span></div>
+        <div class="qt-step-item" id="si-2"><span class="qt-step-num">02</span><span class="qt-step-name">QUALITY TEST</span></div>
+        <div class="qt-step-item" id="si-3"><span class="qt-step-num">03</span><span class="qt-step-name">PHOTOS</span></div>
+        <div class="qt-step-item" id="si-4"><span class="qt-step-num">04</span><span class="qt-step-name">LISTING</span></div>
+      </div>
+      <div class="qt-why-box">
+        <h4>WHY A TEST?</h4>
+        <p>Every listing is reviewed by our team. Honest condition reporting + clear photos = a faster approval and a higher seller rating.</p>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="qt-content">
+
+      <!-- STEP 1: Account -->
+      <div id="qs-1">
+        <div class="qt-form-card">
+          <div class="qt-form-title">TELL US WHO YOU ARE</div>
+          <div class="qt-form-subtitle">We verify every private seller by name and city. This protects buyers — and keeps the marketplace honest.</div>
+          <div class="form-grid">
+            <div class="form-group"><label class="form-label">FULL NAME</label><input class="form-input" type="text" placeholder="Margarida Silva" id="s-name"></div>
+            <div class="form-group"><label class="form-label">CITY</label><input class="form-input" type="text" placeholder="Lisboa" id="s-city"></div>
+            <div class="form-group"><label class="form-label">EMAIL</label><input class="form-input" type="email" placeholder="you@example.pt" id="s-email"></div>
+            <div class="form-group"><label class="form-label">MOBILE (PT)</label><input class="form-input" type="tel" placeholder="+351 …" id="s-phone"></div>
+          </div>
+        </div>
+        <div class="qt-nav-row">
+          <button class="btn-back" onclick="navigate('sell')">← BACK</button>
+          <button class="btn-primary" onclick="goStep(2)">CONTINUE →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Quality Test -->
+      <div id="qs-2" style="display:none">
+        <div class="qt-form-card">
+          <div class="qt-form-title">ASSESS YOUR BOOK</div>
+          <div class="qt-form-subtitle">Answer honestly — our team will cross-check against your photos. Accurate ratings lead to faster approvals and better reviews.</div>
+          <div class="form-grid">
+            <div class="form-group full"><label class="form-label">BOOK TITLE</label><input class="form-input" type="text" placeholder="e.g. Midnight in Lisbon" id="b-title"></div>
+            <div class="form-group full"><label class="form-label">AUTHOR</label><input class="form-input" type="text" placeholder="e.g. Ana Ramos" id="b-author"></div>
+            <div class="form-group">
+              <label class="form-label">GENRE</label>
+              <select class="form-input" id="b-genre">
+                <option value="">Select genre</option>
+                <option>Fiction</option><option>Fantasy</option><option>Science Fiction</option>
+                <option>Non-Fiction</option><option>Romance</option><option>Mystery</option>
+                <option>Biography</option><option>Thriller</option>
+              </select>
+            </div>
+            <div class="form-group"><label class="form-label">YEAR PUBLISHED</label><input class="form-input" type="number" placeholder="e.g. 2003" id="b-year"></div>
+            <div class="form-group full">
+              <label class="form-label">SELF-ASSESSED CONDITION</label>
+              <select class="form-input" id="b-cond">
+                <option value="">Select condition</option>
+                <option value="A">Like New / Excellent</option>
+                <option value="B">Good — minor wear</option>
+                <option value="C">Fair — visible wear</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-label" style="margin-bottom:0">KNOWN DEFECTS (select all that apply)</div>
+          <div class="condition-checkboxes">
+            <label class="condition-check"><input type="checkbox"> Spine crease or break</label>
+            <label class="condition-check"><input type="checkbox"> Page yellowing</label>
+            <label class="condition-check"><input type="checkbox"> Stains or marks</label>
+            <label class="condition-check"><input type="checkbox"> Rips or tears</label>
+            <label class="condition-check"><input type="checkbox"> Writing or highlighting inside</label>
+            <label class="condition-check"><input type="checkbox"> Water damage</label>
+          </div>
+          <div style="margin-top:18px">
+            <label class="form-label">DESCRIPTION</label>
+            <textarea class="form-input" style="width:100%;height:96px;resize:vertical;margin-top:5px;font-family:'Barlow',sans-serif;font-size:13px" placeholder="Briefly describe the story and physical condition of the book…" id="b-desc"></textarea>
+          </div>
+        </div>
+        <div class="qt-nav-row">
+          <button class="btn-back" onclick="goStep(1)">← BACK</button>
+          <button class="btn-primary" onclick="goStep(3)">CONTINUE →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Photos -->
+      <div id="qs-3" style="display:none">
+        <div class="qt-form-card">
+          <div class="qt-form-title">UPLOAD YOUR PHOTOS</div>
+          <div class="qt-form-subtitle">We need at least 4 shots: front cover, back cover, spine, and any visible defects. Clear photos speed up approval.</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">
+            <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;padding:3px 0">Front Cover</div>
+            <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;padding:3px 0">Back Cover</div>
+            <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;padding:3px 0">Spine</div>
+            <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.1em;color:var(--text-muted);text-transform:uppercase;padding:3px 0">Defects</div>
+          </div>
+          <div class="photo-upload-area" onclick="document.getElementById('photo-input').click()">
+            <div style="font-size:30px;margin-bottom:10px;opacity:0.35">📷</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:5px">CLICK TO UPLOAD PHOTOS</div>
+            <div style="font-size:13px;color:var(--text-muted)">JPG, PNG or WEBP · up to 10 photos · max 10 MB each</div>
+            <input type="file" id="photo-input" multiple accept="image/*" style="display:none" onchange="handlePhotos(event)">
+          </div>
+          <div class="photo-preview-grid" id="photo-grid"></div>
+        </div>
+        <div class="qt-nav-row">
+          <button class="btn-back" onclick="goStep(2)">← BACK</button>
+          <button class="btn-primary" onclick="goStep(4)">CONTINUE →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Listing -->
+      <div id="qs-4" style="display:none">
+        <div class="qt-form-card">
+          <div class="qt-form-title">YOUR LISTING</div>
+          <div class="qt-form-subtitle">Set your price and delivery preference. Our team will assign the final class and publish within 24 hours.</div>
+
+          <div class="listing-example-box">
+            <div class="listing-example-tag">EXAMPLE LISTING — HOW YOURS WILL APPEAR ON THE SHELF</div>
+            <div class="listing-example-content">
+              <div class="listing-example-thumb">📚</div>
+              <div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;margin-bottom:2px">The Midnight Library</div>
+                <div style="font-size:13px;color:var(--text-muted);margin-bottom:5px">Matt Haig</div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:7px">Fiction · Class B · Private</div>
+                <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px">€9.00</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group"><label class="form-label">ASKING PRICE (€)</label><input class="form-input" type="number" placeholder="0.00" step="0.50" min="1" id="b-price"></div>
+            <div class="form-group">
+              <label class="form-label">DELIVERY OPTIONS</label>
+              <select class="form-input" id="b-delivery">
+                <option value="pickup">Pickup only (Lisboa)</option>
+                <option value="both">Pickup + CTT Shipping</option>
+                <option value="shipping">Shipping only</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label class="form-label">PICKUP LOCATION</label>
+              <select class="form-input" id="b-pickup">
+                <option>Lisboa — Chiado</option>
+                <option>Lisboa — Baixa</option>
+                <option>Porto — Baixa</option>
+                <option>Cascais — Marina</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="qt-nav-row">
+          <button class="btn-back" onclick="goStep(3)">← BACK</button>
+          <button class="btn-accent" onclick="submitListing()">SUBMIT LISTING →</button>
+        </div>
+      </div>
+
+    </div><!-- /qt-content -->
+  </div>
+</div>
+
+<!-- ===================== SELLERS DASHBOARD ===================== -->
+<div class="page" id="page-sellers">
+  <!-- No profile -->
+  <div id="s-noprofile">
+    <div class="sell-landing">
+      <div class="section-label">SELLERS DASHBOARD</div>
+      <h1 style="font-size:76px">YOU'RE NOT A<br>SELLER YET</h1>
+      <p>Create your seller profile to start listing books. It only takes a couple of minutes.</p>
+      <button class="btn-accent" onclick="navigate('quality-test')">START SELLING NOW →</button>
+    </div>
+  </div>
+  <!-- Has profile -->
+  <div id="s-dashboard" style="display:none">
+    <div class="sellers-layout">
+      <div class="sellers-header">
+        <div>
+          <div class="section-label">SELLERS DASHBOARD</div>
+          <div class="sellers-section-title">MY LISTINGS</div>
+        </div>
+        <button class="btn-primary" onclick="navigate('quality-test')">+ NEW LISTING</button>
+      </div>
+      <div id="seller-listings-wrap"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== CART OVERLAY ===================== -->
+<div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cart-sidebar">
+  <div class="cart-header">
+    <h2>YOUR CART</h2>
+    <button class="close-btn" onclick="toggleCart()">×</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="empty-cart" id="cart-empty"><p>Your cart is empty</p></div>
+  </div>
+  <div class="cart-footer" id="cart-footer" style="display:none">
+    <div class="cart-total"><span>TOTAL</span><span id="cart-total">€0.00</span></div>
+    <button class="btn-primary" style="width:100%;margin-bottom:8px">PROCEED TO CHECKOUT →</button>
+    <button class="btn-outline" style="width:100%" onclick="toggleCart()">CONTINUE BROWSING</button>
+  </div>
+</div>
+
+<!-- ===================== BOOK MODAL ===================== -->
+<div class="modal-overlay" id="book-modal" onclick="modalBg(event)">
+  <div class="book-modal" id="book-modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-grid">
+      <div><img class="modal-cover" id="m-cover" src="" alt=""></div>
+      <div>
+        <div class="modal-badge-pill" id="m-badge">CLASS A</div>
+        <div class="modal-title" id="m-title">Title</div>
+        <div class="modal-author" id="m-author">Author</div>
+        <div class="modal-price" id="m-price">€0.00</div>
+        <div class="modal-desc" id="m-desc">Description</div>
+        <div class="modal-meta" id="m-meta"></div>
+        <div class="modal-delivery" style="margin-bottom:20px">
+          <h4>DELIVERY OPTIONS</h4>
+          <div class="delivery-opt sel" onclick="selDelivery(this,'pickup')">
+            <input type="radio" name="deliv" checked> <label>Pickup — Lisboa, Porto or Cascais</label><span class="delivery-fee">FREE</span>
+          </div>
+          <div class="delivery-opt" onclick="selDelivery(this,'shipping')">
+            <input type="radio" name="deliv"> <label>CTT Shipping (3–5 days)</label><span class="delivery-fee">+€3.50</span>
+          </div>
+        </div>
+        <button class="btn-primary" style="width:100%" id="m-add" onclick="addFromModal()">ADD TO CART →</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- ================== HOME ================== -->
-<div class="page active" id="page-home">
-
-  <div class="home-hero">
-    <div class="hero-left">
-      <h1>Second-hand English editions, curated in Lisboa.</h1>
-      <p>The weight of a Penguin Classic, the scent of a 1970s hardback. We verify every spine, every page, every seller.</p>
-      <div class="hero-btns">
-        <button class="btn-solid" onclick="showPage('browse')">BROWSE THE SHELF</button>
-        <button class="btn-ghost" onclick="showPage('sell')">SELL A BOOK</button>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="hero-manifesto">
-        (01) PLATFORM: CURATED RARITIES, VERIFIED BY HOUSE EXPERTS.<br>
-        (02) PRIVATE: COMMUNITY MARKETPLACE, CONDITION-TESTED.<br>
-        (03) PICKUP IN LISBOA, PORTO, CASCAIS — OR CTT SHIPPING.
-      </div>
-    </div>
-  </div>
-
-  <hr class="home-divider">
-
-  <div class="featured-header">
-    <div>
-      <div class="featured-label">FEATURED</div>
-      <div class="featured-title">FROM THE ARCHIVE</div>
-    </div>
-    <div class="featured-source-toggle">
-      <button class="pill-btn active" id="home-pill-all" onclick="setHomePill('all')">Platform Stock</button>
-      <button class="pill-btn" id="home-pill-private" onclick="setHomePill('private')">Private Sellers</button>
-    </div>
-  </div>
-
-  <div class="featured-strip" id="featured-strip">
-    <!-- filled by JS -->
-  </div>
-
-  <!-- Sell Teaser -->
-  <div class="sell-teaser">
-    <div class="sell-teaser-left">
-      <div>
-        <h2>TURN YOUR SHELF INTO SOMEONE ELSE'S DISCOVERY.</h2>
-        <p>Pass our condition test, upload a 360° photo set, and reach English readers across Portugal. Our system auto-grades every listing Class A, B, or C — fairly, transparently.</p>
-      </div>
-      <button class="btn-terra" onclick="showPage('quality-test')">START THE SELLER TEST</button>
-    </div>
-    <div class="class-cards" id="class-cards">
-      <div class="class-card">
-        <div class="class-big-letter">A</div>
-        <div>
-          <div class="class-card-label">CLASS A</div>
-          <div class="class-card-desc">As-new or excellent. No marks.</div>
-        </div>
-      </div>
-      <div class="class-card">
-        <div class="class-big-letter">B</div>
-        <div>
-          <div class="class-card-label">CLASS B</div>
-          <div class="class-card-desc">Light wear. Fully readable.</div>
-        </div>
-      </div>
-      <div class="class-card">
-        <div class="class-big-letter">C</div>
-        <div>
-          <div class="class-card-label">CLASS C</div>
-          <div class="class-card-desc">Well-loved. Honest pricing.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- ================== BROWSE ================== -->
-<div class="page" id="page-browse">
-
-  <div class="browse-header-section">
-    <div class="browse-meta" id="browse-meta">THE SHELF · 0 TITLES TOTAL</div>
-    <div class="browse-title">BROWSE THE CATALOGUE</div>
-
-    <div class="filter-bar">
-      <div class="filter-row">
-        <span class="filter-label-text">SELLER</span>
-        <div class="seller-pills">
-          <button class="filter-pill active" id="sp-all" onclick="setSeller('all')">All sellers</button>
-          <button class="filter-pill" id="sp-platform" onclick="setSeller('platform')">Platform</button>
-          <button class="filter-pill" id="sp-private" onclick="setSeller('private')">Private</button>
-        </div>
-      </div>
-      <div class="filter-row">
-        <span class="filter-label-text">CLASS</span>
-        <div class="class-pills">
-          <button class="class-pill-btn active" id="cp-any" onclick="setClass('any')">ANY</button>
-          <button class="class-pill-btn" id="cp-a" onclick="setClass('A')">CLASS A</button>
-          <button class="class-pill-btn" id="cp-b" onclick="setClass('B')">CLASS B</button>
-          <button class="class-pill-btn" id="cp-c" onclick="setClass('C')">CLASS C</button>
-          <button class="class-pill-btn" id="cp-d" onclick="setClass('D')">CLASS D</button>
-        </div>
-      </div>
-      <div class="filter-row">
-        <span class="filter-label-text">GENRE</span>
-        <select class="genre-select" id="genre-select" onchange="renderBooks()">
-          <option value="">ALL GENRES</option>
-          <option>Fiction</option>
-          <option>Mystery & Thriller</option>
-          <option>Science Fiction</option>
-          <option>Fantasy</option>
-          <option>Non-Fiction</option>
-          <option>Biography</option>
-          <option>Self-Help</option>
-          <option>History</option>
-          <option>Romance</option>
-          <option>Young Adult</option>
-          <option>Classic</option>
-        </select>
-        <span class="filter-label-text" style="margin-left:1.5rem;">PRICE €</span>
-        <div class="price-range">
-          <input type="number" class="price-in" id="price-min" placeholder="min" oninput="renderBooks()">
-          <span>–</span>
-          <input type="number" class="price-in" id="price-max" placeholder="max" oninput="renderBooks()">
-        </div>
-        <input type="text" class="search-input" id="search-input" placeholder="Search title, author, genre…" oninput="renderBooks()">
-      </div>
-      <div class="showing-count" id="showing-count">SHOWING 0 OF 0</div>
-    </div>
-  </div>
-
-  <div class="books-grid" id="books-grid"></div>
-
-</div>
-
-<!-- ================== SELL PAGE ================== -->
-<div class="page" id="page-sell">
-  <!-- Locked state -->
-  <div id="sell-locked-view">
-    <div class="sell-locked">
-      <div class="sell-locked-label">BECOME A SELLER</div>
-      <h1>START SELLING NOW</h1>
-      <p>You don't have a seller profile yet. Create yours in under two minutes — we'll walk you through the quality test, photo upload, and your first listing.</p>
-      <button class="btn-terra" style="letter-spacing:0.1em;padding:1rem 2.5rem;font-size:0.9rem;" onclick="openProfileModal()">CREATE YOUR SELLER PROFILE →</button>
-      <hr style="border:none;border-top:1px solid var(--border-dark);width:100%;margin:3rem 0;">
-      <div style="font-family:var(--mono);font-size:0.7rem;letter-spacing:0.08em;color:var(--ink-soft);margin-bottom:0.75rem;text-transform:uppercase;">Already have a profile?</div>
-      <button class="btn-ghost" style="font-size:0.8rem;" onclick="showPage('quality-test')">GO TO THE QUALITY TEST →</button>
-    </div>
-  </div>
-
-  <!-- Unlocked state (after profile created) -->
-  <div id="sell-unlocked-view" style="display:none;">
-    <div class="sell-full">
-      <div style="margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border-dark);">
-        <div class="featured-label">BECOME A SELLER</div>
-        <h1 style="font-family:var(--cond);font-weight:900;font-size:2.25rem;text-transform:uppercase;letter-spacing:0.01em;">HOW IT WORKS</h1>
-      </div>
-      <div class="sell-process-grid">
-        <div class="process-step">
-          <div class="process-num">01 — PROFILE</div>
-          <h4>Create Profile</h4>
-          <p>Set up your seller account with name, city, and contact details. Takes under 2 minutes.</p>
-        </div>
-        <div class="process-step">
-          <div class="process-num">02 — TEST</div>
-          <h4>Quality Test</h4>
-          <p>Tick every defect. We cross-reference your answers with your photos to confirm a fair Class.</p>
-        </div>
-        <div class="process-step">
-          <div class="process-num">03 — PHOTOS</div>
-          <h4>360° Upload</h4>
-          <p>Front, back, spine, pages, defect close-ups. All 8 angles speed up approval significantly.</p>
-        </div>
-        <div class="process-step" style="border-right:none;">
-          <div class="process-num">04 — LISTING</div>
-          <h4>Go Live</h4>
-          <p>Submit for approval. Approved listings go live within 2 business days with your Class badge.</p>
-        </div>
-      </div>
-      <div style="text-align:center;padding:2rem 0;">
-        <button class="btn-terra" onclick="showPage('quality-test')">START THE SELLER TEST →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ================== DASHBOARD ================== -->
-<div class="page" id="page-dashboard">
-  <!-- Locked -->
-  <div id="dash-locked" style="padding:5rem 2.5rem;text-align:center;">
-    <div class="featured-label" style="margin-bottom:0.75rem;">SELLERS</div>
-    <h1 style="font-family:var(--cond);font-weight:900;font-size:3rem;text-transform:uppercase;margin-bottom:1rem;">YOUR DASHBOARD</h1>
-    <p style="color:var(--ink-mid);font-size:0.9rem;max-width:420px;margin:0 auto 0.75rem;line-height:1.6;">You need a seller profile to access the dashboard.</p>
-    <p style="font-family:var(--mono);font-size:0.75rem;color:var(--ink-soft);margin-bottom:2rem;letter-spacing:0.04em;">Start selling now — it only takes a couple of minutes.</p>
-    <button class="btn-terra" onclick="openProfileModal()">CREATE YOUR SELLER PROFILE →</button>
-  </div>
-  <!-- Unlocked -->
-  <div id="dash-unlocked" style="display:none;">
-    <div class="dashboard-wrap">
-      <div class="dashboard-top">
-        <div>
-          <h1>SELLER DASHBOARD</h1>
-          <p>Welcome back, <span id="dash-seller-name">—</span>. Manage your listings here.</p>
-        </div>
-        <button class="btn-solid" onclick="showPage('quality-test')">+ NEW LISTING</button>
-      </div>
-
-      <div class="dash-stats">
-        <div class="dash-stat">
-          <div class="dash-stat-label">TOTAL LISTINGS</div>
-          <div class="dash-stat-val" id="ds-total">01</div>
-        </div>
-        <div class="dash-stat">
-          <div class="dash-stat-label">PENDING APPROVAL</div>
-          <div class="dash-stat-val" id="ds-pending">01</div>
-        </div>
-        <div class="dash-stat">
-          <div class="dash-stat-label">BOOKS SOLD</div>
-          <div class="dash-stat-val">00</div>
-        </div>
-        <div class="dash-stat">
-          <div class="dash-stat-label">TOTAL EARNED</div>
-          <div class="dash-stat-val">€0</div>
-        </div>
-      </div>
-
-      <div class="dash-listings-header">
-        <h2>MY LISTINGS</h2>
-      </div>
-
-      <!-- Example listing note -->
-      <div style="font-family:var(--mono);font-size:0.65rem;letter-spacing:0.08em;color:var(--ink-soft);border-left:2px solid var(--border-dark);padding:0.5rem 0.85rem;margin-bottom:0.75rem;text-transform:uppercase;">
-        BELOW IS AN EXAMPLE LISTING — YOUR APPROVED LISTINGS WILL APPEAR IN THIS FORMAT.
-      </div>
-
-      <div class="example-listing-row">
-        <img src="https://covers.openlibrary.org/b/isbn/9780062315007-L.jpg" alt="The Alchemist">
-        <div class="listing-info-col">
-          <div class="example-tag">EXAMPLE</div>
-          <div class="listing-title-text">The Alchemist</div>
-          <div class="listing-meta-text">PAULO COELHO · FICTION · CLASS B</div>
-        </div>
-        <div class="listing-price-col">€5.50</div>
-        <span class="status-pill status-approved">APPROVED</span>
-      </div>
-
-      <!-- Real submitted listings -->
-      <div id="real-listings-container"></div>
-
-      <div class="no-listings-box" id="no-listings-box">
-        <h3>NO LISTINGS YET</h3>
-        <p>Submit your first book through the quality test.<br>We'll review and approve it within 2 business days.</p>
-        <button class="btn-terra" onclick="showPage('quality-test')">START SELLING NOW →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ================== QUALITY TEST ================== -->
-<div class="page" id="page-quality-test">
-  <div class="qt-page">
-    <!-- Sidebar -->
-    <div class="qt-sidebar">
-      <div class="qt-breadcrumb">BECOME A SELLER</div>
-      <div class="qt-page-title">SELLER<br>QUALITY<br>TEST</div>
-
-      <div class="qt-progress-label" id="qt-prog-label">STEP 01 OF 04: ACCOUNT</div>
-      <div class="qt-progress-bar">
-        <div class="qt-progress-fill" id="qt-fill" style="width:25%"></div>
-      </div>
-
-      <div class="qt-steps-list">
-        <div class="qt-step-item current" id="qts-1">
-          <span class="qt-step-num">01</span>
-          <span class="qt-step-name">ACCOUNT</span>
-          <span class="qt-check" id="qtc-1"></span>
-        </div>
-        <div class="qt-step-item" id="qts-2">
-          <span class="qt-step-num">02</span>
-          <span class="qt-step-name">QUALITY TEST</span>
-          <span class="qt-check" id="qtc-2"></span>
-        </div>
-        <div class="qt-step-item" id="qts-3">
-          <span class="qt-step-num">03</span>
-          <span class="qt-step-name">PHOTOS</span>
-          <span class="qt-check" id="qtc-3"></span>
-        </div>
-        <div class="qt-step-item" id="qts-4">
-          <span class="qt-step-num">04</span>
-          <span class="qt-step-name">LISTING</span>
-          <span class="qt-check" id="qtc-4"></span>
-        </div>
-      </div>
-
-      <div class="qt-why">
-        <div class="qt-why-label">WHY A TEST?</div>
-        <p>Every listing is reviewed by our team. Honest condition reporting + clear photos = a faster approval and a higher seller rating.</p>
-      </div>
-    </div>
-
-    <!-- Main -->
-    <div class="qt-main">
-
-      <!-- Step 1: Account -->
-      <div id="qt-step-1">
-        <div class="qt-card">
-          <h2>TELL US WHO YOU ARE</h2>
-          <p class="sub">We verify every private seller by name and city. This protects buyers — and keeps the marketplace honest.</p>
-          <div class="form-2col">
-            <div class="form-group">
-              <label class="form-label">FULL NAME</label>
-              <input type="text" class="form-input" id="qt-name" placeholder="Margarida Silva">
-            </div>
-            <div class="form-group">
-              <label class="form-label">CITY</label>
-              <input type="text" class="form-input" id="qt-city" placeholder="Lisboa">
-            </div>
-          </div>
-          <div class="form-2col">
-            <div class="form-group">
-              <label class="form-label">EMAIL</label>
-              <input type="email" class="form-input" id="qt-email" placeholder="you@example.pt">
-            </div>
-            <div class="form-group">
-              <label class="form-label">MOBILE (PT)</label>
-              <input type="tel" class="form-input" id="qt-phone" placeholder="+351 9xx xxx xxx">
-            </div>
-          </div>
-          <div class="qt-nav">
-            <div></div>
-            <button class="btn-solid" onclick="qtNext(2)">CONTINUE →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 2: Quality Test -->
-      <div id="qt-step-2" style="display:none;">
-        <div class="qt-card">
-          <h2>CHECK HONESTLY: WHAT'S WRONG WITH IT?</h2>
-          <p class="sub">Tick every defect that applies. We'll cross-reference your photos in the next step and confirm a fair Class.</p>
-
-          <div class="defect-grid">
-            <label class="defect-item" id="di-spine" onclick="toggleDefect(this,'spine')">
-              <input type="checkbox" id="dc-spine">
-              <div class="defect-item-text">
-                <div class="defect-item-title">Spine creasing</div>
-                <div class="defect-item-sub">Visible vertical lines or breaks.</div>
-              </div>
-            </label>
-            <label class="defect-item" id="di-fox" onclick="toggleDefect(this,'fox')">
-              <input type="checkbox" id="dc-fox">
-              <div class="defect-item-text">
-                <div class="defect-item-title">Foxing / spotting</div>
-                <div class="defect-item-sub">Brown age-spots on page edges.</div>
-              </div>
-            </label>
-            <label class="defect-item" id="di-ink" onclick="toggleDefect(this,'ink')">
-              <input type="checkbox" id="dc-ink">
-              <div class="defect-item-text">
-                <div class="defect-item-title">Ink or pencil marks</div>
-                <div class="defect-item-sub">Underlining, notes, signatures.</div>
-              </div>
-            </label>
-            <label class="defect-item" id="di-tears" onclick="toggleDefect(this,'tears')">
-              <input type="checkbox" id="dc-tears">
-              <div class="defect-item-text">
-                <div class="defect-item-title">Tears or missing pages</div>
-                <div class="defect-item-sub">Any physical damage to paper.</div>
-              </div>
-            </label>
-            <label class="defect-item" id="di-water" onclick="toggleDefect(this,'water')">
-              <input type="checkbox" id="dc-water">
-              <div class="defect-item-text">
-                <div class="defect-item-title">Water damage</div>
-                <div class="defect-item-sub">Warping, rippling, or staining.</div>
-              </div>
-            </label>
-            <label class="defect-item" id="di-cover" onclick="toggleDefect(this,'cover')">
-              <input type="checkbox" id="dc-cover">
-              <div class="defect-item-text">
-                <div class="defect-item-title">Stains on cover</div>
-                <div class="defect-item-sub">Coffee, food, ink, or unknown marks.</div>
-              </div>
-            </label>
-          </div>
-
-          <div class="grade-preview" id="grade-preview">
-            Provisional grade based on your answers: <strong>CLASS A — EXCELLENT</strong>. <em>Final Class is awarded after our team reviews your photos.</em>
-          </div>
-
-          <div class="qt-nav">
-            <button class="qt-back" onclick="qtNext(1)">← BACK</button>
-            <button class="btn-solid" onclick="qtNext(3)">CONTINUE →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 3: Photos -->
-      <div id="qt-step-3" style="display:none;">
-        <div class="qt-card">
-          <h2>360° PHOTO UPLOAD</h2>
-          <p class="sub">Upload one photo per angle. Place the book on a neutral, well-lit surface. You need at least 3 photos to submit — all 8 angles speed up approval.</p>
-
-          <div class="photo-angles-grid">
-            <div class="photo-slot" id="ps-0">
-              <input type="file" accept="image/*" onchange="handleSlotPhoto(event, 0)">
-              <div class="photo-slot-plus">+</div>
-              <div class="photo-slot-label">FRONT COVER</div>
-            </div>
-            <div class="photo-slot" id="ps-1">
-              <input type="file" accept="image/*" onchange="handleSlotPhoto(event, 1)">
-              <div class="photo-slot-plus">+</div>
-              <div class="photo-slot-label">BACK COVER</div>
-            </div>
-            <div class="photo-slot" id="ps-2">
-              <input type="file" accept="image/*" onchange="handleSlotPhoto(event, 2)">
-              <div class="photo-slot-plus">+</div>
-              <div class="photo-slot-label">SPINE</div>
-            </div>
-            <div class="photo-slot" id="ps-3">
-              <input type="file" accept="image/*" onchange="handleSlotPhoto(event, 3)">
-              <div class="photo-slot-plus">+</div>
-              <div class="photo-slot-label">TOP EDGE</div>
-            </div>
-            <div class="photo-slot" id="ps-4">
-              <input type="file" accept="image/*" onchange="handleSlotPhoto(event, 4)">
-              <div class="photo-slot-plus">+</div>
-              <div class="photo-slot-label">BOTTOM EDGE</div>
-            </div>
-            <div class="photo-slot" id="ps-5">
-              <input type="file" accept="image/*" onchange="handleSlotPhoto(event, 5)">
-              <div class="photo-slot-plus">+</div>
-              <div class="photo-slot-label">INSIDE FRONT PAGE</div>
-            </div>
-            <div class="photo-slot" id="ps-6">
-              <input type="file" accept="image/*" onchange="handleSlotPhoto(event, 6)">
-              <div class="photo-slot-plus">+</div>
-              <div class="photo-slot-label">RANDOM PAGE SPREAD</div>
-            </div>
-            <div class="photo-slot" id="ps-7">
-              <input type="file" accept="image/*" onchange="handleSlotPhoto(event, 7)">
-              <div class="photo-slot-plus">+</div>
-              <div class="photo-slot-label">DEFECT CLOSE-UP</div>
-            </div>
-          </div>
-
-          <div class="photos-count" id="photos-count">
-            PHOTOS UPLOADED: 0 / 8
-          </div>
-
-          <div class="qt-nav">
-            <button class="qt-back" onclick="qtNext(2)">← BACK</button>
-            <button class="btn-solid" onclick="qtNext(4)">CONTINUE →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 4: Listing -->
-      <div id="qt-step-4" style="display:none;">
-        <div class="qt-card">
-          <h2>LISTING DETAILS</h2>
-          <p class="sub">Complete your listing. Be accurate — buyers rely on this information.</p>
-
-          <div class="form-group">
-            <label class="form-label">BOOK TITLE</label>
-            <input type="text" class="form-input" id="qt-book-title" placeholder="The Bell Jar">
-          </div>
-          <div class="form-group">
-            <label class="form-label">AUTHOR</label>
-            <input type="text" class="form-input" id="qt-book-author" placeholder="Sylvia Plath">
-          </div>
-          <div class="form-2col">
-            <div class="form-group">
-              <label class="form-label">EDITION & YEAR</label>
-              <input type="text" class="form-input" id="qt-edition" placeholder="Faber & Faber, 1998">
-            </div>
-            <div class="form-group">
-              <label class="form-label">GENRE</label>
-              <select class="form-select form-input" id="qt-genre">
-                <option value="">Select genre…</option>
-                <option>Fiction</option>
-                <option>Mystery & Thriller</option>
-                <option>Science Fiction</option>
-                <option>Fantasy</option>
-                <option>Non-Fiction</option>
-                <option>Biography</option>
-                <option>Self-Help</option>
-                <option>History</option>
-                <option>Romance</option>
-                <option>Young Adult</option>
-                <option>Classic</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="form-label">DESCRIPTION</label>
-            <textarea class="form-textarea" id="qt-book-desc" placeholder="A brief, honest description of the book and any quirks worth noting."></textarea>
-          </div>
-
-          <div class="price-slider-wrap">
-            <div class="price-slider-label">
-              <span>PRICE (€) · <span id="price-class-note">SUGGESTED €6–€11 FOR DECLARED CLASS A</span></span>
-            </div>
-            <input type="range" class="price-slider" id="price-slider" min="3" max="25" step="0.5" value="10" oninput="updatePriceDisplay()">
-            <div class="price-display" id="price-display">€10.00</div>
-            <div class="price-slider-vals">
-              <span>€3</span>
-              <span id="retail-label">€25 retail</span>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">DELIVERY OPTIONS</label>
-            <div style="display:flex;gap:1rem;margin-top:0.25rem;">
-              <label style="display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.04em;cursor:pointer;">
-                <input type="checkbox" id="d-pickup" style="accent-color:var(--ink);"> PICK-UP
-              </label>
-              <label style="display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.04em;cursor:pointer;">
-                <input type="checkbox" id="d-shipping" style="accent-color:var(--ink);"> CTT SHIPPING
-              </label>
-            </div>
-          </div>
-
-          <div class="qt-nav">
-            <button class="qt-back" onclick="qtNext(3)">← BACK</button>
-            <button class="btn-terra" onclick="submitListing()">SUBMIT FOR APPROVAL →</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Success -->
-      <div id="qt-success" style="display:none;">
-        <div class="qt-success">
-          <div class="qt-success-icon">
-            <div class="pending-pulse"></div>
-            LISTING SUBMITTED — PENDING APPROVAL
-          </div>
-          <h2>YOUR LISTING IS NOW AWAITING APPROVAL.</h2>
-          <p>Our team will review your photos, cross-check the condition report, and award your book a final Class badge. Expect a decision within <strong>2 business days</strong>.</p>
-          <p style="font-family:var(--mono);font-size:0.68rem;letter-spacing:0.04em;color:var(--ink-soft);">You'll receive an email at the address you provided when your listing goes live.</p>
-          <div style="display:flex;gap:1rem;justify-content:center;margin-top:2rem;flex-wrap:wrap;">
-            <button class="btn-solid" onclick="showPage('dashboard')">VIEW MY LISTINGS</button>
-            <button class="btn-ghost" onclick="resetAndGo()">LIST ANOTHER BOOK</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- ================== BOOK DETAIL DRAWER ================== -->
-<div class="overlay-dim" id="book-dim" onclick="closeBookDrawer()" style="z-index:149;"></div>
-<div class="book-drawer" id="book-drawer">
-  <div class="drawer-close">
-    <span class="drawer-close-label" id="drawer-shelf-label">THE SHELF</span>
-    <button class="drawer-close-btn" onclick="closeBookDrawer()">CLOSE ✕</button>
-  </div>
-  <img class="drawer-img" id="drawer-img" src="" alt="">
-  <div class="drawer-body">
-    <div class="drawer-badges" id="drawer-badges"></div>
-    <h2 class="drawer-title" id="drawer-title"></h2>
-    <div class="drawer-author" id="drawer-author"></div>
-    <div class="drawer-genre" id="drawer-genre"></div>
-    <p class="drawer-desc" id="drawer-desc"></p>
-    <div class="drawer-condition" id="drawer-condition"></div>
-    <div class="drawer-price-row">
-      <span class="drawer-price" id="drawer-price"></span>
-      <span class="drawer-retail" id="drawer-retail"></span>
-      <span class="drawer-save" id="drawer-save"></span>
-    </div>
-    <div class="delivery-section">
-      <div class="delivery-heading">DELIVERY METHOD</div>
-      <label class="delivery-opt selected" id="do-pickup" onclick="selectDelivery('pickup', this)">
-        <input type="radio" name="del" checked>
-        <div>
-          <div class="delivery-opt-title">📍 PICK-UP</div>
-          <div class="delivery-opt-sub">Collect from agreed point in Lisboa, Porto or Cascais — FREE</div>
-        </div>
-      </label>
-      <label class="delivery-opt" id="do-shipping" onclick="selectDelivery('shipping', this)">
-        <input type="radio" name="del">
-        <div>
-          <div class="delivery-opt-title">📦 CTT SHIPPING</div>
-          <div class="delivery-opt-sub">Delivered to your address — +€3.50</div>
-        </div>
-      </label>
-    </div>
-    <div class="drawer-actions">
-      <button class="btn-add-cart-full" onclick="addFromDrawer()">ADD TO BAG</button>
-      <button class="btn-wishlist">♡</button>
-    </div>
-  </div>
-</div>
-
-<!-- ================== CART DRAWER ================== -->
-<div class="cart-drawer" id="cart-drawer">
-  <div class="cart-drawer-header">
-    <span class="cart-drawer-label" id="cart-label">SHOPPING BAG (00)</span>
-    <button class="cart-drawer-close" onclick="toggleCart()">CLOSE</button>
-  </div>
-  <div class="cart-drawer-body" id="cart-body"></div>
-  <div class="cart-footer" id="cart-footer"></div>
-</div>
-
-<!-- ================== PROFILE MODAL ================== -->
-<div class="modal-overlay" id="profile-modal">
-  <div class="modal-box">
-    <button class="modal-close-x" onclick="closeProfileModal()">CLOSE ✕</button>
-    <div class="modal-heading">CREATE SELLER PROFILE</div>
-    <div class="modal-sub">We verify every private seller. This protects buyers and keeps the marketplace honest.</div>
-    <div class="form-2col">
-      <div class="form-group">
-        <label class="form-label">FULL NAME *</label>
-        <input type="text" class="form-input" id="p-name" placeholder="Margarida Silva">
-      </div>
-      <div class="form-group">
-        <label class="form-label">CITY *</label>
-        <input type="text" class="form-input" id="p-city" placeholder="Lisboa">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="form-label">EMAIL *</label>
-      <input type="email" class="form-input" id="p-email" placeholder="you@example.pt">
-    </div>
-    <div class="form-group">
-      <label class="form-label">MOBILE (PT)</label>
-      <input type="tel" class="form-input" id="p-phone" placeholder="+351 9xx xxx xxx">
-    </div>
-    <div class="form-group">
-      <label class="form-label">PREFERRED PAYMENT</label>
-      <select class="form-select form-input" id="p-payment">
-        <option>MB WAY</option>
-        <option>Bank Transfer (IBAN)</option>
-        <option>PayPal</option>
-      </select>
-    </div>
-    <button class="btn-terra" style="width:100%;margin-top:0.5rem;padding:1rem;font-size:0.85rem;" onclick="createProfile()">CREATE PROFILE & START SELLING →</button>
-  </div>
-</div>
-
 <script>
-/* ============================================================
-   DATA
-============================================================ */
+// ============================================================
+// DATA
+// ============================================================
 const BOOKS = [
-  { id:1, title:"1984", author:"George Orwell", genre:"Classic", cls:"B", src:"platform", price:6.50, retail:14.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780451524935-L.jpg",
-    desc:"Winston Smith works for the Ministry of Truth rewriting historical records. He begins a forbidden love affair and secretly rebels against the Party. A defining novel of the 20th century.",
-    cond:"Slight spine creasing from reading. Interior clean — no marks or annotations. Cover shows minor shelf wear." },
-  { id:2, title:"Brave New World", author:"Aldous Huxley", genre:"Science Fiction", cls:"A", src:"platform", price:7.00, retail:14.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780060850524-L.jpg",
-    desc:"In a World State where humans are genetically engineered and conditioned, Bernard Marx dares to feel unsatisfied. A chilling vision of a pleasure-saturated, freedom-free future.",
-    cond:"Essentially new. No marks, stains or creasing anywhere. Pristine Penguin Modern Classics edition." },
-  { id:3, title:"The Hobbit", author:"J.R.R. Tolkien", genre:"Fantasy", cls:"A", src:"platform", price:8.00, retail:16.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780345339683-L.jpg",
-    desc:"Bilbo Baggins, a perfectly respectable hobbit, is swept into an epic quest to reclaim the lost dwarf kingdom of Erebor. The beloved prelude to The Lord of the Rings.",
-    cond:"Like new. No visible wear. Pages bright and unmarked. Spine intact." },
-  { id:4, title:"A Game of Thrones", author:"George R.R. Martin", genre:"Fantasy", cls:"B", src:"private", sellerName:"Tomás R.", price:9.00, retail:19.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780553103540-L.jpg",
-    desc:"Nine noble families fight for control of the Iron Throne. A masterwork of sweeping ambition and intrigue. Winter is coming — and so are dragons.",
-    cond:"Good reading copy. Some yellowing on page edges. Spine shows reading flex. No stains or writing inside." },
-  { id:5, title:"The Midnight Library", author:"Matt Haig", genre:"Fiction", cls:"A", src:"platform", price:7.50, retail:16.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780525559474-L.jpg",
-    desc:"Between life and death there is a library. Every book provides a chance to try another life you could have lived. A meditation on regret, hope, and what it truly means to live.",
-    cond:"No visible wear. Spine perfectly intact. Pages pristine — read once." },
-  { id:6, title:"Normal People", author:"Sally Rooney", genre:"Fiction", cls:"B", src:"private", sellerName:"Ana L.", price:5.50, retail:13.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780571334650-L.jpg",
-    desc:"Connell and Marianne grow up in the same small town but move in different circles — until a fateful connection is made. A tender, devastating love story.",
-    cond:"Light crease on spine. Small pencil underlining pages 4–6, otherwise clean interior." },
-  { id:7, title:"Project Hail Mary", author:"Andy Weir", genre:"Science Fiction", cls:"A", src:"private", sellerName:"João F.", price:9.00, retail:18.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780593135204-L.jpg",
-    desc:"A lone astronaut must save the Earth from disaster in this gripping, scientifically brilliant thriller. One of the best sci-fi novels of the decade.",
-    cond:"Like new. Purchased but barely read. Zero marks or damage anywhere." },
-  { id:8, title:"Dune", author:"Frank Herbert", genre:"Science Fiction", cls:"C", src:"platform", price:4.00, retail:17.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780441013593-L.jpg",
-    desc:"The boy Paul Atreides arrives on the desert planet Arrakis, home of the most valuable substance in the universe. An epic of ecology, politics, religion, and destiny.",
-    cond:"Visible yellowing throughout. Spine cracked but book is complete. Small coffee ring on back cover. Readable." },
-  { id:9, title:"Atomic Habits", author:"James Clear", genre:"Self-Help", cls:"A", src:"platform", price:8.50, retail:19.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780735211292-L.jpg",
-    desc:"A proven framework for improving every day. James Clear distils the most fundamental principles of habit formation into a comprehensive guide.",
-    cond:"Pristine. Never annotated. Cover sharp and unmarked. Perfect gift condition." },
-  { id:10, title:"Educated", author:"Tara Westover", genre:"Biography", cls:"B", src:"platform", price:6.00, retail:14.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780399590504-L.jpg",
-    desc:"A young woman grows up in a survivalist family in rural Idaho and goes on to earn a PhD from Cambridge. Haunting and brilliant.",
-    cond:"Very minor scuff on bottom-right corner of cover. Interior pages clean." },
-  { id:11, title:"Gone Girl", author:"Gillian Flynn", genre:"Mystery & Thriller", cls:"C", src:"private", sellerName:"Beatriz M.", price:4.50, retail:13.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780307588371-L.jpg",
-    desc:"Nick Dunne reports his wife Amy missing on their fifth anniversary. A dark, twisty thriller that keeps you guessing to the very end.",
-    cond:"Moderate wear. Yellowed pages. Pink highlighting in part two. Spine slightly damaged. Readable." },
-  { id:12, title:"Sapiens", author:"Yuval Noah Harari", genre:"Non-Fiction", cls:"B", src:"platform", price:8.00, retail:19.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780062316097-L.jpg",
-    desc:"A brief history of humankind — from the Stone Age to the 21st century. How did Homo sapiens come to dominate the Earth? Compelling and essential.",
-    cond:"Clean interior. Minor shelf wear on top of spine. No marks or stains." },
-  { id:13, title:"The Name of the Wind", author:"Patrick Rothfuss", genre:"Fantasy", cls:"B", src:"private", sellerName:"Tomás R.", price:7.00, retail:16.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780756404079-L.jpg",
-    desc:"The tale of Kvothe the wizard, told in his own words. Prose that reads like music. A fantasy masterpiece.",
-    cond:"Light wear on corners. A few dog-eared pages early on. Interior otherwise very clean." },
-  { id:14, title:"Becoming", author:"Michelle Obama", genre:"Biography", cls:"A", src:"private", sellerName:"Sofia C.", price:9.50, retail:22.99,
-    img:"https://covers.openlibrary.org/b/isbn/9781524763138-L.jpg",
-    desc:"Michelle Obama's memoir — from her childhood on the South Side of Chicago to the years in the White House. Warm, inspiring, and deeply honest.",
-    cond:"Excellent condition. No marks or stains. Spine perfect. Gifted but never read." },
-  { id:15, title:"The Alchemist", author:"Paulo Coelho", genre:"Fiction", cls:"B", src:"private", sellerName:"Rui S.", price:5.50, retail:13.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780062315007-L.jpg",
-    desc:"A young shepherd on a journey in search of treasure. A beautifully told fable about following your dreams and listening to your heart.",
-    cond:"Good. Light reading wear. Spine flex visible. A few folded corners but interior clean." },
-  { id:16, title:"Man's Search for Meaning", author:"Viktor E. Frankl", genre:"Non-Fiction", cls:"C", src:"platform", price:3.50, retail:11.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780807014295-L.jpg",
-    desc:"Viktor Frankl's account of his years in Nazi death camps and the lessons they taught him about spiritual survival. One of the most influential books of the 20th century.",
-    cond:"Well-loved. Moderate yellowing. Yellow highlighting throughout. Name written on first page." },
-  { id:17, title:"The Great Gatsby", author:"F. Scott Fitzgerald", genre:"Classic", cls:"A", src:"platform", price:5.00, retail:11.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780743273565-L.jpg",
-    desc:"The summer of 1922, Long Island. A tale of wealth, illusion, love, and the hollow promise of the American Dream. The definitive Jazz Age novel.",
-    cond:"Like new. Beautiful Penguin Classics edition. Clean and crisp throughout." },
-  { id:18, title:"The Thursday Murder Club", author:"Richard Osman", genre:"Mystery & Thriller", cls:"A", src:"private", sellerName:"Carla M.", price:7.00, retail:15.99,
-    img:"https://covers.openlibrary.org/b/isbn/9781984880963-L.jpg",
-    desc:"Four unlikely friends in a quiet retirement village meet weekly to investigate cold cases — until a real murder lands on their doorstep.",
-    cond:"Essentially new. Read once, kept in protective sleeve. Cover and spine pristine." },
-  { id:19, title:"Pride and Prejudice", author:"Jane Austen", genre:"Classic", cls:"B", src:"platform", price:4.50, retail:11.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg",
-    desc:"The Bennet family, five daughters, and the question of marriage in rural England. The definitive romantic novel — still impossible to put down.",
-    cond:"Light yellowing typical of age. Cover clean. One pencil note on page 87 only." },
-  { id:20, title:"Hitchhiker's Guide to the Galaxy", author:"Douglas Adams", genre:"Science Fiction", cls:"B", src:"private", sellerName:"Pedro A.", price:5.00, retail:12.99,
-    img:"https://covers.openlibrary.org/b/isbn/9780345391803-L.jpg",
-    desc:"Seconds before the Earth is demolished to build a hyperspace bypass, Arthur Dent is swept into space. The funniest sci-fi novel ever written.",
-    cond:"Good. Slight fade on cover. Pages clean and intact. Spine shows normal flex." },
+  {id:1,title:"1984",author:"George Orwell",genre:"Fiction",cls:"B",price:8,seller:"platform",
+   cover:"https://covers.openlibrary.org/b/isbn/9780451524935-L.jpg",
+   desc:"A dystopian masterpiece set in a totalitarian society ruled by Big Brother. Winston Smith's quiet rebellion against the Party is one of literature's most enduring stories.",year:1949},
+  {id:2,title:"Brave New World",author:"Aldous Huxley",genre:"Science Fiction",cls:"A",price:12,seller:"platform",
+   cover:"https://covers.openlibrary.org/b/isbn/9780060850524-L.jpg",
+   desc:"Citizens engineered to love their own servitude. Huxley's vision of a future ruled by pleasure and conformity remains startlingly prescient.",year:1932},
+  {id:3,title:"The Hobbit",author:"J.R.R. Tolkien",genre:"Fantasy",cls:"A",price:15,seller:"private",
+   cover:"https://covers.openlibrary.org/b/isbn/9780345339683-L.jpg",
+   desc:"Bilbo Baggins is swept into an epic quest to reclaim the Lonely Mountain from a dragon, accompanied by thirteen dwarves and a wizard.",year:1937},
+  {id:4,title:"A Game of Thrones",author:"George R.R. Martin",genre:"Fantasy",cls:"B",price:10,seller:"platform",
+   cover:"https://covers.openlibrary.org/b/isbn/9780553103540-L.jpg",
+   desc:"Seven noble families struggle for control of the Iron Throne. Political intrigue, betrayal, and a long-forgotten threat from beyond the Wall.",year:1996},
+  {id:5,title:"The Great Gatsby",author:"F. Scott Fitzgerald",genre:"Fiction",cls:"A",price:9,seller:"private",
+   cover:"https://covers.openlibrary.org/b/isbn/9780743273565-L.jpg",
+   desc:"Nick Carraway narrates the tragic story of Jay Gatsby's obsession with Daisy Buchanan, set against the glittering excess of the Jazz Age.",year:1925},
+  {id:6,title:"To Kill a Mockingbird",author:"Harper Lee",genre:"Fiction",cls:"B",price:7,seller:"platform",
+   cover:"https://covers.openlibrary.org/b/isbn/9780061935466-L.jpg",
+   desc:"Through Scout Finch's eyes, we see racial injustice and moral courage in Depression-era Alabama. A Pulitzer Prize classic.",year:1960},
+  {id:7,title:"Pride and Prejudice",author:"Jane Austen",genre:"Romance",cls:"A",price:11,seller:"private",
+   cover:"https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg",
+   desc:"Elizabeth Bennet navigates manners, marriage, and misunderstanding — chiefly with the proud and reserved Mr. Darcy. Penguin Classics edition.",year:1813},
+  {id:8,title:"The Catcher in the Rye",author:"J.D. Salinger",genre:"Fiction",cls:"C",price:5,seller:"private",
+   cover:"https://covers.openlibrary.org/b/isbn/9780316769174-L.jpg",
+   desc:"Holden Caulfield's voice is as raw and restless as ever in this portrait of adolescent alienation in postwar New York.",year:1951},
+  {id:9,title:"Sapiens",author:"Yuval Noah Harari",genre:"Non-Fiction",cls:"B",price:14,seller:"platform",
+   cover:"https://covers.openlibrary.org/b/isbn/9780062316097-L.jpg",
+   desc:"A sweeping history of humankind from the Stone Age to the present. How did Homo sapiens come to dominate the planet?",year:2011},
+  {id:10,title:"Dune",author:"Frank Herbert",genre:"Science Fiction",cls:"A",price:18,seller:"private",
+   cover:"https://covers.openlibrary.org/b/isbn/9780441013593-L.jpg",
+   desc:"Paul Atreides navigates the politics and ecology of the desert planet Arrakis, home to the universe's most precious substance: spice.",year:1965},
+  {id:11,title:"Norwegian Wood",author:"Haruki Murakami",genre:"Fiction",cls:"A",price:13,seller:"platform",
+   cover:"https://covers.openlibrary.org/b/isbn/9780375704024-L.jpg",
+   desc:"A nostalgic and melancholic story of loss and sexuality in 1960s Tokyo. One of Murakami's most accessible and beloved novels.",year:1987},
+  {id:12,title:"Crime and Punishment",author:"Fyodor Dostoevsky",genre:"Fiction",cls:"B",price:9,seller:"private",
+   cover:"https://covers.openlibrary.org/b/isbn/9780140449136-L.jpg",
+   desc:"Raskolnikov murders a pawnbroker and then struggles with guilt and paranoia in this psychological tour de force.",year:1866},
+  {id:13,title:"The Alchemist",author:"Paulo Coelho",genre:"Fiction",cls:"A",price:10,seller:"platform",
+   cover:"https://covers.openlibrary.org/b/isbn/9780061122415-L.jpg",
+   desc:"A young shepherd follows his dream of finding treasure near the Egyptian pyramids. A philosophical fable about listening to your heart.",year:1988},
+  {id:14,title:"The Name of the Rose",author:"Umberto Eco",genre:"Mystery",cls:"B",price:11,seller:"private",
+   cover:"https://covers.openlibrary.org/b/isbn/9780156001311-L.jpg",
+   desc:"A monk and his novice investigate a series of mysterious deaths in a 14th-century Italian monastery. Murder, manuscripts, and theology.",year:1980},
+  {id:15,title:"Educated",author:"Tara Westover",genre:"Biography",cls:"A",price:16,seller:"platform",
+   cover:"https://covers.openlibrary.org/b/isbn/9780399590504-L.jpg",
+   desc:"A memoir of growing up in a survivalist family in rural Idaho and ultimately earning a PhD from Cambridge. Extraordinary and urgent.",year:2018},
 ];
 
-/* ============================================================
-   STATE
-============================================================ */
+// ============================================================
+// STATE
+// ============================================================
 let cart = [];
-let currentBook = null;
-let selectedDelivery = 'pickup';
-let sellerProfile = null;
-let submittedListings = [];
-let slotPhotos = Array(8).fill(null);
-let qtCurrentStep = 1;
-let defectsChecked = new Set();
-let sellerFilter = 'all';
-let classFilter = 'any';
-let homePillActive = 'all';
-let cartOpen = false;
+let currentModalId = null;
+let hasProfile = false;
+let sellerListings = [];
+let uploadCount = 0;
+let filters = {seller:'all', cls:'all', genre:'', min:null, max:'', search:''};
+let homeFeaturedType = 'platform';
 
-/* ============================================================
-   NAV
-============================================================ */
-function showPage(p) {
-  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-  document.getElementById('page-'+p).classList.add('active');
-  document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
-  const map = { home:'nl-home', browse:'nl-browse', sell:'nl-sell', dashboard:'nl-sellers', 'quality-test':'nl-sell' };
-  if (map[p]) document.getElementById(map[p]).classList.add('active');
-  if (p==='browse') renderBooks();
-  if (p==='home') renderFeatured();
-  if (p==='dashboard') renderDashboard();
-  if (p==='sell') renderSell();
-  if (p==='quality-test') initQT();
-  closeAll();
-  window.scrollTo(0,0);
+// ============================================================
+// NAVIGATION
+// ============================================================
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  const nl = document.querySelector('.nav-link[data-page="'+page+'"]');
+  if(nl) nl.classList.add('active');
+  window.scrollTo(0,0);
+  if(page==='home') renderHome();
+  if(page==='browse') renderBrowse();
+  if(page==='quality-test'){goStep(1);}
+  if(page==='sellers') renderSellers();
 }
 
-function closeAll() {
-  document.getElementById('overlay-dim').classList.remove('open');
-  if (cartOpen) toggleCart();
+// ============================================================
+// HOME
+// ============================================================
+function featuredTab(type, btn){
+  homeFeaturedType = type;
+  document.querySelectorAll('.featured-tabs .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderHome();
+}
+function renderHome(){
+  const books = BOOKS.filter(b=>b.seller===homeFeaturedType).slice(0,8);
+  document.getElementById('home-grid').innerHTML = books.map(bookCard).join('');
 }
 
-/* ============================================================
-   FEATURED (HOME)
-============================================================ */
-function setHomePill(v) {
-  homePillActive = v;
-  document.querySelectorAll('#page-home .pill-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('home-pill-'+v).classList.add('active');
-  renderFeatured();
+// ============================================================
+// BROWSE
+// ============================================================
+function setFilter(type,val,btn){
+  if(type==='seller') filters.seller=val;
+  if(type==='class') filters.cls=val;
+  btn.closest('.filter-group').querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+function applyFilters(){
+  filters.genre = document.getElementById('genre-filter').value;
+  filters.min = document.getElementById('price-min').value ? parseFloat(document.getElementById('price-min').value) : null;
+  filters.max = document.getElementById('price-max').value ? parseFloat(document.getElementById('price-max').value) : null;
+  filters.search = document.getElementById('search-input').value.toLowerCase().trim();
+  renderBrowse();
+}
+function filtered(){
+  return BOOKS.filter(b=>{
+    if(filters.seller!=='all' && b.seller!==filters.seller) return false;
+    if(filters.cls!=='all' && b.cls!==filters.cls) return false;
+    if(filters.genre && b.genre!==filters.genre) return false;
+    if(filters.min!==null && b.price<filters.min) return false;
+    if(filters.max!==null && b.price>filters.max) return false;
+    if(filters.search){
+      const s=filters.search;
+      if(!b.title.toLowerCase().includes(s)&&!b.author.toLowerCase().includes(s)&&!b.genre.toLowerCase().includes(s)) return false;
+    }
+    return true;
+  });
+}
+function renderBrowse(){
+  const list = filtered();
+  document.getElementById('browse-grid').innerHTML = list.map(bookCard).join('') || '<div style="grid-column:1/-1;padding:60px 0;text-align:center;font-family:\'Barlow Condensed\',sans-serif;font-size:16px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted)">No books match your filters</div>';
+  document.getElementById('browse-bar').textContent = `SHOWING ${list.length} OF ${BOOKS.length}`;
+  document.getElementById('browse-shelf-label').textContent = `THE SHELF · ${BOOKS.length} TITLES TOTAL`;
 }
 
-function renderFeatured() {
-  const filtered = homePillActive === 'all'
-    ? BOOKS.filter(b => b.src==='platform')
-    : BOOKS.filter(b => b.src==='private');
-  const toShow = filtered.slice(0,4);
-  const strip = document.getElementById('featured-strip');
-  strip.innerHTML = toShow.map(b => `
-    <div class="featured-book" onclick="openBook(${b.id})">
-      <img src="${b.img}" alt="${b.title}" loading="lazy" onerror="imgError(this)">
-      <span class="featured-book-class class-${b.cls.toLowerCase()}-badge">CLASS ${b.cls}</span>
-      <div class="featured-book-overlay">
-        <div class="book-name">${b.title}</div>
-        <div class="book-price">€${b.price.toFixed(2)}</div>
-      </div>
-    </div>
-  `).join('');
-  const pillP = document.getElementById('home-pill-all');
-  const pillPr = document.getElementById('home-pill-private');
-  if (!pillP || !pillPr) return;
-  if (homePillActive === 'all') {
-    pillP.classList.add('active'); pillPr.classList.remove('active');
-  } else {
-    pillPr.classList.add('active'); pillP.classList.remove('active');
-  }
+// ============================================================
+// BOOK CARD
+// ============================================================
+function bookCard(b){
+  return `<div class="book-card" onclick="openModal(${b.id})">
+    <div class="book-cover-wrap">
+      <img src="${b.cover}" alt="${b.title}" onerror="this.style.opacity='0'">
+      <div class="class-badge">CLASS ${b.cls}</div>
+    </div>
+    <div class="book-info">
+      <h3>${b.title}</h3>
+      <div class="author">${b.author}</div>
+      <div class="genre-tag">${b.genre}</div>
+      <div class="book-footer">
+        <div class="book-price">€${b.price.toFixed(2)}</div>
+        <button class="add-btn" onclick="event.stopPropagation();addCart(${b.id})">ADD →</button>
+      </div>
+    </div>
+  </div>`;
 }
 
-/* ============================================================
-   BROWSE
-============================================================ */
-function setSeller(v) {
-  sellerFilter = v;
-  ['all','platform','private'].forEach(x => {
-    document.getElementById('sp-'+x).classList.toggle('active', x===v);
-  });
-  renderBooks();
+// ============================================================
+// MODAL
+// ============================================================
+function openModal(id){
+  currentModalId = id;
+  const b = BOOKS.find(x=>x.id===id);
+  document.getElementById('m-cover').src = b.cover;
+  document.getElementById('m-cover').alt = b.title;
+  document.getElementById('m-badge').textContent = `CLASS ${b.cls}`;
+  document.getElementById('m-title').textContent = b.title;
+  document.getElementById('m-author').textContent = `by ${b.author}`;
+  document.getElementById('m-price').textContent = `€${b.price.toFixed(2)}`;
+  document.getElementById('m-desc').textContent = b.desc;
+  document.getElementById('m-meta').innerHTML = `
+    <div class="meta-item"><label>GENRE</label><span>${b.genre}</span></div>
+    <div class="meta-item"><label>CLASS</label><span>Class ${b.cls}</span></div>
+    <div class="meta-item"><label>SELLER</label><span>${b.seller==='platform'?'Platform Stock':'Private Seller'}</span></div>
+    <div class="meta-item"><label>PUBLISHED</label><span>${b.year}</span></div>`;
+  document.getElementById('book-modal').classList.add('open');
+}
+function closeModal(){document.getElementById('book-modal').classList.remove('open');}
+function modalBg(e){if(e.target===document.getElementById('book-modal'))closeModal();}
+function selDelivery(el,type){
+  document.querySelectorAll('.delivery-opt').forEach(d=>d.classList.remove('sel'));
+  el.classList.add('sel');
+  el.querySelector('input').checked=true;
+}
+function addFromModal(){
+  if(currentModalId) addCart(currentModalId);
+  closeModal();
 }
 
-function setClass(v) {
-  classFilter = v;
-  ['any','a','b','c','d'].forEach(x => {
-    document.getElementById('cp-'+x).classList.toggle('active', x===v);
-  });
-  renderBooks();
+// ============================================================
+// CART
+// ============================================================
+function toggleCart(){
+  document.getElementById('cart-overlay').classList.toggle('open');
+  document.getElementById('cart-sidebar').classList.toggle('open');
+}
+function addCart(id){
+  const b = BOOKS.find(x=>x.id===id);
+  if(!b) return;
+  if(!cart.find(c=>c.id===id)) cart.push({...b});
+  updateCartUI();
+  toast(`"${b.title}" added to cart`);
+}
+function removeCart(id){
+  cart = cart.filter(c=>c.id!==id);
+  updateCartUI();
+}
+function updateCartUI(){
+  const count = cart.length;
+  document.getElementById('cart-count').textContent = String(count).padStart(2,'0');
+  const wrap = document.getElementById('cart-items');
+  const footer = document.getElementById('cart-footer');
+  const empty = document.getElementById('cart-empty');
+  if(count===0){
+    wrap.innerHTML='';
+    wrap.appendChild(empty);
+    empty.style.display='flex';
+    footer.style.display='none';
+  } else {
+    empty.style.display='none';
+    wrap.innerHTML = cart.map(item=>`
+      <div class="cart-item">
+        <img class="cart-item-cover" src="${item.cover}" alt="${item.title}" onerror="this.style.opacity=0">
+        <div class="cart-item-info">
+          <h4>${item.title}</h4>
+          <p>${item.author}</p>
+          <p>Class ${item.cls} · ${item.seller==='platform'?'Platform':'Private'}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+          <div class="cart-item-price">€${item.price.toFixed(2)}</div>
+          <button class="remove-btn" onclick="removeCart(${item.id})">×</button>
+        </div>
+      </div>`).join('');
+    footer.style.display='block';
+    const total = cart.reduce((s,i)=>s+i.price,0);
+    document.getElementById('cart-total').textContent = `€${total.toFixed(2)}`;
+  }
 }
 
-function renderBooks() {
-  const genre = document.getElementById('genre-select').value;
-  const search = document.getElementById('search-input').value.toLowerCase();
-  const minP = parseFloat(document.getElementById('price-min').value)||0;
-  const maxP = parseFloat(document.getElementById('price-max').value)||Infinity;
-
-  let filtered = BOOKS.filter(b => {
-    if (sellerFilter!=='all' && b.src!==sellerFilter) return false;
-    if (classFilter!=='any' && b.cls!==classFilter.toUpperCase()) return false;
-    if (genre && b.genre!==genre) return false;
-    if (b.price<minP || b.price>maxP) return false;
-    if (search && !b.title.toLowerCase().includes(search) && !b.author.toLowerCase().includes(search) && !b.genre.toLowerCase().includes(search)) return false;
-    return true;
-  });
-
-  document.getElementById('browse-meta').textContent = `THE SHELF · ${filtered.length} TITLES TOTAL`;
-  document.getElementById('showing-count').textContent = `SHOWING ${filtered.length} OF ${BOOKS.length}`;
-
-  const grid = document.getElementById('books-grid');
-  if (filtered.length===0) {
-    grid.innerHTML = '<div class="no-results">NO TITLES MATCH YOUR FILTERS.</div>';
-    return;
-  }
-
-  grid.innerHTML = filtered.map(b => `
-    <div class="book-card" onclick="openBook(${b.id})">
-      <div class="book-cover">
-        <img src="${b.img}" alt="${b.title}" loading="lazy" onerror="imgError(this)">
-        <span class="book-class-tag class-${b.cls.toLowerCase()}-badge">CLASS ${b.cls}</span>
-        <div class="book-genre-tag">${b.genre}</div>
-      </div>
-      <div class="book-info">
-        <div class="book-title-text">${b.title}</div>
-        <div class="book-author-text">${b.author}</div>
-        ${b.sellerName ? `<div class="book-seller-tag">PRIVATE · ${b.sellerName}</div>` : '<div class="book-seller-tag" style="color:var(--ink-soft);">PLATFORM STOCK</div>'}
-        <div class="book-bottom">
-          <div>
-            <div class="book-price-retail">€${b.retail.toFixed(2)}</div>
-            <div class="book-price-main">€${b.price.toFixed(2)}</div>
-          </div>
-          <button class="quick-add" onclick="event.stopPropagation();quickAdd(${b.id})" title="Add to bag">+</button>
-        </div>
-      </div>
-    </div>
-  `).join('');
+// ============================================================
+// QUALITY TEST
+// ============================================================
+const STEP_LABELS = ['ACCOUNT','QUALITY TEST','PHOTOS','LISTING'];
+function goStep(n){
+  document.getElementById('qt-step-label').textContent = `STEP 0${n} OF 04: ${STEP_LABELS[n-1]}`;
+  document.getElementById('qt-progress').style.width = (n/4*100)+'%';
+  for(let i=1;i<=4;i++){
+    const el = document.getElementById('si-'+i);
+    el.classList.remove('active','completed');
+    if(i<n) el.classList.add('completed');
+    else if(i===n) el.classList.add('active');
+    document.getElementById('qs-'+i).style.display = i===n?'block':'none';
+  }
+}
+function handlePhotos(e){
+  const files = Array.from(e.target.files);
+  uploadCount = files.length;
+  const grid = document.getElementById('photo-grid');
+  grid.innerHTML = '';
+  files.forEach(f=>{
+    const r = new FileReader();
+    r.onload = ev=>{
+      const img = document.createElement('img');
+      img.src = ev.target.result;
+      img.className = 'photo-preview';
+      grid.appendChild(img);
+    };
+    r.readAsDataURL(f);
+  });
+}
+function submitListing(){
+  const title = document.getElementById('b-title').value || 'Untitled Book';
+  const author = document.getElementById('b-author').value || 'Unknown Author';
+  const genre = document.getElementById('b-genre').value || 'Fiction';
+  const price = parseFloat(document.getElementById('b-price').value) || 0;
+  sellerListings.push({id:Date.now(),title,author,genre,price,photos:uploadCount,status:'pending'});
+  hasProfile = true;
+  toast('Listing submitted — pending approval');
+  navigate('sellers');
 }
 
-/* ============================================================
-   BOOK DRAWER
-============================================================ */
-function openBook(id) {
-  currentBook = BOOKS.find(b=>b.id===id);
-  if (!currentBook) return;
-  const b = currentBook;
-
-  document.getElementById('drawer-img').src = b.img;
-  document.getElementById('drawer-img').alt = b.title;
-  document.getElementById('drawer-img').onerror = function(){ imgError(this); };
-  document.getElementById('drawer-title').textContent = b.title;
-  document.getElementById('drawer-author').textContent = 'by '+b.author;
-  document.getElementById('drawer-genre').textContent = b.genre;
-  document.getElementById('drawer-desc').textContent = b.desc;
-  document.getElementById('drawer-condition').innerHTML = `<strong>CONDITION (CLASS ${b.cls}):</strong> ${b.cond}`;
-  document.getElementById('drawer-price').textContent = `€${b.price.toFixed(2)}`;
-  document.getElementById('drawer-retail').textContent = `€${b.retail.toFixed(2)}`;
-  const pct = Math.round((1-b.price/b.retail)*100);
-  document.getElementById('drawer-save').textContent = `SAVE ${pct}%`;
-
-  const clsColors = { A:'#2D5A3D', B:'#B8471A', C:'#7A5C2E', D:'#5A2D2D' };
-  document.getElementById('drawer-badges').innerHTML = `
-    <span class="drawer-badge" style="background:${clsColors[b.cls]}">CLASS ${b.cls}</span>
-    <span class="drawer-badge" style="background:${b.src==='platform'?'var(--ink)':'#8C5A3A'}">${b.src==='platform'?'PLATFORM STOCK':'PRIVATE SELLER'}</span>
-    ${b.sellerName ? `<span class="drawer-badge" style="background:#5A4A3A">${b.sellerName}</span>` : ''}
-  `;
-
-  selectedDelivery = 'pickup';
-  document.getElementById('do-pickup').classList.add('selected');
-  document.getElementById('do-shipping').classList.remove('selected');
-  document.getElementById('do-pickup').querySelector('input').checked = true;
-
-  document.getElementById('book-dim').classList.add('open');
-  document.getElementById('book-drawer').classList.add('open');
+// ============================================================
+// SELLERS DASHBOARD
+// ============================================================
+function renderSellers(){
+  const np = document.getElementById('s-noprofile');
+  const db = document.getElementById('s-dashboard');
+  if(!hasProfile){np.style.display='block';db.style.display='none';return;}
+  np.style.display='none';
+  db.style.display='block';
+  const wrap = document.getElementById('seller-listings-wrap');
+  if(sellerListings.length===0){
+    wrap.innerHTML=`<div class="listing-placeholder">
+      <h3>NO LISTINGS YET</h3>
+      <p>Start by creating your first listing. We'll review it and award it a class within 24 hours.</p>
+      <button class="btn-accent" onclick="navigate('quality-test')">CREATE YOUR FIRST LISTING →</button>
+    </div>`;
+  } else {
+    wrap.innerHTML = sellerListings.map(l=>`
+      <div class="pending-card">
+        <div style="width:88px;height:132px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:28px">📚</div>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:19px;margin-bottom:3px">${l.title}</div>
+          <div style="font-size:13px;color:var(--text-muted);margin-bottom:6px">${l.author} · ${l.genre}</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:17px;margin-bottom:10px">€${l.price.toFixed(2)}</div>
+          <div style="font-size:12px;color:var(--text-muted)">📷 ${l.photos} photo${l.photos!==1?'s':''} uploaded</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">
+          <div class="pending-badge">⏳ PENDING APPROVAL</div>
+          <div style="font-size:12px;color:var(--text-muted);text-align:right;max-width:150px;line-height:1.5">Your listing has been submitted and is awaiting our team's review.</div>
+        </div>
+      </div>`).join('');
+  }
 }
 
-function closeBookDrawer() {
-  document.getElementById('book-drawer').classList.remove('open');
-  document.getElementById('book-dim').classList.remove('open');
+// ============================================================
+// TOAST
+// ============================================================
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-function selectDelivery(type, el) {
-  selectedDelivery = type;
-  document.querySelectorAll('.delivery-opt').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
-}
-
-function addFromDrawer() {
-  if (!currentBook) return;
-  const fee = selectedDelivery==='shipping' ? 3.50 : 0;
-  cart.push({...currentBook, delivery:selectedDelivery, fee, uid:Date.now()});
-  updateCartBadge();
-  closeBookDrawer();
-  showToast(`"${currentBook.title}" ADDED TO BAG.`);
-}
-
-function quickAdd(id) {
-  const b = BOOKS.find(b=>b.id===id);
-  if (!b) return;
-  cart.push({...b, delivery:'pickup', fee:0, uid:Date.now()});
-  updateCartBadge();
-  showToast(`"${b.title}" ADDED TO BAG.`);
-}
-
-/* ============================================================
-   CART
-============================================================ */
-function toggleCart() {
-  cartOpen = !cartOpen;
-  document.getElementById('cart-drawer').classList.toggle('open', cartOpen);
-  document.getElementById('overlay-dim').classList.toggle('open', cartOpen);
-  if (cartOpen) renderCart();
-}
-
-function updateCartBadge() {
-  const n = cart.length;
-  const s = n.toString().padStart(2,'0');
-  document.getElementById('cart-count').textContent = s;
-  document.getElementById('cart-label').textContent = `SHOPPING BAG (${s})`;
-}
-
-function renderCart() {
-  const body = document.getElementById('cart-body');
-  const footer = document.getElementById('cart-footer');
-
-  if (cart.length===0) {
-    body.innerHTML = '<div class="cart-empty">YOUR BAG IS EMPTY.</div>';
-    footer.innerHTML = '';
-    return;
-  }
-
-  body.innerHTML = cart.map(item => `
-    <div class="cart-item">
-      <img src="${item.img}" alt="${item.title}" onerror="imgError(this)">
-      <div class="cart-item-details">
-        <div class="cart-item-title">${item.title}</div>
-        <div class="cart-item-meta">${item.author} · CLASS ${item.cls}</div>
-        <div class="cart-item-delivery">${item.delivery==='pickup'?'📍 PICK-UP — FREE':'📦 CTT SHIPPING — +€3.50'}</div>
-      </div>
-      <div class="cart-item-right">
-        <div class="cart-item-price">€${(item.price+item.fee).toFixed(2)}</div>
-        <button class="cart-item-remove" onclick="removeCartItem(${item.uid})">REMOVE</button>
-      </div>
-    </div>
-  `).join('');
-
-  const sub = cart.reduce((a,i)=>a+i.price,0);
-  const ship = cart.reduce((a,i)=>a+i.fee,0);
-  const total = sub+ship;
-
-  footer.innerHTML = `
-    <div class="cart-totals">
-      <div class="cart-total-row"><span>SUBTOTAL (${cart.length} ITEM${cart.length!==1?'S':''})</span><span>€${sub.toFixed(2)}</span></div>
-      <div class="cart-total-row"><span>SHIPPING</span><span>${ship>0?'€'+ship.toFixed(2):'FREE'}</span></div>
-      <div class="cart-total-final"><span>TOTAL</span><span>€${total.toFixed(2)}</span></div>
-    </div>
-    <button class="btn-terra" style="width:100%;padding:1rem;font-size:0.85rem;" onclick="showToast('ORDER PLACED — CONFIRMATION EMAIL SENT.')">PROCEED TO CHECKOUT →</button>
-    <button class="btn-ghost" style="width:100%;padding:0.75rem;font-size:0.8rem;margin-top:0.5rem;" onclick="showPage('browse')">CONTINUE BROWSING</button>
-  `;
-}
-
-function removeCartItem(uid) {
-  cart = cart.filter(i=>i.uid!==uid);
-  updateCartBadge();
-  renderCart();
-}
-
-/* ============================================================
-   SELL & DASHBOARD
-============================================================ */
-function renderSell() {
-  document.getElementById('sell-locked-view').style.display = sellerProfile ? 'none' : 'block';
-  document.getElementById('sell-unlocked-view').style.display = sellerProfile ? 'block' : 'none';
-}
-
-function renderDashboard() {
-  document.getElementById('dash-locked').style.display = sellerProfile ? 'none' : 'block';
-  document.getElementById('dash-unlocked').style.display = sellerProfile ? 'block' : 'none';
-  if (sellerProfile) {
-    document.getElementById('dash-seller-name').textContent = sellerProfile.name.split(' ')[0];
-    const total = submittedListings.length + 1;
-    const pend = submittedListings.filter(l=>l.status==='pending').length;
-    document.getElementById('ds-total').textContent = String(total).padStart(2,'0');
-    document.getElementById('ds-pending').textContent = String(pend+1).padStart(2,'0');
-    renderSubmittedListings();
-  }
-}
-
-function renderSubmittedListings() {
-  const container = document.getElementById('real-listings-container');
-  const noBox = document.getElementById('no-listings-box');
-  if (submittedListings.length===0) {
-    noBox.style.display = 'block';
-    container.innerHTML = '';
-    return;
-  }
-  noBox.style.display = 'none';
-  container.innerHTML = submittedListings.map(l => `
-    <div class="listing-row">
-      ${l.photoUrl ? `<img src="${l.photoUrl}" alt="${l.title}">` : '<div style="width:48px;height:64px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:0.6rem;color:var(--ink-soft);">PHOTO</div>'}
-      <div class="listing-info-col">
-        <div class="listing-title-text">${l.title}</div>
-        <div class="listing-meta-text">${l.author} · ${l.genre} · SUBMITTED ${l.date}</div>
-      </div>
-      <div class="listing-price-col">€${parseFloat(l.price).toFixed(2)}</div>
-      <span class="status-pill status-pending">⏳ PENDING</span>
-    </div>
-  `).join('');
-}
-
-/* ============================================================
-   PROFILE MODAL
-============================================================ */
-function openProfileModal() {
-  document.getElementById('profile-modal').classList.add('open');
-}
-
-function closeProfileModal() {
-  document.getElementById('profile-modal').classList.remove('open');
-}
-
-function createProfile() {
-  const name = document.getElementById('p-name').value.trim();
-  const city = document.getElementById('p-city').value.trim();
-  const email = document.getElementById('p-email').value.trim();
-  if (!name || !city || !email) { showToast('PLEASE FILL IN ALL REQUIRED FIELDS.'); return; }
-  sellerProfile = { name, city, email };
-  closeProfileModal();
-  showToast(`PROFILE CREATED. WELCOME, ${name.split(' ')[0].toUpperCase()}.`);
-  setTimeout(()=>showPage('dashboard'),600);
-}
-
-/* ============================================================
-   QUALITY TEST
-============================================================ */
-function initQT() {
-  // show step 1, hide others and success
-  for(let i=1;i<=4;i++) {
-    const el=document.getElementById('qt-step-'+i);
-    if(el) el.style.display = i===1?'block':'none';
-  }
-  document.getElementById('qt-success').style.display='none';
-  qtCurrentStep=1;
-  updateQTSidebar(1);
-}
-
-const QT_LABELS = ['ACCOUNT','QUALITY TEST','PHOTOS','LISTING'];
-
-function updateQTSidebar(step) {
-  const pct = (step/4)*100;
-  document.getElementById('qt-fill').style.width = pct+'%';
-  document.getElementById('qt-prog-label').textContent = `STEP 0${step} OF 04: ${QT_LABELS[step-1]}`;
-  for(let i=1;i<=4;i++){
-    const el = document.getElementById('qts-'+i);
-    const ck = document.getElementById('qtc-'+i);
-    el.className = 'qt-step-item';
-    if(i<step){el.classList.add('done'); ck.textContent='✓';}
-    else if(i===step){el.classList.add('current'); ck.textContent='';}
-    else { ck.textContent=''; }
-  }
-}
-
-function qtNext(step) {
-  // Validate
-  if (step===2) {
-    const name = document.getElementById('qt-name').value.trim();
-    const city = document.getElementById('qt-city').value.trim();
-    const email = document.getElementById('qt-email').value.trim();
-    if(!name||!city||!email){showToast('PLEASE FILL IN NAME, CITY AND EMAIL.');return;}
-    // also set seller profile from qt
-    sellerProfile = { name, city, email };
-  }
-  if (step===4) {
-    const filled = slotPhotos.filter(Boolean).length;
-    if(filled<3){showToast('PLEASE UPLOAD AT LEAST 3 PHOTOS.');return;}
-  }
-
-  for(let i=1;i<=4;i++){
-    const el=document.getElementById('qt-step-'+i);
-    if(el) el.style.display = i===step?'block':'none';
-  }
-  qtCurrentStep=step;
-  updateQTSidebar(step);
-  window.scrollTo(0,0);
-}
-
-function toggleDefect(el, key) {
-  const cb = el.querySelector('input[type=checkbox]');
-  const checked = !cb.checked;
-  cb.checked = checked;
-  el.classList.toggle('checked', checked);
-  if(checked) defectsChecked.add(key); else defectsChecked.delete(key);
-  updateGradePreview();
-  return false;
-}
-
-function updateGradePreview() {
-  const n = defectsChecked.size;
-  let grade, desc;
-  if(n===0){grade='A';desc='EXCELLENT';}
-  else if(n<=1){grade='B';desc='GOOD';}
-  else if(n<=3){grade='C';desc='FAIR';}
-  else{grade='D';desc='POOR';}
-  document.getElementById('grade-preview').innerHTML =
-    `Provisional grade based on your answers: <strong>CLASS ${grade} — ${desc}</strong>. <em>Final Class is awarded after our team reviews your photos.</em>`;
-  // Also update price slider note
-  const priceEl = document.getElementById('price-class-note');
-  if(priceEl){
-    const ranges = {A:'€6–€11',B:'€4–€8',C:'€2–€6',D:'€1–€4'};
-    priceEl.textContent = `SUGGESTED ${ranges[grade]} FOR DECLARED CLASS ${grade}`;
-  }
-}
-
-function handleSlotPhoto(e, idx) {
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    slotPhotos[idx] = ev.target.result;
-    const slot = document.getElementById('ps-'+idx);
-    slot.classList.add('filled');
-    // remove old img if any
-    const old = slot.querySelector('img');
-    if(old) old.remove();
-    const old2 = slot.querySelector('.photo-slot-remove');
-    if(old2) old2.remove();
-    const img = document.createElement('img');
-    img.src = ev.target.result;
-    slot.appendChild(img);
-    const rmBtn = document.createElement('button');
-    rmBtn.className = 'photo-slot-remove';
-    rmBtn.textContent = '✕';
-    rmBtn.onclick = (ev2) => { ev2.preventDefault(); removeSlotPhoto(idx); };
-    slot.appendChild(rmBtn);
-    updatePhotoCount();
-  };
-  reader.readAsDataURL(file);
-}
-
-function removeSlotPhoto(idx) {
-  slotPhotos[idx] = null;
-  const slot = document.getElementById('ps-'+idx);
-  slot.classList.remove('filled');
-  const img = slot.querySelector('img');
-  if(img) img.remove();
-  const btn = slot.querySelector('.photo-slot-remove');
-  if(btn) btn.remove();
-  updatePhotoCount();
-}
-
-function updatePhotoCount() {
-  const n = slotPhotos.filter(Boolean).length;
-  document.getElementById('photos-count').textContent = `PHOTOS UPLOADED: ${n} / 8`;
-}
-
-function updatePriceDisplay() {
-  const v = parseFloat(document.getElementById('price-slider').value);
-  document.getElementById('price-display').textContent = `€${v.toFixed(2)}`;
-}
-
-function submitListing() {
-  const title = document.getElementById('qt-book-title').value.trim();
-  const author = document.getElementById('qt-book-author').value.trim();
-  const genre = document.getElementById('qt-genre').value;
-  const price = document.getElementById('price-slider').value;
-  if(!title||!author||!genre){showToast('PLEASE FILL IN TITLE, AUTHOR AND GENRE.');return;}
-
-  const firstPhoto = slotPhotos.find(Boolean);
-  submittedListings.push({
-    title, author, genre, price,
-    photoUrl: firstPhoto||null,
-    status:'pending',
-    date: new Date().toLocaleDateString('en-GB')
-  });
-
-  // hide all steps, show success
-  for(let i=1;i<=4;i++){
-    const el=document.getElementById('qt-step-'+i);
-    if(el) el.style.display='none';
-  }
-  document.getElementById('qt-success').style.display='block';
-  document.getElementById('qt-fill').style.width='100%';
-  for(let i=1;i<=4;i++){
-    const el=document.getElementById('qts-'+i);
-    const ck=document.getElementById('qtc-'+i);
-    el.className='qt-step-item done';
-    ck.textContent='✓';
-  }
-  window.scrollTo(0,0);
-}
-
-function resetAndGo() {
-  slotPhotos = Array(8).fill(null);
-  defectsChecked.clear();
-  ['qt-name','qt-city','qt-email','qt-phone','qt-book-title','qt-book-author','qt-edition','qt-book-desc'].forEach(id=>{
-    const el=document.getElementById(id); if(el) el.value='';
-  });
-  document.querySelectorAll('.defect-item').forEach(el=>el.classList.remove('checked'));
-  document.querySelectorAll('.defect-item input').forEach(el=>el.checked=false);
-  for(let i=0;i<8;i++){
-    const slot=document.getElementById('ps-'+i);
-    if(!slot) continue;
-    slot.classList.remove('filled');
-    const img=slot.querySelector('img'); if(img) img.remove();
-    const btn=slot.querySelector('.photo-slot-remove'); if(btn) btn.remove();
-  }
-  updatePhotoCount();
-  showPage('quality-test');
-}
-
-/* ============================================================
-   TOAST
-============================================================ */
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3000);
-}
-
-/* ============================================================
-   IMAGE FALLBACK
-============================================================ */
-// Inline SVG placeholder — a book icon on cream background
-const PLACEHOLDER = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='300' viewBox='0 0 200 300'><rect width='200' height='300' fill='%23E2DDD6'/><rect x='20' y='30' width='4' height='240' fill='%23B0A89E'/><rect x='24' y='30' width='140' height='240' fill='%23D4CEC7'/><text x='94' y='165' font-family='serif' font-size='48' fill='%23B0A89E' text-anchor='middle'>📖</text></svg>`;
-
-function imgError(el) {
-  el.onerror = null;
-  el.src = PLACEHOLDER;
-  el.style.objectFit = 'contain';
-  el.style.padding = '8px';
-  el.style.background = '#E2DDD6';
-}
-
-// Patch all img tags dynamically produced to include onerror
-function safeImg(src, alt, cls='') {
-  return `<img src="${src}" alt="${alt}" class="${cls}" onerror="imgError(this)" loading="lazy">`;
-}
-
-/* ============================================================
-   INIT
-============================================================ */
-document.addEventListener('DOMContentLoaded',()=>{
-  renderFeatured();
-  renderBooks();
-  updatePriceDisplay();
-  document.getElementById('nl-home').classList.add('active');
-  // Attach onerror to any static imgs
-  document.querySelectorAll('img[src]').forEach(img => { img.onerror = function(){ imgError(this); }; });
-});
+// ============================================================
+// INIT
+// ============================================================
+navigate('home');
 </script>
 </body>
 </html>
