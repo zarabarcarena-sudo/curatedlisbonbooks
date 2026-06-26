@@ -133,6 +133,1444 @@ textarea.fi{height:96px;resize:vertical;font-family:'Barlow',system-ui,sans-seri
 .upload-hint{font-size:13px;color:var(--muted);}
 .photo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px;}
 .photo-thumb{aspect-ratio:1;object-fit:cover;width:100%;}
+/* COVER PHOTO STEP */
+.cover-upload-outer{display:flex;gap:36px;align-items:flex-start;}
+.cover-upload-zone{flex:1;}
+.cover-preview-wrap{display:none;text-align:center;min-width:160px;}
+.cover-preview-img{width:160px;aspect-ratio:2/3;object-fit:cover;display:block;margin:0 auto;border:2px solid var(--border);}
+.cover-preview-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:10px 0 8px;}
+/* LISTING CARD UPDATES */
+.pend-cover{width:54px;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--border);flex-shrink:0;}
+.pend-cover-ph{width:54px;aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;background:var(--border);font-size:22px;flex-shrink:0;}
+.pend-edit-btn{background:transparent;border:1.5px solid var(--text);color:var(--text);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;transition:all .2s;white-space:nowrap;}
+.pend-edit-btn:hover{background:var(--text);color:var(--white);}
+.qt-nav{max-width:580px;display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:28px;border-top:1px solid var(--border);}
+.ex-box{border:1px solid var(--border);padding:20px;margin-bottom:24px;background:var(--bg);}
+.ex-tag{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+.ex-row{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:start;}
+.ex-thumb{width:56px;height:84px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;}
+
+/* ── SELLERS ── */
+.s-layout{max-width:1200px;margin:0 auto;padding:48px 40px;}
+.s-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:44px;}
+.s-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:44px;text-transform:uppercase;line-height:1;}
+.placeholder-box{border:2px dashed var(--border);padding:64px;text-align:center;}
+.placeholder-box h3{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:22px;text-transform:uppercase;margin-bottom:10px;}
+.placeholder-box p{color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6;}
+.pend-card{border:1px solid var(--border);padding:24px;display:grid;grid-template-columns:88px 1fr auto;gap:22px;align-items:start;margin-bottom:12px;background:var(--white);}
+.pend-badge{display:inline-block;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;padding:4px 10px;text-transform:uppercase;background:#FFF3CD;color:#7B5800;}
+.pend-thumb{width:88px;height:132px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:28px;}
+.pend-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:19px;margin-bottom:3px;}
+.pend-meta{font-size:13px;color:var(--muted);margin-bottom:6px;}
+.pend-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:17px;margin-bottom:10px;}
+.pend-photos{font-size:12px;color:var(--muted);}
+.pend-note{font-size:12px;color:var(--muted);text-align:right;max-width:150px;line-height:1.5;}
+
+/* ── CART SIDEBAR ── */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;}
+.cart-overlay.on{display:block;}
+.cart-side{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:var(--white);z-index:201;display:grid;grid-template-rows:auto 1fr auto;transition:right .3s ease;}
+.cart-side.on{right:0;}
+.cart-hd{display:flex;justify-content:space-between;align-items:center;padding:32px 32px 24px;border-bottom:1px solid var(--border);}
+.cart-hd h2{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:22px;text-transform:uppercase;}
+.x-btn{background:none;border:none;cursor:pointer;font-size:24px;color:var(--muted);line-height:1;}
+.cart-body{overflow-y:auto;padding:24px 32px;}
+.cart-empty-msg{height:100%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+.ci{display:grid;grid-template-columns:58px 1fr auto;gap:12px;align-items:start;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border);}
+.ci img{width:58px;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--border);}
+.ci-info h4{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:15px;margin-bottom:3px;}
+.ci-info p{font-size:12px;color:var(--muted);margin-bottom:2px;}
+.ci-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:16px;}
+.rm-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;}
+.rm-btn:hover{color:var(--accent);}
+.cart-ft{padding:20px 32px 32px;border-top:1px solid var(--border);}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+.cart-total-row span{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.08em;}
+
+/* ── BOOK MODAL ── */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;align-items:center;justify-content:center;}
+.modal-ov.on{display:flex;}
+.modal-box{background:var(--white);width:90%;max-width:840px;max-height:90vh;overflow-y:auto;padding:48px;position:relative;}
+.modal-x{position:absolute;top:18px;right:20px;background:none;border:none;cursor:pointer;font-size:26px;color:var(--muted);line-height:1;}
+.modal-grid{display:grid;grid-template-columns:260px 1fr;gap:44px;}
+.modal-cover{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--border);}
+.m-badge{display:inline-block;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.08em;padding:4px 10px;background:var(--bg);margin-bottom:14px;text-transform:uppercase;}
+.m-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:30px;line-height:1.1;margin-bottom:5px;}
+.m-author{font-size:15px;color:var(--muted);margin-bottom:16px;}
+.m-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:34px;margin-bottom:20px;}
+.m-desc{font-size:14px;line-height:1.7;color:var(--muted);margin-bottom:22px;}
+.m-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;padding:18px;background:var(--bg);}
+.m-meta-item label{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;}
+.m-meta-item span{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:13px;}
+.deliv-head{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+.dopt{display:flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid var(--border);cursor:pointer;transition:border-color .15s;margin-bottom:6px;}
+.dopt.on{border-color:var(--text);}
+.dopt-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;flex:1;}
+.dopt-fee{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:12px;color:var(--muted);}
+
+/* TOAST */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--text);color:var(--white);padding:13px 28px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;z-index:400;transition:transform .3s;pointer-events:none;white-space:nowrap;}
+.toast.on{transform:translateX(-50%) translateY(0);}
+
+/* BADGE POP */
+@keyframes badgePop{0%{transform:scale(1)}40%{transform:scale(1.6)}100%{transform:scale(1)}}
+.badge.pop{animation:badgePop .35s ease;}
+
+/* CART DELIVERY SELECT */
+.ci-deliv-sel{margin-top:7px;width:100%;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;letter-spacing:.04em;border:1px solid var(--border);background:var(--bg);padding:4px 6px;color:var(--text);cursor:pointer;}
+.ci-deliv-sel:focus{outline:none;border-color:var(--text);}
+.ci-shipping-note{font-size:11px;color:var(--accent);font-family:'Barlow Condensed','Arial Narrow',sans-serif;margin-top:3px;letter-spacing:.04em;}
+
+/* ── CHECKOUT PAGE ── */
+.co-wrap{max-width:1200px;margin:0 auto;padding:60px 40px 80px;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:start;}
+.co-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:64px;text-transform:uppercase;line-height:1;margin-bottom:44px;}
+.co-section{margin-bottom:36px;}
+.co-section-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.co-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.co-fg{display:flex;flex-direction:column;gap:5px;}
+.co-fg.full{grid-column:1/-1;}
+.co-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.co-input{padding:14px 16px;border:1px solid var(--border);background:var(--white);font-family:'Barlow',system-ui,sans-serif;font-size:14px;color:var(--text);width:100%;transition:border-color .2s;}
+.co-input:focus{outline:none;border-color:var(--text);}
+.co-input::placeholder{color:var(--muted);opacity:.6;}
+.co-place-btn{width:100%;padding:18px;background:var(--text);color:var(--white);border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:18px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-top:32px;transition:background .2s;}
+.co-place-btn:hover{background:var(--accent);}
+.co-summary{background:var(--white);padding:32px;position:sticky;top:76px;}
+.co-sum-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.co-item{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:start;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.co-item img{width:52px;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--border);}
+.co-item-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:15px;margin-bottom:3px;}
+.co-item-meta{font-size:12px;color:var(--muted);}
+.co-item-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:15px;white-space:nowrap;}
+.co-totals{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+.co-row{display:flex;justify-content:space-between;align-items:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;}
+.co-row span:last-child{font-weight:600;}
+.co-row.total{font-size:17px;font-weight:800;padding-top:12px;border-top:2px solid var(--text);margin-top:4px;}
+.co-row.total span{font-weight:800;}
+
+/* ORDER CONFIRMED */
+.co-confirmed{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 56px);text-align:center;padding:60px 40px;}
+.co-confirmed h1{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:900;font-size:72px;text-transform:uppercase;line-height:.95;margin:16px 0 24px;}
+.co-confirmed p{font-size:16px;color:var(--muted);line-height:1.7;max-width:460px;margin:0 auto 36px;}
+.co-tick{font-size:56px;}
+
+hr.thin{border:none;border-top:1px solid var(--border);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="logo" id="logo">LIVRARIA.PT</span>
+  <div class="nav-links">
+    <span class="nav-link on" data-p="home" id="nl-home">HOME</span>
+    <span class="nav-link" data-p="browse" id="nl-browse">BROWSE</span>
+    <span class="nav-link" data-p="sell" id="nl-sell">SELL</span>
+    <span class="nav-link" data-p="sellers" id="nl-sellers">SELLERS</span>
+  </div>
+  <button class="cart-btn" id="cart-open-btn">CART <span class="badge" id="cart-count">00</span></button>
+</nav>
+
+<!-- HOME -->
+<div class="page on" id="page-home">
+  <div class="hero">
+    <div>
+      <h1>Second-hand English editions, curated in Lisboa.</h1>
+      <p>The weight of a Penguin Classic, the scent of a 1970s hardback. We verify every spine, every page, every seller.</p>
+      <div class="hero-btns">
+        <button class="btn-dark" id="hero-browse">BROWSE THE SHELF</button>
+        <button class="btn-ghost" id="hero-sell">SELL A BOOK</button>
+      </div>
+    </div>
+    <div>
+      <div class="hero-features">
+        <div>(01) PLATFORM: CURATED RARITIES, VERIFIED BY HOUSE EXPERTS.</div>
+        <div>(02) PRIVATE: COMMUNITY MARKETPLACE, CONDITION-TESTED.</div>
+        <div>(03) PICKUP IN LISBOA, PORTO, CASCAIS — OR CTT SHIPPING.</div>
+      </div>
+    </div>
+  </div>
+  <hr class="thin">
+  <div class="arch">
+    <div class="arch-head">
+      <div>
+        <div class="lbl" style="margin-bottom:8px">FEATURED</div>
+        <div class="sec-title">FROM THE ARCHIVE</div>
+      </div>
+      <div class="tab-row">
+        <button class="tab on" id="tab-platform">Platform Stock</button>
+        <button class="tab" id="tab-private">Private Sellers</button>
+      </div>
+    </div>
+    <div class="grid" id="home-grid"></div>
+  </div>
+</div>
+
+<!-- BROWSE -->
+<div class="page" id="page-browse">
+  <div class="br-head">
+    <div class="lbl" id="shelf-lbl" style="margin-bottom:8px">THE SHELF · 15 TITLES TOTAL</div>
+    <div class="br-title">BROWSE THE CATALOGUE</div>
+  </div>
+  <div class="filter-bar">
+    <div class="frow">
+      <span class="flbl">SELLER</span>
+      <div class="fgrp">
+        <button class="fbtn on" data-f="seller" data-v="all">All sellers</button>
+        <button class="fbtn" data-f="seller" data-v="platform">Platform</button>
+        <button class="fbtn" data-f="seller" data-v="private">Private</button>
+      </div>
+      <input class="srch" type="text" placeholder="Search title, author, genre…" id="srch-inp">
+    </div>
+    <div class="frow">
+      <span class="flbl">CLASS</span>
+      <div class="fgrp">
+        <button class="fbtn on" data-f="cls" data-v="all">ANY</button>
+        <button class="fbtn" data-f="cls" data-v="A">CLASS A</button>
+        <button class="fbtn" data-f="cls" data-v="B">CLASS B</button>
+        <button class="fbtn" data-f="cls" data-v="C">CLASS C</button>
+      </div>
+    </div>
+    <div class="frow">
+      <span class="flbl">GENRE</span>
+      <select class="fsel" id="genre-sel">
+        <option value="">ALL GENRES</option>
+        <option value="Fiction">FICTION</option>
+        <option value="Fantasy">FANTASY</option>
+        <option value="Science Fiction">SCIENCE FICTION</option>
+        <option value="Non-Fiction">NON-FICTION</option>
+        <option value="Romance">ROMANCE</option>
+        <option value="Mystery">MYSTERY</option>
+        <option value="Biography">BIOGRAPHY</option>
+        <option value="Thriller">THRILLER</option>
+      </select>
+      <span class="flbl" style="margin-left:16px">PRICE €</span>
+      <input class="pinput" type="number" placeholder="min" id="p-min">
+      <span style="color:var(--muted);font-size:12px">—</span>
+      <input class="pinput" type="number" placeholder="max" id="p-max">
+    </div>
+  </div>
+  <div class="br-bar" id="br-bar">SHOWING 15 OF 15</div>
+  <div class="br-grid">
+    <div class="grid" id="browse-grid"></div>
+  </div>
+</div>
+
+<!-- SELL -->
+<div class="page" id="page-sell">
+  <div class="sell-land">
+    <div class="lbl">BECOME A SELLER</div>
+    <h1>START SELLING NOW</h1>
+    <p>You don't have a seller profile yet. Create yours in under two minutes — we'll walk you through the quality test, photo upload, and your first listing.</p>
+    <button class="btn-accent" id="sell-cta">CREATE YOUR SELLER PROFILE →</button>
+  </div>
+</div>
+
+<!-- QUALITY TEST -->
+<div class="page" id="page-quality-test">
+  <div class="qt-wrap">
+    <div class="qt-side">
+      <div class="qt-slbl" id="qt-slbl">STEP 01 OF 05: ACCOUNT</div>
+      <div class="qt-stitle">SELLER QUALITY TEST</div>
+      <div class="qt-pbar"><div class="qt-pfill" id="qt-pfill" style="width:20%"></div></div>
+      <div class="qt-steps">
+        <div class="qt-si on" id="si-1"><span class="qt-snum">01</span><span class="qt-sname">ACCOUNT</span></div>
+        <div class="qt-si" id="si-2"><span class="qt-snum">02</span><span class="qt-sname">QUALITY TEST</span></div>
+        <div class="qt-si" id="si-3"><span class="qt-snum">03</span><span class="qt-sname">COVER PHOTO</span></div>
+        <div class="qt-si" id="si-4"><span class="qt-snum">04</span><span class="qt-sname">PHOTOS</span></div>
+        <div class="qt-si" id="si-5"><span class="qt-snum">05</span><span class="qt-sname">LISTING</span></div>
+      </div>
+      <div class="why-box">
+        <h4>WHY A TEST?</h4>
+        <p>Every listing is reviewed by our team. Honest condition reporting + clear photos = a faster approval and a higher seller rating.</p>
+      </div>
+    </div>
+    <div class="qt-body">
+
+      <!-- Step 1 -->
+      <div id="qs-1">
+        <div class="qt-card">
+          <div class="qt-ctitle">TELL US WHO YOU ARE</div>
+          <div class="qt-csub">We verify every private seller by name and city. This protects buyers — and keeps the marketplace honest.</div>
+          <div class="fgrid">
+            <div class="fg"><label class="flabel">FULL NAME</label><input class="fi" type="text" placeholder="Margarida Silva" id="s-name"></div>
+            <div class="fg"><label class="flabel">CITY</label><input class="fi" type="text" placeholder="Lisboa" id="s-city"></div>
+            <div class="fg"><label class="flabel">EMAIL</label><input class="fi" type="email" placeholder="you@example.pt" id="s-email"></div>
+            <div class="fg"><label class="flabel">MOBILE (PT)</label><input class="fi" type="tel" placeholder="+351 …" id="s-phone"></div>
+          </div>
+        </div>
+        <div class="qt-nav">
+          <button class="btn-back" id="qt1-back">← BACK</button>
+          <button class="btn-dark" id="qt1-next">CONTINUE →</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="qs-2" style="display:none">
+        <div class="qt-card">
+          <div class="qt-ctitle">ASSESS YOUR BOOK</div>
+          <div class="qt-csub">Answer honestly — our team will cross-check against your photos. Accurate ratings lead to faster approvals and better reviews.</div>
+          <div class="fgrid">
+            <div class="fg full"><label class="flabel">BOOK TITLE</label><input class="fi" type="text" placeholder="e.g. Midnight in Lisbon" id="b-title"></div>
+            <div class="fg full"><label class="flabel">AUTHOR</label><input class="fi" type="text" placeholder="e.g. Ana Ramos" id="b-author"></div>
+            <div class="fg">
+              <label class="flabel">GENRE</label>
+              <select class="fi" id="b-genre">
+                <option value="">Select genre</option>
+                <option>Fiction</option><option>Fantasy</option><option>Science Fiction</option>
+                <option>Non-Fiction</option><option>Romance</option><option>Mystery</option>
+                <option>Biography</option><option>Thriller</option>
+              </select>
+            </div>
+            <div class="fg"><label class="flabel">YEAR PUBLISHED</label><input class="fi" type="number" placeholder="e.g. 2003" id="b-year"></div>
+            <div class="fg full">
+              <label class="flabel">SELF-ASSESSED CONDITION</label>
+              <select class="fi" id="b-cond">
+                <option value="">Select condition</option>
+                <option value="A">Like New / Excellent</option>
+                <option value="B">Good — minor wear</option>
+                <option value="C">Fair — visible wear</option>
+              </select>
+            </div>
+          </div>
+          <div class="flabel" style="margin-bottom:0">KNOWN DEFECTS (select all that apply)</div>
+          <div class="checks">
+            <label class="chk"><input type="checkbox"> Spine crease or break</label>
+            <label class="chk"><input type="checkbox"> Page yellowing</label>
+            <label class="chk"><input type="checkbox"> Stains or marks</label>
+            <label class="chk"><input type="checkbox"> Rips or tears</label>
+            <label class="chk"><input type="checkbox"> Writing or highlighting inside</label>
+            <label class="chk"><input type="checkbox"> Water damage</label>
+          </div>
+          <div style="margin-top:18px">
+            <label class="flabel">DESCRIPTION</label>
+            <textarea class="fi" style="margin-top:5px" placeholder="Briefly describe the story and physical condition of the book…" id="b-desc"></textarea>
+          </div>
+        </div>
+        <div class="qt-nav">
+          <button class="btn-back" id="qt2-back">← BACK</button>
+          <button class="btn-dark" id="qt2-next">CONTINUE →</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Cover Photo (NEW) -->
+      <div id="qs-3" style="display:none">
+        <div class="qt-card">
+          <div class="qt-ctitle">CHOOSE YOUR COVER PHOTO</div>
+          <div class="qt-csub">This will be the main image shown on your listing card. Use a clear, well-lit front cover photo.</div>
+          <div class="cover-upload-outer">
+            <div class="cover-upload-zone">
+              <div class="upload-area" id="cover-upload-area">
+                <div class="upload-icon">🖼</div>
+                <div class="upload-label">CLICK TO UPLOAD COVER</div>
+                <div class="upload-hint">JPG, PNG or WEBP · single image · max 10 MB</div>
+                <input type="file" id="cover-input" accept="image/*" style="display:none">
+              </div>
+            </div>
+            <div class="cover-preview-wrap" id="cover-preview-wrap">
+              <img class="cover-preview-img" id="cover-preview-img" src="" alt="Cover preview">
+              <div class="cover-preview-lbl">YOUR COVER</div>
+              <button class="btn-ghost" id="cover-change-btn" style="font-size:11px;padding:8px 14px;letter-spacing:.08em">CHANGE →</button>
+            </div>
+          </div>
+        </div>
+        <div class="qt-nav">
+          <button class="btn-back" id="qt3-back">← BACK</button>
+          <button class="btn-dark" id="qt3-next">CONTINUE →</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Condition Photos (was Step 3) -->
+      <div id="qs-4" style="display:none">
+        <div class="qt-card">
+          <div class="qt-ctitle">UPLOAD YOUR PHOTOS</div>
+          <div class="qt-csub">We need at least 4 shots: front cover, back cover, spine, and any visible defects. Clear photos speed up approval.</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">
+            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Front Cover</div>
+            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Back Cover</div>
+            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Spine</div>
+            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Defects</div>
+          </div>
+          <div class="upload-area" id="upload-area">
+            <div class="upload-icon">📷</div>
+            <div class="upload-label">CLICK TO UPLOAD PHOTOS</div>
+            <div class="upload-hint">JPG, PNG or WEBP · up to 10 photos · max 10 MB each</div>
+            <input type="file" id="photo-input" multiple accept="image/*" style="display:none">
+          </div>
+          <div class="photo-grid" id="photo-grid"></div>
+        </div>
+        <div class="qt-nav">
+          <button class="btn-back" id="qt4-back">← BACK</button>
+          <button class="btn-dark" id="qt4-next">CONTINUE →</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Listing (was Step 4) -->
+      <div id="qs-5" style="display:none">
+        <div class="qt-card">
+          <div class="qt-ctitle">YOUR LISTING</div>
+          <div class="qt-csub">Set your price and delivery preference. Our team will assign the final class and publish within 24 hours.</div>
+          <div class="ex-box">
+            <div class="ex-tag">EXAMPLE LISTING — HOW YOURS WILL APPEAR ON THE SHELF</div>
+            <div class="ex-row">
+              <div class="ex-thumb">📚</div>
+              <div>
+                <div style="font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:17px;margin-bottom:2px">The Midnight Library</div>
+                <div style="font-size:13px;color:var(--muted);margin-bottom:5px">Matt Haig</div>
+                <div style="font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Fiction · Class B · Private</div>
+                <div style="font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:19px">€9.00</div>
+              </div>
+            </div>
+          </div>
+          <div class="fgrid">
+            <div class="fg"><label class="flabel">ASKING PRICE (€)</label><input class="fi" type="number" placeholder="0.00" step="0.50" min="1" id="b-price"></div>
+            <div class="fg">
+              <label class="flabel">DELIVERY OPTIONS</label>
+              <select class="fi" id="b-delivery">
+                <option value="pickup">Pickup only (Lisboa)</option>
+                <option value="both">Pickup + CTT Shipping</option>
+                <option value="shipping">Shipping only</option>
+              </select>
+            </div>
+            <div class="fg full">
+              <label class="flabel">PICKUP LOCATION</label>
+              <select class="fi" id="b-pickup">
+                <option>Lisboa — Chiado</option>
+                <option>Lisboa — Baixa</option>
+                <option>Porto — Baixa</option>
+                <option>Cascais — Marina</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="qt-nav">
+          <button class="btn-back" id="qt5-back">← BACK</button>
+          <button class="btn-accent" id="qt5-submit">SUBMIT LISTING →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SELLERS -->
+<div class="page" id="page-sellers">
+  <div id="s-noprofile">
+    <div class="sell-land">
+      <div class="lbl">SELLERS DASHBOARD</div>
+      <h1 style="font-size:76px">YOU'RE NOT A<br>SELLER YET</h1>
+      <p>Create your seller profile to start listing books. It only takes a couple of minutes.</p>
+      <button class="btn-accent" id="sellers-cta">START SELLING NOW →</button>
+    </div>
+  </div>
+  <div id="s-dashboard" style="display:none">
+    <div class="s-layout">
+      <div class="s-head">
+        <div>
+          <div class="lbl" style="margin-bottom:8px">SELLERS DASHBOARD</div>
+          <div class="s-title">MY LISTINGS</div>
+        </div>
+        <button class="btn-dark" id="new-listing-btn">+ NEW LISTING</button>
+      </div>
+      <div id="seller-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="page" id="page-checkout">
+  <!-- Checkout form state -->
+  <div id="co-form-state">
+    <div class="co-wrap">
+      <!-- Left: form -->
+      <div>
+        <div class="co-title">CHECKOUT</div>
+
+        <div class="co-section">
+          <div class="co-section-lbl">DELIVERY DETAILS</div>
+          <div class="co-grid">
+            <div class="co-fg full">
+              <label class="co-lbl">FULL NAME</label>
+              <input class="co-input" type="text" placeholder="Margarida Silva" id="co-name">
+            </div>
+            <div class="co-fg full">
+              <label class="co-lbl">EMAIL</label>
+              <input class="co-input" type="email" placeholder="you@example.pt" id="co-email">
+            </div>
+            <div class="co-fg full">
+              <label class="co-lbl">ADDRESS</label>
+              <input class="co-input" type="text" placeholder="Rua das Flores 12" id="co-address">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">CITY</label>
+              <input class="co-input" type="text" placeholder="Lisboa" id="co-city">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">POSTAL CODE</label>
+              <input class="co-input" type="text" placeholder="1200-195" id="co-postal">
+            </div>
+          </div>
+        </div>
+
+        <div class="co-section">
+          <div class="co-section-lbl">PAYMENT</div>
+          <div class="co-grid">
+            <div class="co-fg full">
+              <label class="co-lbl">CARD NUMBER</label>
+              <input class="co-input" type="text" placeholder="4242 4242 4242 4242" id="co-card" maxlength="19">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">EXPIRY</label>
+              <input class="co-input" type="text" placeholder="MM / YY" id="co-expiry" maxlength="7">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">CVC</label>
+              <input class="co-input" type="text" placeholder="123" id="co-cvc" maxlength="3">
+            </div>
+          </div>
+        </div>
+
+        <button class="co-place-btn" id="co-place-btn">PLACE ORDER · <span id="co-btn-total">€0.00</span></button>
+      </div>
+
+      <!-- Right: order summary -->
+      <div>
+        <div class="co-summary">
+          <div class="co-sum-title">ORDER SUMMARY</div>
+          <div id="co-items"></div>
+          <div class="co-totals">
+            <div class="co-row"><span>SUBTOTAL</span><span id="co-subtotal">€0.00</span></div>
+            <div class="co-row"><span>SHIPPING</span><span id="co-shipping">€0.00</span></div>
+            <div class="co-row total"><span>TOTAL</span><span id="co-total">€0.00</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmed state -->
+  <div id="co-confirmed-state" style="display:none">
+    <div class="co-confirmed">
+      <div class="co-tick">✓</div>
+      <h1>ORDER PLACED</h1>
+      <p>Thank you! Your order is confirmed. You'll receive a confirmation email shortly with pickup or shipping details.</p>
+      <button class="btn-dark" id="co-back-home">BACK TO THE SHELF →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CART -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-side" id="cart-side">
+  <div class="cart-hd">
+    <h2>YOUR CART</h2>
+    <button class="x-btn" id="cart-close-btn">×</button>
+  </div>
+  <div class="cart-body" id="cart-body">
+    <div class="cart-empty-msg">Your cart is empty</div>
+  </div>
+  <div class="cart-ft" id="cart-ft" style="display:none">
+    <div class="cart-total-row"><span>TOTAL</span><span id="cart-total">€0.00</span></div>
+    <button class="btn-dark" style="width:100%;margin-bottom:8px" id="checkout-btn">PROCEED TO CHECKOUT →</button>
+    <button class="btn-ghost" style="width:100%" id="cart-continue">CONTINUE BROWSING</button>
+  </div>
+</div>
+
+<!-- BOOK MODAL -->
+<div class="modal-ov" id="modal-ov">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-x" id="modal-x">×</button>
+    <div class="modal-grid">
+      <div><img class="modal-cover" id="m-cover" src="" alt=""></div>
+      <div>
+        <div class="m-badge" id="m-badge">CLASS A</div>
+        <div class="m-title" id="m-title">Title</div>
+        <div class="m-author" id="m-author">Author</div>
+        <div class="m-price" id="m-price">€0.00</div>
+        <div class="m-desc" id="m-desc">Description</div>
+        <div class="m-meta" id="m-meta"></div>
+        <div class="deliv-head">DELIVERY OPTIONS</div>
+        <div class="dopt on" id="dopt-pickup">
+          <input type="radio" name="deliv" value="pickup" checked>
+          <span class="dopt-lbl">Pickup — Lisboa, Porto or Cascais</span>
+          <span class="dopt-fee">FREE</span>
+        </div>
+        <div class="dopt" id="dopt-ship">
+          <input type="radio" name="deliv" value="shipping">
+          <span class="dopt-lbl">CTT Shipping (3–5 days)</span>
+          <span class="dopt-fee">+€3.50</span>
+        </div>
+        <div style="margin-bottom:20px"></div>
+        <button class="btn-dark" style="width:100%" id="modal-add-btn">ADD TO CART →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+// ─── DATA ─────────────────────────────────────────────────────────────
+var BOOKS = [
+  {id:1,title:'1984',author:'George Orwell',genre:'Fiction',cls:'B',price:8,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780451524935-L.jpg',
+   desc:'A dystopian masterpiece set in a totalitarian society ruled by Big Brother. Winston Smith\'s quiet rebellion against the Party is one of literature\'s most enduring stories.',year:1949},
+  {id:2,title:'Brave New World',author:'Aldous Huxley',genre:'Science Fiction',cls:'A',price:12,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780060850524-L.jpg',
+   desc:'Citizens engineered to love their own servitude. Huxley\'s vision of a future ruled by pleasure and conformity remains startlingly prescient.',year:1932},
+  {id:3,title:'The Hobbit',author:'J.R.R. Tolkien',genre:'Fantasy',cls:'A',price:15,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780345339683-L.jpg',
+   desc:'Bilbo Baggins is swept into an epic quest to reclaim the Lonely Mountain from a dragon, accompanied by thirteen dwarves and a wizard.',year:1937},
+  {id:4,title:'A Game of Thrones',author:'George R.R. Martin',genre:'Fantasy',cls:'B',price:10,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780553103540-L.jpg',
+   desc:'Seven noble families struggle for control of the Iron Throne. Political intrigue, betrayal, and a long-forgotten threat from beyond the Wall.',year:1996},
+  {id:5,title:'The Great Gatsby',author:'F. Scott Fitzgerald',genre:'Fiction',cls:'A',price:9,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780743273565-L.jpg',
+   desc:'Nick Carraway narrates the tragic story of Jay Gatsby\'s obsession with Daisy Buchanan, set against the glittering excess of the Jazz Age.',year:1925},
+  {id:6,title:'To Kill a Mockingbird',author:'Harper Lee',genre:'Fiction',cls:'B',price:7,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780061935466-L.jpg',
+   desc:'Through Scout Finch\'s eyes, we see racial injustice and moral courage in Depression-era Alabama. A Pulitzer Prize classic.',year:1960},
+  {id:7,title:'Pride and Prejudice',author:'Jane Austen',genre:'Romance',cls:'A',price:11,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg',
+   desc:'Elizabeth Bennet navigates manners, marriage, and misunderstanding — chiefly with the proud and reserved Mr. Darcy. Penguin Classics edition.',year:1813},
+  {id:8,title:'The Catcher in the Rye',author:'J.D. Salinger',genre:'Fiction',cls:'C',price:5,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780316769174-L.jpg',
+   desc:'Holden Caulfield\'s voice is as raw and restless as ever in this portrait of adolescent alienation in postwar New York.',year:1951},
+  {id:9,title:'Sapiens',author:'Yuval Noah Harari',genre:'Non-Fiction',cls:'B',price:14,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780062316097-L.jpg',
+   desc:'A sweeping history of humankind from the Stone Age to the present. How did Homo sapiens come to dominate the planet?',year:2011},
+  {id:10,title:'Dune',author:'Frank Herbert',genre:'Science Fiction',cls:'A',price:18,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780441013593-L.jpg',
+   desc:'Paul Atreides navigates the politics and ecology of the desert planet Arrakis, home to the universe\'s most precious substance: spice.',year:1965},
+  {id:11,title:'Norwegian Wood',author:'Haruki Murakami',genre:'Fiction',cls:'A',price:13,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780375704024-L.jpg',
+   desc:'A nostalgic and melancholic story of loss and sexuality in 1960s Tokyo. One of Murakami\'s most accessible and beloved novels.',year:1987},
+  {id:12,title:'Crime and Punishment',author:'Fyodor Dostoevsky',genre:'Fiction',cls:'B',price:9,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780140449136-L.jpg',
+   desc:'Raskolnikov murders a pawnbroker and then struggles with guilt and paranoia in this psychological tour de force.',year:1866},
+  {id:13,title:'The Alchemist',author:'Paulo Coelho',genre:'Fiction',cls:'A',price:10,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780061122415-L.jpg',
+   desc:'A young shepherd follows his dream of finding treasure near the Egyptian pyramids. A philosophical fable about listening to your heart.',year:1988},
+  {id:14,title:'The Name of the Rose',author:'Umberto Eco',genre:'Mystery',cls:'B',price:11,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780156001311-L.jpg',
+   desc:'A monk and his novice investigate a series of mysterious deaths in a 14th-century Italian monastery. Murder, manuscripts, and theology.',year:1980},
+  {id:15,title:'Educated',author:'Tara Westover',genre:'Biography',cls:'A',price:16,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780399590504-L.jpg',
+   desc:'A memoir of growing up in a survivalist family in rural Idaho and ultimately earning a PhD from Cambridge. Extraordinary and urgent.',year:2018}
+];
+
+// ─── STATE ─────────────────────────────────────────────────────────────
+var cart = [];
+var currentModalId = null;
+var hasProfile = false;
+var sellerListings = [];
+var uploadCount = 0;
+var currentDelivery = 'pickup';
+var homeFeaturedType = 'platform';
+var activeFilters = {seller:'all', cls:'all', genre:'', min:null, max:null, search:''};
+
+// ─── NAVIGATION ────────────────────────────────────────────────────────
+function showPage(name) {
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('on');
+  var links = document.querySelectorAll('.nav-link');
+  for (var j = 0; j < links.length; j++) links[j].classList.remove('on');
+  var pg = document.getElementById('page-' + name);
+  if (pg) pg.classList.add('on');
+  var nl = document.getElementById('nl-' + name);
+  if (nl) nl.classList.add('on');
+  window.scrollTo(0, 0);
+  if (name === 'home') renderHome();
+  if (name === 'browse') renderBrowse();
+  if (name === 'quality-test') goStep(1);
+  if (name === 'sellers') renderSellers();
+}
+
+// ─── HOME ──────────────────────────────────────────────────────────────
+function renderHome() {
+  var list = [];
+  for (var i = 0; i < BOOKS.length; i++) {
+    if (BOOKS[i].seller === homeFeaturedType) list.push(BOOKS[i]);
+    if (list.length >= 8) break;
+  }
+  document.getElementById('home-grid').innerHTML = list.map(bookCard).join('');
+}
+
+document.getElementById('tab-platform').addEventListener('click', function() {
+  homeFeaturedType = 'platform';
+  document.getElementById('tab-platform').classList.add('on');
+  document.getElementById('tab-private').classList.remove('on');
+  renderHome();
+});
+document.getElementById('tab-private').addEventListener('click', function() {
+  homeFeaturedType = 'private';
+  document.getElementById('tab-private').classList.add('on');
+  document.getElementById('tab-platform').classList.remove('on');
+  renderHome();
+});
+
+// ─── BROWSE ────────────────────────────────────────────────────────────
+function getFiltered() {
+  return BOOKS.filter(function(b) {
+    if (activeFilters.seller !== 'all' && b.seller !== activeFilters.seller) return false;
+    if (activeFilters.cls !== 'all' && b.cls !== activeFilters.cls) return false;
+    if (activeFilters.genre && b.genre !== activeFilters.genre) return false;
+    if (activeFilters.min !== null && b.price < activeFilters.min) return false;
+    if (activeFilters.max !== null && b.price > activeFilters.max) return false;
+    if (activeFilters.search) {
+      var s = activeFilters.search;
+      var match = b.title.toLowerCase().indexOf(s) > -1 ||
+                  b.author.toLowerCase().indexOf(s) > -1 ||
+                  b.genre.toLowerCase().indexOf(s) > -1;
+      if (!match) return false;
+    }
+    return true;
+  });
+}
+
+function renderBrowse() {
+  var list = getFiltered();
+  var html = list.length
+    ? list.map(bookCard).join('')
+    : '<div class="no-results">No books match your filters</div>';
+  document.getElementById('browse-grid').innerHTML = html;
+  document.getElementById('br-bar').textContent = 'SHOWING ' + list.length + ' OF ' + BOOKS.length;
+  document.getElementById('shelf-lbl').textContent = 'THE SHELF · ' + BOOKS.length + ' TITLES TOTAL';
+}
+
+function applyFilters() {
+  activeFilters.genre = document.getElementById('genre-sel').value;
+  var minVal = document.getElementById('p-min').value;
+  var maxVal = document.getElementById('p-max').value;
+  activeFilters.min = minVal ? parseFloat(minVal) : null;
+  activeFilters.max = maxVal ? parseFloat(maxVal) : null;
+  activeFilters.search = document.getElementById('srch-inp').value.toLowerCase().trim();
+  renderBrowse();
+}
+
+// Filter buttons
+var fbtns = document.querySelectorAll('.fbtn');
+for (var fi = 0; fi < fbtns.length; fi++) {
+  fbtns[fi].addEventListener('click', (function(btn) {
+    return function() {
+      var type = btn.getAttribute('data-f');
+      var val = btn.getAttribute('data-v');
+      if (type === 'seller') activeFilters.seller = val;
+      if (type === 'cls') activeFilters.cls = val;
+      var siblings = btn.parentNode.querySelectorAll('.fbtn');
+      for (var k = 0; k < siblings.length; k++) siblings[k].classList.remove('on');
+      btn.classList.add('on');
+      renderBrowse();
+    };
+  })(fbtns[fi]));
+}
+
+document.getElementById('genre-sel').addEventListener('change', applyFilters);
+document.getElementById('p-min').addEventListener('input', applyFilters);
+document.getElementById('p-max').addEventListener('input', applyFilters);
+document.getElementById('srch-inp').addEventListener('input', applyFilters);
+
+// ─── BOOK CARD ─────────────────────────────────────────────────────────
+function bookCard(b) {
+  return '<div class="card" data-id="' + b.id + '">' +
+    '<div class="cover-wrap">' +
+      '<img src="' + b.cover + '" alt="' + escAttr(b.title) + '" ' +
+        'onerror="this.style.display=\'none\';this.parentNode.querySelector(\'.cover-placeholder\').style.display=\'flex\'">' +
+      '<div class="cover-placeholder" style="display:none">' +
+        '<div class="ph-title">' + escHtml(b.title) + '</div>' +
+        '<div class="ph-author">' + escHtml(b.author) + '</div>' +
+      '</div>' +
+      '<div class="cls-badge">CLASS ' + b.cls + '</div>' +
+    '</div>' +
+    '<div class="card-info">' +
+      '<h3>' + escHtml(b.title) + '</h3>' +
+      '<div class="au">' + escHtml(b.author) + '</div>' +
+      '<div class="gn">' + escHtml(b.genre) + '</div>' +
+      '<div class="card-foot">' +
+        '<div class="card-price">€' + b.price.toFixed(2) + '</div>' +
+        '<button class="add-btn" data-id="' + b.id + '">ADD →</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+// Delegated click handlers for book cards and add buttons
+function handleGridClick(e) {
+  var addBtn = e.target.closest('.add-btn');
+  if (addBtn) {
+    e.stopPropagation();
+    addToCart(parseInt(addBtn.getAttribute('data-id'), 10));
+    return;
+  }
+  var card = e.target.closest('.card');
+  if (card) {
+    openModal(parseInt(card.getAttribute('data-id'), 10));
+  }
+}
+document.getElementById('home-grid').addEventListener('click', handleGridClick);
+document.getElementById('browse-grid').addEventListener('click', handleGridClick);
+
+// ─── MODAL ─────────────────────────────────────────────────────────────
+function openModal(id) {
+  var b = null;
+  for (var i = 0; i < BOOKS.length; i++) {
+    if (BOOKS[i].id === id) { b = BOOKS[i]; break; }
+  }
+  if (!b) return;
+  currentModalId = id;
+  document.getElementById('m-cover').src = b.cover;
+  document.getElementById('m-cover').alt = b.title;
+  document.getElementById('m-badge').textContent = 'CLASS ' + b.cls;
+  document.getElementById('m-title').textContent = b.title;
+  document.getElementById('m-author').textContent = 'by ' + b.author;
+  document.getElementById('m-price').textContent = '€' + b.price.toFixed(2);
+  document.getElementById('m-desc').textContent = b.desc;
+  document.getElementById('m-meta').innerHTML =
+    '<div class="m-meta-item"><label>GENRE</label><span>' + escHtml(b.genre) + '</span></div>' +
+    '<div class="m-meta-item"><label>CLASS</label><span>Class ' + b.cls + '</span></div>' +
+    '<div class="m-meta-item"><label>SELLER</label><span>' + (b.seller==='platform'?'Platform Stock':'Private Seller') + '</span></div>' +
+    '<div class="m-meta-item"><label>PUBLISHED</label><span>' + b.year + '</span></div>';
+  // Reset delivery to pickup each time modal opens
+  currentDelivery = 'pickup';
+  document.getElementById('dopt-pickup').classList.add('on');
+  document.getElementById('dopt-ship').classList.remove('on');
+  document.querySelector('#dopt-pickup input').checked = true;
+  document.querySelector('#dopt-ship input').checked = false;
+  // Update add button label if already in cart
+  var alreadyIn = false;
+  for (var ci = 0; ci < cart.length; ci++) {
+    if (cart[ci].id === id) { alreadyIn = true; break; }
+  }
+  document.getElementById('modal-add-btn').textContent = alreadyIn ? 'UPDATE DELIVERY →' : 'ADD TO CART →';
+  document.getElementById('modal-ov').classList.add('on');
+}
+
+function closeModal() {
+  document.getElementById('modal-ov').classList.remove('on');
+  currentModalId = null;
+}
+
+document.getElementById('modal-x').addEventListener('click', closeModal);
+document.getElementById('modal-ov').addEventListener('click', function(e) {
+  if (e.target === document.getElementById('modal-ov')) closeModal();
+});
+
+document.getElementById('dopt-pickup').addEventListener('click', function() {
+  document.getElementById('dopt-pickup').classList.add('on');
+  document.getElementById('dopt-ship').classList.remove('on');
+  document.querySelector('#dopt-pickup input').checked = true;
+  document.querySelector('#dopt-ship input').checked = false;
+});
+document.getElementById('dopt-ship').addEventListener('click', function() {
+  document.getElementById('dopt-ship').classList.add('on');
+  document.getElementById('dopt-pickup').classList.remove('on');
+  document.querySelector('#dopt-ship input').checked = true;
+  document.querySelector('#dopt-pickup input').checked = false;
+});
+
+document.getElementById('modal-add-btn').addEventListener('click', function() {
+  if (currentModalId !== null) {
+    // Read directly from the checked radio — no state variable needed
+    var checkedRadio = document.querySelector('input[name="deliv"]:checked');
+    var chosenDelivery = checkedRadio ? checkedRadio.value : 'pickup';
+    addToCart(currentModalId, chosenDelivery);
+  }
+  closeModal();
+});
+
+// ─── CART ──────────────────────────────────────────────────────────────
+function toggleCart() {
+  document.getElementById('cart-overlay').classList.toggle('on');
+  document.getElementById('cart-side').classList.toggle('on');
+}
+document.getElementById('cart-open-btn').addEventListener('click', toggleCart);
+document.getElementById('cart-close-btn').addEventListener('click', toggleCart);
+document.getElementById('cart-overlay').addEventListener('click', toggleCart);
+document.getElementById('cart-continue').addEventListener('click', toggleCart);
+
+function addToCart(id, delivery) {
+  var b = null;
+  for (var i = 0; i < BOOKS.length; i++) {
+    if (BOOKS[i].id === id) { b = BOOKS[i]; break; }
+  }
+  if (!b) return;
+  var deliveryChoice = delivery || 'pickup';
+  var existsIdx = -1;
+  for (var j = 0; j < cart.length; j++) {
+    if (cart[j].id === id) { existsIdx = j; break; }
+  }
+  if (existsIdx === -1) {
+    cart.push({id:b.id,title:b.title,author:b.author,cls:b.cls,price:b.price,cover:b.cover,seller:b.seller,delivery:deliveryChoice});
+    showToast('Added: "' + b.title + '" — ' + (deliveryChoice === 'shipping' ? 'CTT Shipping' : 'Pickup'));
+    // Animate badge
+    var badge = document.getElementById('cart-count');
+    badge.classList.remove('pop');
+    void badge.offsetWidth; // reflow to restart animation
+    badge.classList.add('pop');
+    setTimeout(function(){ badge.classList.remove('pop'); }, 400);
+  } else {
+    cart[existsIdx].delivery = deliveryChoice;
+    showToast('Delivery updated: ' + (deliveryChoice === 'shipping' ? 'CTT Shipping (+€3.50)' : 'Pickup (FREE)'));
+  }
+  updateCartUI();
+}
+
+function removeFromCart(id) {
+  var newCart = [];
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].id !== id) newCart.push(cart[i]);
+  }
+  cart = newCart;
+  updateCartUI();
+}
+
+function updateCartUI() {
+  var count = cart.length;
+  document.getElementById('cart-count').textContent = count < 10 ? '0' + count : '' + count;
+
+  var body = document.getElementById('cart-body');
+  var ft = document.getElementById('cart-ft');
+
+  if (count === 0) {
+    body.innerHTML = '<div class="cart-empty-msg">Your cart is empty</div>';
+    ft.style.display = 'none';
+    return;
+  }
+
+  var html = '';
+  var total = 0;
+  for (var i = 0; i < cart.length; i++) {
+    var item = cart[i];
+    var isShipping = item.delivery === 'shipping';
+    var itemPrice = item.price + (isShipping ? 3.5 : 0);
+    total += itemPrice;
+    var pickupSel = !isShipping ? ' selected' : '';
+    var shipSel = isShipping ? ' selected' : '';
+    html += '<div class="ci" data-id="' + item.id + '">' +
+      '<img src="' + item.cover + '" alt="' + escAttr(item.title) + '" ' +
+        'onerror="this.style.display=\'none\'">' +
+      '<div class="ci-info">' +
+        '<h4>' + escHtml(item.title) + '</h4>' +
+        '<p>' + escHtml(item.author) + '</p>' +
+        '<p>Class ' + item.cls + ' · ' + (item.seller === 'platform' ? 'Platform' : 'Private') + '</p>' +
+        '<select class="ci-deliv-sel" data-id="' + item.id + '">' +
+          '<option value="pickup"' + pickupSel + '>Pickup — FREE</option>' +
+          '<option value="shipping"' + shipSel + '>CTT Shipping (+€3.50)</option>' +
+        '</select>' +
+        (isShipping ? '<div class="ci-shipping-note">Shipping fee included in price</div>' : '') +
+      '</div>' +
+      '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">' +
+        '<div class="ci-price">€' + itemPrice.toFixed(2) + '</div>' +
+        '<button class="rm-btn" data-id="' + item.id + '" title="Remove">×</button>' +
+      '</div>' +
+    '</div>';
+  }
+  body.innerHTML = html;
+  ft.style.display = 'block';
+  document.getElementById('cart-total').textContent = '€' + total.toFixed(2);
+}
+
+function changeDelivery(id, deliveryType) {
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].id === id) {
+      cart[i].delivery = deliveryType;
+      break;
+    }
+  }
+  updateCartUI();
+}
+
+// ── Event delegation for cart body (remove + delivery change) ──
+document.getElementById('cart-body').addEventListener('click', function(e) {
+  var btn = e.target.closest('.rm-btn');
+  if (btn) {
+    removeFromCart(parseInt(btn.getAttribute('data-id'), 10));
+  }
+});
+document.getElementById('cart-body').addEventListener('change', function(e) {
+  var sel = e.target.closest('.ci-deliv-sel');
+  if (sel) {
+    changeDelivery(parseInt(sel.getAttribute('data-id'), 10), sel.value);
+  }
+});
+
+// ─── QUALITY TEST ──────────────────────────────────────────────────────
+var STEP_LABELS = ['ACCOUNT', 'QUALITY TEST', 'COVER PHOTO', 'PHOTOS', 'LISTING'];
+var editingListingId = null;
+var coverPhotoDataUrl = '';
+
+function goStep(n) {
+  var label = (n < 10 ? '0' + n : '' + n);
+  document.getElementById('qt-slbl').textContent = 'STEP ' + label + ' OF 05: ' + STEP_LABELS[n - 1];
+  document.getElementById('qt-pfill').style.width = (n / 5 * 100) + '%';
+  for (var i = 1; i <= 5; i++) {
+    var si = document.getElementById('si-' + i);
+    var qs = document.getElementById('qs-' + i);
+    si.classList.remove('on', 'done');
+    if (i < n) si.classList.add('done');
+    else if (i === n) si.classList.add('on');
+    qs.style.display = i === n ? 'block' : 'none';
+  }
+}
+
+document.getElementById('qt1-back').addEventListener('click', function() {
+  editingListingId = null; coverPhotoDataUrl = '';
+  showPage('sell');
+});
+document.getElementById('qt1-next').addEventListener('click', function() { goStep(2); });
+document.getElementById('qt2-back').addEventListener('click', function() { goStep(1); });
+document.getElementById('qt2-next').addEventListener('click', function() { goStep(3); });
+document.getElementById('qt3-back').addEventListener('click', function() { goStep(2); });
+document.getElementById('qt3-next').addEventListener('click', function() { goStep(4); });
+document.getElementById('qt4-back').addEventListener('click', function() { goStep(3); });
+document.getElementById('qt4-next').addEventListener('click', function() { goStep(5); });
+document.getElementById('qt5-back').addEventListener('click', function() { goStep(4); });
+document.getElementById('qt5-submit').addEventListener('click', submitListing);
+
+// Cover photo upload
+document.getElementById('cover-upload-area').addEventListener('click', function() {
+  document.getElementById('cover-input').click();
+});
+document.getElementById('cover-input').addEventListener('change', function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    coverPhotoDataUrl = ev.target.result;
+    document.getElementById('cover-preview-img').src = coverPhotoDataUrl;
+    document.getElementById('cover-preview-wrap').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});
+document.getElementById('cover-change-btn').addEventListener('click', function() {
+  document.getElementById('cover-input').click();
+});
+
+// Condition photos upload
+document.getElementById('upload-area').addEventListener('click', function() {
+  document.getElementById('photo-input').click();
+});
+document.getElementById('photo-input').addEventListener('change', function(e) {
+  var files = Array.prototype.slice.call(e.target.files);
+  uploadCount = files.length;
+  var grid = document.getElementById('photo-grid');
+  grid.innerHTML = '';
+  files.forEach(function(file) {
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      var img = document.createElement('img');
+      img.src = ev.target.result;
+      img.className = 'photo-thumb';
+      grid.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+});
+
+function submitListing() {
+  var title = document.getElementById('b-title').value || 'Untitled Book';
+  var author = document.getElementById('b-author').value || 'Unknown Author';
+  var genre = document.getElementById('b-genre').value || 'Fiction';
+  var year = document.getElementById('b-year').value || '';
+  var condition = document.getElementById('b-cond').value || 'B';
+  var desc = document.getElementById('b-desc').value || '';
+  var price = parseFloat(document.getElementById('b-price').value) || 0;
+  var delivery = document.getElementById('b-delivery').value || 'pickup';
+  var pickup = document.getElementById('b-pickup').value || '';
+
+  if (editingListingId !== null) {
+    // Update existing listing
+    for (var i = 0; i < sellerListings.length; i++) {
+      if (sellerListings[i].id === editingListingId) {
+        sellerListings[i].title = title;
+        sellerListings[i].author = author;
+        sellerListings[i].genre = genre;
+        sellerListings[i].year = year;
+        sellerListings[i].condition = condition;
+        sellerListings[i].desc = desc;
+        sellerListings[i].price = price;
+        sellerListings[i].delivery = delivery;
+        sellerListings[i].pickup = pickup;
+        sellerListings[i].photos = uploadCount;
+        if (coverPhotoDataUrl) sellerListings[i].cover = coverPhotoDataUrl;
+        sellerListings[i].status = 'pending';
+        break;
+      }
+    }
+    editingListingId = null;
+    showToast('Listing updated — resubmitted for approval');
+  } else {
+    // New listing
+    sellerListings.push({
+      id: Date.now(), title: title, author: author, genre: genre,
+      year: year, condition: condition, desc: desc, price: price,
+      delivery: delivery, pickup: pickup, photos: uploadCount,
+      cover: coverPhotoDataUrl, status: 'pending'
+    });
+    showToast('Listing submitted — pending approval');
+  }
+  coverPhotoDataUrl = '';
+  hasProfile = true;
+  showPage('sellers');
+}
+
+function editListing(id) {
+  var l = null;
+  for (var i = 0; i < sellerListings.length; i++) {
+    if (sellerListings[i].id === id) { l = sellerListings[i]; break; }
+  }
+  if (!l) return;
+  editingListingId = id;
+
+  // Pre-fill book details (step 2)
+  document.getElementById('b-title').value = l.title || '';
+  document.getElementById('b-author').value = l.author || '';
+  document.getElementById('b-genre').value = l.genre || '';
+  document.getElementById('b-year').value = l.year || '';
+  document.getElementById('b-cond').value = l.condition || '';
+  document.getElementById('b-desc').value = l.desc || '';
+  // Pre-fill listing (step 5)
+  document.getElementById('b-price').value = l.price || '';
+  document.getElementById('b-delivery').value = l.delivery || 'pickup';
+  document.getElementById('b-pickup').value = l.pickup || '';
+  // Cover photo
+  coverPhotoDataUrl = l.cover || '';
+  if (coverPhotoDataUrl) {
+    document.getElementById('cover-preview-img').src = coverPhotoDataUrl;
+    document.getElementById('cover-preview-wrap').style.display = 'block';
+  } else {
+    document.getElementById('cover-preview-img').src = '';
+    document.getElementById('cover-preview-wrap').style.display = 'none';
+  }
+  // Reset photo count
+  uploadCount = l.photos || 0;
+  document.getElementById('photo-grid').innerHTML = '';
+  showPage('quality-test');
+  goStep(2);
+}
+
+// ─── SELLERS DASHBOARD ─────────────────────────────────────────────────
+function renderSellers() {
+  var np = document.getElementById('s-noprofile');
+  var db = document.getElementById('s-dashboard');
+  if (!hasProfile) {
+    np.style.display = 'block';
+    db.style.display = 'none';
+    return;
+  }
+  np.style.display = 'none';
+  db.style.display = 'block';
+  var wrap = document.getElementById('seller-list');
+  if (sellerListings.length === 0) {
+    wrap.innerHTML = '<div class="placeholder-box">' +
+      '<h3>NO LISTINGS YET</h3>' +
+      '<p>Start by creating your first listing. We\'ll review it and award it a class within 24 hours.</p>' +
+      '<button class="btn-accent" id="first-listing-btn">CREATE YOUR FIRST LISTING →</button>' +
+    '</div>';
+    document.getElementById('first-listing-btn').addEventListener('click', function() {
+      editingListingId = null;
+      coverPhotoDataUrl = '';
+      showPage('quality-test');
+      goStep(1);
+    });
+  } else {
+    var html = '';
+    for (var i = 0; i < sellerListings.length; i++) {
+      var l = sellerListings[i];
+      var thumbHtml = l.cover
+        ? '<img class="pend-cover" src="' + l.cover + '" alt="' + escAttr(l.title) + '">'
+        : '<div class="pend-cover-ph">📚</div>';
+      html += '<div class="pend-card">' +
+        thumbHtml +
+        '<div style="flex:1;min-width:0">' +
+          '<div class="pend-title">' + escHtml(l.title) + '</div>' +
+          '<div class="pend-meta">' + escHtml(l.author) + ' · ' + escHtml(l.genre) + '</div>' +
+          '<div class="pend-price">€' + l.price.toFixed(2) + '</div>' +
+          '<div class="pend-photos">📷 ' + l.photos + ' photo' + (l.photos !== 1 ? 's' : '') + ' uploaded</div>' +
+        '</div>' +
+        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0">' +
+          '<div class="pend-badge">⏳ PENDING APPROVAL</div>' +
+          '<div class="pend-note">Awaiting review from our team.</div>' +
+          '<button class="pend-edit-btn" data-edit-id="' + l.id + '">EDIT &amp; RESUBMIT →</button>' +
+        '</div>' +
+      '</div>';
+    }
+    wrap.innerHTML = html;
+  }
+}
+
+// Event delegation for edit buttons in seller list
+document.getElementById('seller-list').addEventListener('click', function(e) {
+  var btn = e.target.closest('.pend-edit-btn');
+  if (btn) {
+    var id = parseInt(btn.getAttribute('data-edit-id'), 10);
+    editListing(id);
+  }
+});
+
+// ─── TOAST ─────────────────────────────────────────────────────────────
+var toastTimer = null;
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() { t.classList.remove('on'); }, 3000);
+}
+
+// ─── HELPERS ───────────────────────────────────────────────────────────
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function escAttr(str) {
+  return String(str).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ─── CHECKOUT ──────────────────────────────────────────────────────────
+function showCheckout() {
+  // Close cart
+  document.getElementById('cart-overlay').classList.remove('on');
+  document.getElementById('cart-side').classList.remove('on');
+
+  // Reset form/confirmed states
+  document.getElementById('co-form-state').style.display = '';
+  document.getElementById('co-confirmed-state').style.display = 'none';
+
+  // Build order summary
+  var coItems = document.getElementById('co-items');
+  var html = '';
+  var subtotal = 0;
+  var shippingTotal = 0;
+
+  for (var i = 0; i < cart.length; i++) {
+    var item = cart[i];
+    var isShip = item.delivery === 'shipping';
+    var shipFee = isShip ? 3.5 : 0;
+    var linePrice = item.price + shipFee;
+    subtotal += item.price;
+    shippingTotal += shipFee;
+    html += '<div class="co-item">' +
+      '<img src="' + item.cover + '" alt="" style="width:52px;aspect-ratio:2/3;object-fit:cover;background:var(--border)">' +
+      '<div>' +
+        '<div class="co-item-title">' + escHtml(item.title) + '</div>' +
+        '<div class="co-item-meta">Class ' + item.cls + ' &middot; ' + (isShip ? 'CTT Shipping' : 'Pickup') + '</div>' +
+      '</div>' +
+      '<div class="co-item-price">&#8364;' + linePrice.toFixed(2) + '</div>' +
+    '</div>';
+  }
+  coItems.innerHTML = html;
+
+  var grandTotal = subtotal + shippingTotal;
+  document.getElementById('co-subtotal').textContent = '€' + subtotal.toFixed(2);
+  document.getElementById('co-shipping').textContent = shippingTotal > 0 ? '€' + shippingTotal.toFixed(2) : 'FREE';
+  document.getElementById('co-total').textContent = '€' + grandTotal.toFixed(2);
+  document.getElementById('co-btn-total').textContent = '€' + grandTotal.toFixed(2);
+
+  // Navigate — do it directly instead of calling showPage to avoid any side-effects
+  var allPages = document.querySelectorAll('.page');
+  for (var p = 0; p < allPages.length; p++) allPages[p].classList.remove('on');
+  document.getElementById('page-checkout').classList.add('on');
+  var allNavLinks = document.querySelectorAll('.nav-link');
+  for (var n = 0; n < allNavLinks.length; n++) allNavLinks[n].classList.remove('on');
+  window.scrollTo(0, 0);
+}
+
+document.getElementById('checkout-btn').addEventListener('click', showCheckout);
+
+document.getElementById('co-place-btn').addEventListener('click', function() {
+  // Show confirmation, clear cart
+  document.getElementById('co-form-state').style.display = 'none';
+  document.getElementById('co-confirmed-state').style.display = 'block';
+  cart = [];
+  updateCartUI();
+  window.scrollTo(0, 0);
+});
+
+document.getElementById('co-back-home').addEventListener('click', function() {
+  showPage('home');
+});
+
+// Card number auto-formatting
+document.getElementById('co-card').addEventListener('input', function() {
+  var v = this.value.replace(/\D/g, '').substring(0, 16);
+  this.value = v.replace(/(.{4})/g, '$1 ').trim();
+});
+document.getElementById('co-expiry').addEventListener('input', function() {
+  var v = this.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length > 2) this.value = v.substring(0, 2) + ' / ' + v.substring(2);
+  else this.value = v;
+});
+
+// ─── NAV BUTTON WIRING ─────────────────────────────────────────────────
+document.getElementById('logo').addEventListener('click', function() { showPage('home'); });
+document.getElementById('nl-home').addEventListener('click', function() { showPage('home'); });
+document.getElementById('nl-browse').addEventListener('click', function() { showPage('browse'); });
+document.getElementById('nl-sell').addEventListener('click', function() { showPage('sell'); });
+document.getElementById('nl-sellers').addEventListener('click', function() { showPage('sellers'); });
+document.getElementById('hero-browse').addEventListener('click', function() { showPage('browse'); });
+document.getElementById('hero-sell').addEventListener('click', function() { showPage('sell'); });
+document.getElementById('sell-cta').addEventListener('click', function() { showPage('quality-test'); });
+document.getElementById('sellers-cta').addEventListener('click', function() { showPage('quality-test'); });
+document.getElementById('new-listing-btn').addEventListener('click', function() {
+  editingListingId = null;
+  coverPhotoDataUrl = '';
+  document.getElementById('cover-preview-wrap').style.display = 'none';
+  document.getElementById('cover-preview-img').src = '';
+  document.getElementById('photo-grid').innerHTML = '';
+  uploadCount = 0;
+  showPage('quality-test');
+  goStep(1);
+});
+
+// ─── INIT ──────────────────────────────────────────────────────────────
+showPage('home');
+
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>
+
+On Fri, Jun 26, 2026 at 9:20 PM Seema Batavia <seema.p.batavia@gmail.com> wrote:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>LIVRARIA.PT — Second-hand English Books in Portugal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EAE5DA;--text:#1A1816;--muted:#6B6558;--accent:#B84020;--accent2:#9A3418;--border:#D4CFC4;--white:#FDFAF5;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;}
+.logo{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:17px;letter-spacing:.05em;cursor:pointer;color:var(--text);}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-link{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:14px;letter-spacing:.12em;cursor:pointer;color:var(--text);text-transform:uppercase;transition:color .2s;}
+.nav-link:hover,.nav-link.on{color:var(--accent);}
+.cart-btn{background:var(--text);color:var(--white);border:none;padding:8px 18px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em;cursor:pointer;display:flex;align-items:center;gap:8px;text-transform:uppercase;}
+.badge{background:var(--accent);color:#fff;border-radius:2px;padding:1px 6px;font-size:11px;font-weight:700;min-width:20px;text-align:center;}
+
+/* PAGES */
+.page{display:none;}
+.page.on{display:block;}
+
+/* BUTTONS */
+.btn-dark{background:var(--text);color:var(--white);border:2px solid var(--text);padding:13px 28px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+.btn-dark:hover{background:var(--accent);border-color:var(--accent);}
+.btn-ghost{background:transparent;color:var(--text);border:2px solid var(--text);padding:13px 28px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+.btn-ghost:hover{background:var(--text);color:var(--white);}
+.btn-accent{background:var(--accent);color:#fff;border:2px solid var(--accent);padding:13px 28px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+.btn-accent:hover{background:var(--accent2);border-color:var(--accent2);}
+.btn-back{background:transparent;border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:13px;letter-spacing:.08em;cursor:pointer;color:var(--muted);text-transform:uppercase;}
+.btn-back:hover{color:var(--text);}
+
+/* LABELS */
+.lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
+
+/* ── HOME ── */
+.hero{padding:80px 40px 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto;}
+.hero h1{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:72px;line-height:.95;margin-bottom:24px;}
+.hero p{font-size:16px;line-height:1.65;color:var(--muted);margin-bottom:36px;max-width:480px;}
+.hero-btns{display:flex;gap:12px;}
+.hero-features{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:12px;letter-spacing:.08em;color:var(--muted);line-height:2.3;text-transform:uppercase;text-align:right;border-left:1px solid var(--border);padding-left:40px;}
+.arch{padding:0 40px 80px;max-width:1200px;margin:0 auto;}
+.arch-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;}
+.sec-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:36px;text-transform:uppercase;line-height:1;}
+.tab-row{display:flex;gap:6px;}
+.tab{padding:8px 18px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);text-transform:uppercase;transition:all .15s;}
+.tab.on{background:var(--text);color:var(--white);border-color:var(--text);}
+
+/* BOOK GRID */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.card{cursor:pointer;transition:transform .2s;}
+.card:hover{transform:translateY(-4px);}
+.cover-wrap{position:relative;aspect-ratio:2/3;overflow:hidden;margin-bottom:12px;background:var(--border);}
+.cover-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+.cover-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;text-align:center;background:linear-gradient(135deg,#d4cfc4,#c8c2b6);}
+.cover-placeholder .ph-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:13px;color:var(--text);line-height:1.2;margin-bottom:4px;}
+.cover-placeholder .ph-author{font-size:10px;color:var(--muted);}
+.cls-badge{position:absolute;top:8px;left:8px;background:rgba(250,246,238,.92);color:var(--text);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.08em;padding:3px 8px;text-transform:uppercase;}
+.card-info h3{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:16px;margin-bottom:2px;line-height:1.2;}
+.card-info .au{font-size:13px;color:var(--muted);margin-bottom:3px;}
+.card-info .gn{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
+.card-foot{display:flex;align-items:center;justify-content:space-between;}
+.card-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:18px;}
+.add-btn{background:var(--text);color:var(--white);border:none;padding:6px 12px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:11px;letter-spacing:.06em;cursor:pointer;text-transform:uppercase;transition:background .2s;}
+.add-btn:hover{background:var(--accent);}
+
+/* ── BROWSE ── */
+.br-head{padding:48px 40px 28px;max-width:1200px;margin:0 auto;border-bottom:1px solid var(--border);}
+.br-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:56px;text-transform:uppercase;line-height:1;}
+.filter-bar{padding:20px 40px;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:12px;border-bottom:1px solid var(--border);}
+.frow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.flbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);min-width:52px;}
+.fgrp{display:flex;gap:4px;}
+.fbtn{padding:6px 14px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:12px;letter-spacing:.06em;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);text-transform:uppercase;transition:all .15s;}
+.fbtn.on{background:var(--text);color:var(--white);border-color:var(--text);}
+.fbtn:hover:not(.on){border-color:var(--text);}
+.fsel{padding:6px 10px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:12px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;height:32px;text-transform:uppercase;}
+.pinput{width:68px;padding:6px 8px;border:1px solid var(--border);background:transparent;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:12px;color:var(--text);height:32px;}
+.pinput::placeholder{color:var(--muted);}
+.srch{padding:6px 14px;border:1px solid var(--border);background:transparent;font-family:'Barlow',system-ui,sans-serif;font-size:13px;color:var(--text);min-width:260px;margin-left:auto;height:32px;}
+.srch::placeholder{color:var(--muted);}
+.br-bar{padding:14px 40px;max-width:1200px;margin:0 auto;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;}
+.br-grid{padding:0 40px 80px;max-width:1200px;margin:0 auto;}
+.no-results{grid-column:1/-1;padding:60px 0;text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+
+/* ── SELL ── */
+.sell-land{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 56px);text-align:center;padding:60px 40px;}
+.sell-land h1{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:900;font-size:96px;line-height:.9;text-transform:uppercase;margin:12px 0 28px;}
+.sell-land p{font-size:16px;line-height:1.7;color:var(--muted);max-width:540px;margin:0 auto 40px;}
+
+/* ── QUALITY TEST ── */
+.qt-wrap{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 56px);}
+.qt-side{padding:48px 36px;border-right:1px solid var(--border);}
+.qt-slbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.qt-stitle{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:28px;text-transform:uppercase;margin-bottom:28px;line-height:1;}
+.qt-pbar{height:2px;background:var(--border);margin-bottom:28px;position:relative;}
+.qt-pfill{position:absolute;top:0;left:0;height:100%;background:var(--accent);transition:width .35s ease;}
+.qt-steps{display:flex;flex-direction:column;margin-bottom:36px;}
+.qt-si{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--border);}
+.qt-snum{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:14px;letter-spacing:.06em;color:var(--muted);min-width:22px;}
+.qt-sname{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.qt-si.on .qt-snum,.qt-si.on .qt-sname{color:var(--text);}
+.qt-si.done .qt-snum,.qt-si.done .qt-sname{color:var(--accent);}
+.why-box{border-left:3px solid var(--accent);padding:14px 18px;background:var(--white);}
+.why-box h4{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:7px;}
+.why-box p{font-size:13px;line-height:1.6;color:var(--muted);}
+.qt-body{padding:48px 56px;}
+.qt-card{background:var(--white);padding:44px;max-width:580px;}
+.qt-ctitle{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:26px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;}
+.qt-csub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:32px;}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+.fg.full{grid-column:1/-1;}
+.flabel{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.fi{padding:11px 14px;border:1px solid var(--border);background:var(--bg);font-family:'Barlow',system-ui,sans-serif;font-size:14px;color:var(--text);transition:border-color .2s;width:100%;}
+.fi:focus{outline:none;border-color:var(--text);}
+.fi::placeholder{color:var(--muted);opacity:.65;}
+select.fi{cursor:pointer;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;letter-spacing:.03em;}
+textarea.fi{height:96px;resize:vertical;font-family:'Barlow',system-ui,sans-serif;font-size:13px;}
+.checks{display:flex;flex-direction:column;gap:9px;margin-top:8px;}
+.chk{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--text);}
+.chk input{accent-color:var(--accent);width:15px;height:15px;cursor:pointer;flex-shrink:0;}
+.upload-area{border:2px dashed var(--border);padding:36px;text-align:center;cursor:pointer;transition:border-color .2s;background:var(--bg);margin-top:8px;}
+.upload-area:hover{border-color:var(--text);}
+.upload-icon{font-size:30px;margin-bottom:10px;opacity:.35;}
+.upload-label{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+.upload-hint{font-size:13px;color:var(--muted);}
+.photo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px;}
+.photo-thumb{aspect-ratio:1;object-fit:cover;width:100%;}
 .qt-nav{max-width:580px;display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:28px;border-top:1px solid var(--border);}
 .ex-box{border:1px solid var(--border);padding:20px;margin-bottom:24px;background:var(--bg);}
 .ex-tag{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
@@ -1227,6 +2665,1277 @@ function showCheckout() {
 }
 
 document.getElementById('checkout-btn').addEventListener('click', showCheckout);
+
+document.getElementById('co-place-btn').addEventListener('click', function() {
+  // Show confirmation, clear cart
+  document.getElementById('co-form-state').style.display = 'none';
+  document.getElementById('co-confirmed-state').style.display = 'block';
+  cart = [];
+  updateCartUI();
+  window.scrollTo(0, 0);
+});
+
+document.getElementById('co-back-home').addEventListener('click', function() {
+  showPage('home');
+});
+
+// Card number auto-formatting
+document.getElementById('co-card').addEventListener('input', function() {
+  var v = this.value.replace(/\D/g, '').substring(0, 16);
+  this.value = v.replace(/(.{4})/g, '$1 ').trim();
+});
+document.getElementById('co-expiry').addEventListener('input', function() {
+  var v = this.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length > 2) this.value = v.substring(0, 2) + ' / ' + v.substring(2);
+  else this.value = v;
+});
+
+// ─── NAV BUTTON WIRING ─────────────────────────────────────────────────
+document.getElementById('logo').addEventListener('click', function() { showPage('home'); });
+document.getElementById('nl-home').addEventListener('click', function() { showPage('home'); });
+document.getElementById('nl-browse').addEventListener('click', function() { showPage('browse'); });
+document.getElementById('nl-sell').addEventListener('click', function() { showPage('sell'); });
+document.getElementById('nl-sellers').addEventListener('click', function() { showPage('sellers'); });
+document.getElementById('hero-browse').addEventListener('click', function() { showPage('browse'); });
+document.getElementById('hero-sell').addEventListener('click', function() { showPage('sell'); });
+document.getElementById('sell-cta').addEventListener('click', function() { showPage('quality-test'); });
+document.getElementById('sellers-cta').addEventListener('click', function() { showPage('quality-test'); });
+document.getElementById('new-listing-btn').addEventListener('click', function() { showPage('quality-test'); });
+
+// ─── INIT ──────────────────────────────────────────────────────────────
+showPage('home');
+
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>
+
+On Fri, Jun 26, 2026 at 9:04 PM Seema Batavia <seema.p.batavia@gmail.com> wrote:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>LIVRARIA.PT — Second-hand English Books in Portugal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EAE5DA;--text:#1A1816;--muted:#6B6558;--accent:#B84020;--accent2:#9A3418;--border:#D4CFC4;--white:#FDFAF5;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Barlow',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:56px;}
+.logo{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:17px;letter-spacing:.05em;cursor:pointer;color:var(--text);}
+.nav-links{display:flex;gap:32px;align-items:center;}
+.nav-link{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:14px;letter-spacing:.12em;cursor:pointer;color:var(--text);text-transform:uppercase;transition:color .2s;}
+.nav-link:hover,.nav-link.on{color:var(--accent);}
+.cart-btn{background:var(--text);color:var(--white);border:none;padding:8px 18px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em;cursor:pointer;display:flex;align-items:center;gap:8px;text-transform:uppercase;}
+.badge{background:var(--accent);color:#fff;border-radius:2px;padding:1px 6px;font-size:11px;font-weight:700;min-width:20px;text-align:center;}
+
+/* PAGES */
+.page{display:none;}
+.page.on{display:block;}
+
+/* BUTTONS */
+.btn-dark{background:var(--text);color:var(--white);border:2px solid var(--text);padding:13px 28px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+.btn-dark:hover{background:var(--accent);border-color:var(--accent);}
+.btn-ghost{background:transparent;color:var(--text);border:2px solid var(--text);padding:13px 28px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+.btn-ghost:hover{background:var(--text);color:var(--white);}
+.btn-accent{background:var(--accent);color:#fff;border:2px solid var(--accent);padding:13px 28px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+.btn-accent:hover{background:var(--accent2);border-color:var(--accent2);}
+.btn-back{background:transparent;border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:13px;letter-spacing:.08em;cursor:pointer;color:var(--muted);text-transform:uppercase;}
+.btn-back:hover{color:var(--text);}
+
+/* LABELS */
+.lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
+
+/* ── HOME ── */
+.hero{padding:80px 40px 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;max-width:1200px;margin:0 auto;}
+.hero h1{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:72px;line-height:.95;margin-bottom:24px;}
+.hero p{font-size:16px;line-height:1.65;color:var(--muted);margin-bottom:36px;max-width:480px;}
+.hero-btns{display:flex;gap:12px;}
+.hero-features{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:12px;letter-spacing:.08em;color:var(--muted);line-height:2.3;text-transform:uppercase;text-align:right;border-left:1px solid var(--border);padding-left:40px;}
+.arch{padding:0 40px 80px;max-width:1200px;margin:0 auto;}
+.arch-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;}
+.sec-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:36px;text-transform:uppercase;line-height:1;}
+.tab-row{display:flex;gap:6px;}
+.tab{padding:8px 18px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:12px;letter-spacing:.08em;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);text-transform:uppercase;transition:all .15s;}
+.tab.on{background:var(--text);color:var(--white);border-color:var(--text);}
+
+/* BOOK GRID */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.card{cursor:pointer;transition:transform .2s;}
+.card:hover{transform:translateY(-4px);}
+.cover-wrap{position:relative;aspect-ratio:2/3;overflow:hidden;margin-bottom:12px;background:var(--border);}
+.cover-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+.cover-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px;text-align:center;background:linear-gradient(135deg,#d4cfc4,#c8c2b6);}
+.cover-placeholder .ph-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:13px;color:var(--text);line-height:1.2;margin-bottom:4px;}
+.cover-placeholder .ph-author{font-size:10px;color:var(--muted);}
+.cls-badge{position:absolute;top:8px;left:8px;background:rgba(250,246,238,.92);color:var(--text);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.08em;padding:3px 8px;text-transform:uppercase;}
+.card-info h3{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:16px;margin-bottom:2px;line-height:1.2;}
+.card-info .au{font-size:13px;color:var(--muted);margin-bottom:3px;}
+.card-info .gn{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
+.card-foot{display:flex;align-items:center;justify-content:space-between;}
+.card-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:18px;}
+.add-btn{background:var(--text);color:var(--white);border:none;padding:6px 12px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:11px;letter-spacing:.06em;cursor:pointer;text-transform:uppercase;transition:background .2s;}
+.add-btn:hover{background:var(--accent);}
+
+/* ── BROWSE ── */
+.br-head{padding:48px 40px 28px;max-width:1200px;margin:0 auto;border-bottom:1px solid var(--border);}
+.br-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:56px;text-transform:uppercase;line-height:1;}
+.filter-bar{padding:20px 40px;max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:12px;border-bottom:1px solid var(--border);}
+.frow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.flbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);min-width:52px;}
+.fgrp{display:flex;gap:4px;}
+.fbtn{padding:6px 14px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:12px;letter-spacing:.06em;cursor:pointer;border:1px solid var(--border);background:transparent;color:var(--text);text-transform:uppercase;transition:all .15s;}
+.fbtn.on{background:var(--text);color:var(--white);border-color:var(--text);}
+.fbtn:hover:not(.on){border-color:var(--text);}
+.fsel{padding:6px 10px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:12px;border:1px solid var(--border);background:transparent;color:var(--text);cursor:pointer;height:32px;text-transform:uppercase;}
+.pinput{width:68px;padding:6px 8px;border:1px solid var(--border);background:transparent;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:12px;color:var(--text);height:32px;}
+.pinput::placeholder{color:var(--muted);}
+.srch{padding:6px 14px;border:1px solid var(--border);background:transparent;font-family:'Barlow',system-ui,sans-serif;font-size:13px;color:var(--text);min-width:260px;margin-left:auto;height:32px;}
+.srch::placeholder{color:var(--muted);}
+.br-bar{padding:14px 40px;max-width:1200px;margin:0 auto;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;}
+.br-grid{padding:0 40px 80px;max-width:1200px;margin:0 auto;}
+.no-results{grid-column:1/-1;padding:60px 0;text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+
+/* ── SELL ── */
+.sell-land{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 56px);text-align:center;padding:60px 40px;}
+.sell-land h1{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:900;font-size:96px;line-height:.9;text-transform:uppercase;margin:12px 0 28px;}
+.sell-land p{font-size:16px;line-height:1.7;color:var(--muted);max-width:540px;margin:0 auto 40px;}
+
+/* ── QUALITY TEST ── */
+.qt-wrap{display:grid;grid-template-columns:300px 1fr;min-height:calc(100vh - 56px);}
+.qt-side{padding:48px 36px;border-right:1px solid var(--border);}
+.qt-slbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.qt-stitle{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:28px;text-transform:uppercase;margin-bottom:28px;line-height:1;}
+.qt-pbar{height:2px;background:var(--border);margin-bottom:28px;position:relative;}
+.qt-pfill{position:absolute;top:0;left:0;height:100%;background:var(--accent);transition:width .35s ease;}
+.qt-steps{display:flex;flex-direction:column;margin-bottom:36px;}
+.qt-si{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--border);}
+.qt-snum{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:14px;letter-spacing:.06em;color:var(--muted);min-width:22px;}
+.qt-sname{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.qt-si.on .qt-snum,.qt-si.on .qt-sname{color:var(--text);}
+.qt-si.done .qt-snum,.qt-si.done .qt-sname{color:var(--accent);}
+.why-box{border-left:3px solid var(--accent);padding:14px 18px;background:var(--white);}
+.why-box h4{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:7px;}
+.why-box p{font-size:13px;line-height:1.6;color:var(--muted);}
+.qt-body{padding:48px 56px;}
+.qt-card{background:var(--white);padding:44px;max-width:580px;}
+.qt-ctitle{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:26px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;}
+.qt-csub{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:32px;}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+.fg.full{grid-column:1/-1;}
+.flabel{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.fi{padding:11px 14px;border:1px solid var(--border);background:var(--bg);font-family:'Barlow',system-ui,sans-serif;font-size:14px;color:var(--text);transition:border-color .2s;width:100%;}
+.fi:focus{outline:none;border-color:var(--text);}
+.fi::placeholder{color:var(--muted);opacity:.65;}
+select.fi{cursor:pointer;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;letter-spacing:.03em;}
+textarea.fi{height:96px;resize:vertical;font-family:'Barlow',system-ui,sans-serif;font-size:13px;}
+.checks{display:flex;flex-direction:column;gap:9px;margin-top:8px;}
+.chk{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;color:var(--text);}
+.chk input{accent-color:var(--accent);width:15px;height:15px;cursor:pointer;flex-shrink:0;}
+.upload-area{border:2px dashed var(--border);padding:36px;text-align:center;cursor:pointer;transition:border-color .2s;background:var(--bg);margin-top:8px;}
+.upload-area:hover{border-color:var(--text);}
+.upload-icon{font-size:30px;margin-bottom:10px;opacity:.35;}
+.upload-label{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px;}
+.upload-hint{font-size:13px;color:var(--muted);}
+.photo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px;}
+.photo-thumb{aspect-ratio:1;object-fit:cover;width:100%;}
+.qt-nav{max-width:580px;display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:28px;border-top:1px solid var(--border);}
+.ex-box{border:1px solid var(--border);padding:20px;margin-bottom:24px;background:var(--bg);}
+.ex-tag{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+.ex-row{display:grid;grid-template-columns:56px 1fr;gap:14px;align-items:start;}
+.ex-thumb{width:56px;height:84px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:22px;}
+
+/* ── SELLERS ── */
+.s-layout{max-width:1200px;margin:0 auto;padding:48px 40px;}
+.s-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:44px;}
+.s-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:44px;text-transform:uppercase;line-height:1;}
+.placeholder-box{border:2px dashed var(--border);padding:64px;text-align:center;}
+.placeholder-box h3{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:22px;text-transform:uppercase;margin-bottom:10px;}
+.placeholder-box p{color:var(--muted);font-size:14px;margin-bottom:24px;line-height:1.6;}
+.pend-card{border:1px solid var(--border);padding:24px;display:grid;grid-template-columns:88px 1fr auto;gap:22px;align-items:start;margin-bottom:12px;background:var(--white);}
+.pend-badge{display:inline-block;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;padding:4px 10px;text-transform:uppercase;background:#FFF3CD;color:#7B5800;}
+.pend-thumb{width:88px;height:132px;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:28px;}
+.pend-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:19px;margin-bottom:3px;}
+.pend-meta{font-size:13px;color:var(--muted);margin-bottom:6px;}
+.pend-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:17px;margin-bottom:10px;}
+.pend-photos{font-size:12px;color:var(--muted);}
+.pend-note{font-size:12px;color:var(--muted);text-align:right;max-width:150px;line-height:1.5;}
+
+/* ── CART SIDEBAR ── */
+.cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;}
+.cart-overlay.on{display:block;}
+.cart-side{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:var(--white);z-index:201;display:flex;flex-direction:column;transition:right .3s ease;padding:32px;}
+.cart-side.on{right:0;}
+.cart-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.cart-hd h2{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:22px;text-transform:uppercase;}
+.x-btn{background:none;border:none;cursor:pointer;font-size:24px;color:var(--muted);line-height:1;}
+.cart-body{flex:1;overflow-y:auto;}
+.cart-empty-msg{height:100%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
+.ci{display:grid;grid-template-columns:58px 1fr auto;gap:12px;align-items:start;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border);}
+.ci img{width:58px;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--border);}
+.ci-info h4{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:15px;margin-bottom:3px;}
+.ci-info p{font-size:12px;color:var(--muted);margin-bottom:2px;}
+.ci-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:16px;}
+.rm-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;}
+.rm-btn:hover{color:var(--accent);}
+.cart-ft{padding-top:20px;border-top:1px solid var(--border);}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+.cart-total-row span{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.08em;}
+
+/* ── BOOK MODAL ── */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;align-items:center;justify-content:center;}
+.modal-ov.on{display:flex;}
+.modal-box{background:var(--white);width:90%;max-width:840px;max-height:90vh;overflow-y:auto;padding:48px;position:relative;}
+.modal-x{position:absolute;top:18px;right:20px;background:none;border:none;cursor:pointer;font-size:26px;color:var(--muted);line-height:1;}
+.modal-grid{display:grid;grid-template-columns:260px 1fr;gap:44px;}
+.modal-cover{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--border);}
+.m-badge{display:inline-block;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.08em;padding:4px 10px;background:var(--bg);margin-bottom:14px;text-transform:uppercase;}
+.m-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:30px;line-height:1.1;margin-bottom:5px;}
+.m-author{font-size:15px;color:var(--muted);margin-bottom:16px;}
+.m-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:34px;margin-bottom:20px;}
+.m-desc{font-size:14px;line-height:1.7;color:var(--muted);margin-bottom:22px;}
+.m-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;padding:18px;background:var(--bg);}
+.m-meta-item label{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;}
+.m-meta-item span{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:13px;}
+.deliv-head{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+.dopt{display:flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid var(--border);cursor:pointer;transition:border-color .15s;margin-bottom:6px;}
+.dopt.on{border-color:var(--text);}
+.dopt-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;flex:1;}
+.dopt-fee{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:12px;color:var(--muted);}
+
+/* TOAST */
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--text);color:var(--white);padding:13px 28px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;z-index:400;transition:transform .3s;pointer-events:none;white-space:nowrap;}
+.toast.on{transform:translateX(-50%) translateY(0);}
+
+/* BADGE POP */
+@keyframes badgePop{0%{transform:scale(1)}40%{transform:scale(1.6)}100%{transform:scale(1)}}
+.badge.pop{animation:badgePop .35s ease;}
+
+/* CART DELIVERY SELECT */
+.ci-deliv-sel{margin-top:7px;width:100%;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;letter-spacing:.04em;border:1px solid var(--border);background:var(--bg);padding:4px 6px;color:var(--text);cursor:pointer;}
+.ci-deliv-sel:focus{outline:none;border-color:var(--text);}
+.ci-shipping-note{font-size:11px;color:var(--accent);font-family:'Barlow Condensed','Arial Narrow',sans-serif;margin-top:3px;letter-spacing:.04em;}
+
+/* ── CHECKOUT PAGE ── */
+.co-wrap{max-width:1200px;margin:0 auto;padding:60px 40px 80px;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:start;}
+.co-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:64px;text-transform:uppercase;line-height:1;margin-bottom:44px;}
+.co-section{margin-bottom:36px;}
+.co-section-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.co-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.co-fg{display:flex;flex-direction:column;gap:5px;}
+.co-fg.full{grid-column:1/-1;}
+.co-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.co-input{padding:14px 16px;border:1px solid var(--border);background:var(--white);font-family:'Barlow',system-ui,sans-serif;font-size:14px;color:var(--text);width:100%;transition:border-color .2s;}
+.co-input:focus{outline:none;border-color:var(--text);}
+.co-input::placeholder{color:var(--muted);opacity:.6;}
+.co-place-btn{width:100%;padding:18px;background:var(--text);color:var(--white);border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:18px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-top:32px;transition:background .2s;}
+.co-place-btn:hover{background:var(--accent);}
+.co-summary{background:var(--white);padding:32px;position:sticky;top:76px;}
+.co-sum-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.co-item{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:start;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.co-item img{width:52px;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--border);}
+.co-item-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:15px;margin-bottom:3px;}
+.co-item-meta{font-size:12px;color:var(--muted);}
+.co-item-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:15px;white-space:nowrap;}
+.co-totals{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+.co-row{display:flex;justify-content:space-between;align-items:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;}
+.co-row span:last-child{font-weight:600;}
+.co-row.total{font-size:17px;font-weight:800;padding-top:12px;border-top:2px solid var(--text);margin-top:4px;}
+.co-row.total span{font-weight:800;}
+
+/* ORDER CONFIRMED */
+.co-confirmed{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 56px);text-align:center;padding:60px 40px;}
+.co-confirmed h1{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:900;font-size:72px;text-transform:uppercase;line-height:.95;margin:16px 0 24px;}
+.co-confirmed p{font-size:16px;color:var(--muted);line-height:1.7;max-width:460px;margin:0 auto 36px;}
+.co-tick{font-size:56px;}
+
+hr.thin{border:none;border-top:1px solid var(--border);}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="logo" id="logo">LIVRARIA.PT</span>
+  <div class="nav-links">
+    <span class="nav-link on" data-p="home" id="nl-home">HOME</span>
+    <span class="nav-link" data-p="browse" id="nl-browse">BROWSE</span>
+    <span class="nav-link" data-p="sell" id="nl-sell">SELL</span>
+    <span class="nav-link" data-p="sellers" id="nl-sellers">SELLERS</span>
+  </div>
+  <button class="cart-btn" id="cart-open-btn">CART <span class="badge" id="cart-count">00</span></button>
+</nav>
+
+<!-- HOME -->
+<div class="page on" id="page-home">
+  <div class="hero">
+    <div>
+      <h1>Second-hand English editions, curated in Lisboa.</h1>
+      <p>The weight of a Penguin Classic, the scent of a 1970s hardback. We verify every spine, every page, every seller.</p>
+      <div class="hero-btns">
+        <button class="btn-dark" id="hero-browse">BROWSE THE SHELF</button>
+        <button class="btn-ghost" id="hero-sell">SELL A BOOK</button>
+      </div>
+    </div>
+    <div>
+      <div class="hero-features">
+        <div>(01) PLATFORM: CURATED RARITIES, VERIFIED BY HOUSE EXPERTS.</div>
+        <div>(02) PRIVATE: COMMUNITY MARKETPLACE, CONDITION-TESTED.</div>
+        <div>(03) PICKUP IN LISBOA, PORTO, CASCAIS — OR CTT SHIPPING.</div>
+      </div>
+    </div>
+  </div>
+  <hr class="thin">
+  <div class="arch">
+    <div class="arch-head">
+      <div>
+        <div class="lbl" style="margin-bottom:8px">FEATURED</div>
+        <div class="sec-title">FROM THE ARCHIVE</div>
+      </div>
+      <div class="tab-row">
+        <button class="tab on" id="tab-platform">Platform Stock</button>
+        <button class="tab" id="tab-private">Private Sellers</button>
+      </div>
+    </div>
+    <div class="grid" id="home-grid"></div>
+  </div>
+</div>
+
+<!-- BROWSE -->
+<div class="page" id="page-browse">
+  <div class="br-head">
+    <div class="lbl" id="shelf-lbl" style="margin-bottom:8px">THE SHELF · 15 TITLES TOTAL</div>
+    <div class="br-title">BROWSE THE CATALOGUE</div>
+  </div>
+  <div class="filter-bar">
+    <div class="frow">
+      <span class="flbl">SELLER</span>
+      <div class="fgrp">
+        <button class="fbtn on" data-f="seller" data-v="all">All sellers</button>
+        <button class="fbtn" data-f="seller" data-v="platform">Platform</button>
+        <button class="fbtn" data-f="seller" data-v="private">Private</button>
+      </div>
+      <input class="srch" type="text" placeholder="Search title, author, genre…" id="srch-inp">
+    </div>
+    <div class="frow">
+      <span class="flbl">CLASS</span>
+      <div class="fgrp">
+        <button class="fbtn on" data-f="cls" data-v="all">ANY</button>
+        <button class="fbtn" data-f="cls" data-v="A">CLASS A</button>
+        <button class="fbtn" data-f="cls" data-v="B">CLASS B</button>
+        <button class="fbtn" data-f="cls" data-v="C">CLASS C</button>
+      </div>
+    </div>
+    <div class="frow">
+      <span class="flbl">GENRE</span>
+      <select class="fsel" id="genre-sel">
+        <option value="">ALL GENRES</option>
+        <option value="Fiction">FICTION</option>
+        <option value="Fantasy">FANTASY</option>
+        <option value="Science Fiction">SCIENCE FICTION</option>
+        <option value="Non-Fiction">NON-FICTION</option>
+        <option value="Romance">ROMANCE</option>
+        <option value="Mystery">MYSTERY</option>
+        <option value="Biography">BIOGRAPHY</option>
+        <option value="Thriller">THRILLER</option>
+      </select>
+      <span class="flbl" style="margin-left:16px">PRICE €</span>
+      <input class="pinput" type="number" placeholder="min" id="p-min">
+      <span style="color:var(--muted);font-size:12px">—</span>
+      <input class="pinput" type="number" placeholder="max" id="p-max">
+    </div>
+  </div>
+  <div class="br-bar" id="br-bar">SHOWING 15 OF 15</div>
+  <div class="br-grid">
+    <div class="grid" id="browse-grid"></div>
+  </div>
+</div>
+
+<!-- SELL -->
+<div class="page" id="page-sell">
+  <div class="sell-land">
+    <div class="lbl">BECOME A SELLER</div>
+    <h1>START SELLING NOW</h1>
+    <p>You don't have a seller profile yet. Create yours in under two minutes — we'll walk you through the quality test, photo upload, and your first listing.</p>
+    <button class="btn-accent" id="sell-cta">CREATE YOUR SELLER PROFILE →</button>
+  </div>
+</div>
+
+<!-- QUALITY TEST -->
+<div class="page" id="page-quality-test">
+  <div class="qt-wrap">
+    <div class="qt-side">
+      <div class="qt-slbl" id="qt-slbl">STEP 01 OF 04: ACCOUNT</div>
+      <div class="qt-stitle">SELLER QUALITY TEST</div>
+      <div class="qt-pbar"><div class="qt-pfill" id="qt-pfill" style="width:25%"></div></div>
+      <div class="qt-steps">
+        <div class="qt-si on" id="si-1"><span class="qt-snum">01</span><span class="qt-sname">ACCOUNT</span></div>
+        <div class="qt-si" id="si-2"><span class="qt-snum">02</span><span class="qt-sname">QUALITY TEST</span></div>
+        <div class="qt-si" id="si-3"><span class="qt-snum">03</span><span class="qt-sname">PHOTOS</span></div>
+        <div class="qt-si" id="si-4"><span class="qt-snum">04</span><span class="qt-sname">LISTING</span></div>
+      </div>
+      <div class="why-box">
+        <h4>WHY A TEST?</h4>
+        <p>Every listing is reviewed by our team. Honest condition reporting + clear photos = a faster approval and a higher seller rating.</p>
+      </div>
+    </div>
+    <div class="qt-body">
+
+      <!-- Step 1 -->
+      <div id="qs-1">
+        <div class="qt-card">
+          <div class="qt-ctitle">TELL US WHO YOU ARE</div>
+          <div class="qt-csub">We verify every private seller by name and city. This protects buyers — and keeps the marketplace honest.</div>
+          <div class="fgrid">
+            <div class="fg"><label class="flabel">FULL NAME</label><input class="fi" type="text" placeholder="Margarida Silva" id="s-name"></div>
+            <div class="fg"><label class="flabel">CITY</label><input class="fi" type="text" placeholder="Lisboa" id="s-city"></div>
+            <div class="fg"><label class="flabel">EMAIL</label><input class="fi" type="email" placeholder="you@example.pt" id="s-email"></div>
+            <div class="fg"><label class="flabel">MOBILE (PT)</label><input class="fi" type="tel" placeholder="+351 …" id="s-phone"></div>
+          </div>
+        </div>
+        <div class="qt-nav">
+          <button class="btn-back" id="qt1-back">← BACK</button>
+          <button class="btn-dark" id="qt1-next">CONTINUE →</button>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="qs-2" style="display:none">
+        <div class="qt-card">
+          <div class="qt-ctitle">ASSESS YOUR BOOK</div>
+          <div class="qt-csub">Answer honestly — our team will cross-check against your photos. Accurate ratings lead to faster approvals and better reviews.</div>
+          <div class="fgrid">
+            <div class="fg full"><label class="flabel">BOOK TITLE</label><input class="fi" type="text" placeholder="e.g. Midnight in Lisbon" id="b-title"></div>
+            <div class="fg full"><label class="flabel">AUTHOR</label><input class="fi" type="text" placeholder="e.g. Ana Ramos" id="b-author"></div>
+            <div class="fg">
+              <label class="flabel">GENRE</label>
+              <select class="fi" id="b-genre">
+                <option value="">Select genre</option>
+                <option>Fiction</option><option>Fantasy</option><option>Science Fiction</option>
+                <option>Non-Fiction</option><option>Romance</option><option>Mystery</option>
+                <option>Biography</option><option>Thriller</option>
+              </select>
+            </div>
+            <div class="fg"><label class="flabel">YEAR PUBLISHED</label><input class="fi" type="number" placeholder="e.g. 2003" id="b-year"></div>
+            <div class="fg full">
+              <label class="flabel">SELF-ASSESSED CONDITION</label>
+              <select class="fi" id="b-cond">
+                <option value="">Select condition</option>
+                <option value="A">Like New / Excellent</option>
+                <option value="B">Good — minor wear</option>
+                <option value="C">Fair — visible wear</option>
+              </select>
+            </div>
+          </div>
+          <div class="flabel" style="margin-bottom:0">KNOWN DEFECTS (select all that apply)</div>
+          <div class="checks">
+            <label class="chk"><input type="checkbox"> Spine crease or break</label>
+            <label class="chk"><input type="checkbox"> Page yellowing</label>
+            <label class="chk"><input type="checkbox"> Stains or marks</label>
+            <label class="chk"><input type="checkbox"> Rips or tears</label>
+            <label class="chk"><input type="checkbox"> Writing or highlighting inside</label>
+            <label class="chk"><input type="checkbox"> Water damage</label>
+          </div>
+          <div style="margin-top:18px">
+            <label class="flabel">DESCRIPTION</label>
+            <textarea class="fi" style="margin-top:5px" placeholder="Briefly describe the story and physical condition of the book…" id="b-desc"></textarea>
+          </div>
+        </div>
+        <div class="qt-nav">
+          <button class="btn-back" id="qt2-back">← BACK</button>
+          <button class="btn-dark" id="qt2-next">CONTINUE →</button>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="qs-3" style="display:none">
+        <div class="qt-card">
+          <div class="qt-ctitle">UPLOAD YOUR PHOTOS</div>
+          <div class="qt-csub">We need at least 4 shots: front cover, back cover, spine, and any visible defects. Clear photos speed up approval.</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">
+            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Front Cover</div>
+            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Back Cover</div>
+            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Spine</div>
+            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Defects</div>
+          </div>
+          <div class="upload-area" id="upload-area">
+            <div class="upload-icon">📷</div>
+            <div class="upload-label">CLICK TO UPLOAD PHOTOS</div>
+            <div class="upload-hint">JPG, PNG or WEBP · up to 10 photos · max 10 MB each</div>
+            <input type="file" id="photo-input" multiple accept="image/*" style="display:none">
+          </div>
+          <div class="photo-grid" id="photo-grid"></div>
+        </div>
+        <div class="qt-nav">
+          <button class="btn-back" id="qt3-back">← BACK</button>
+          <button class="btn-dark" id="qt3-next">CONTINUE →</button>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div id="qs-4" style="display:none">
+        <div class="qt-card">
+          <div class="qt-ctitle">YOUR LISTING</div>
+          <div class="qt-csub">Set your price and delivery preference. Our team will assign the final class and publish within 24 hours.</div>
+          <div class="ex-box">
+            <div class="ex-tag">EXAMPLE LISTING — HOW YOURS WILL APPEAR ON THE SHELF</div>
+            <div class="ex-row">
+              <div class="ex-thumb">📚</div>
+              <div>
+                <div style="font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:17px;margin-bottom:2px">The Midnight Library</div>
+                <div style="font-size:13px;color:var(--muted);margin-bottom:5px">Matt Haig</div>
+                <div style="font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px">Fiction · Class B · Private</div>
+                <div style="font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:19px">€9.00</div>
+              </div>
+            </div>
+          </div>
+          <div class="fgrid">
+            <div class="fg"><label class="flabel">ASKING PRICE (€)</label><input class="fi" type="number" placeholder="0.00" step="0.50" min="1" id="b-price"></div>
+            <div class="fg">
+              <label class="flabel">DELIVERY OPTIONS</label>
+              <select class="fi" id="b-delivery">
+                <option value="pickup">Pickup only (Lisboa)</option>
+                <option value="both">Pickup + CTT Shipping</option>
+                <option value="shipping">Shipping only</option>
+              </select>
+            </div>
+            <div class="fg full">
+              <label class="flabel">PICKUP LOCATION</label>
+              <select class="fi" id="b-pickup">
+                <option>Lisboa — Chiado</option>
+                <option>Lisboa — Baixa</option>
+                <option>Porto — Baixa</option>
+                <option>Cascais — Marina</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="qt-nav">
+          <button class="btn-back" id="qt4-back">← BACK</button>
+          <button class="btn-accent" id="qt4-submit">SUBMIT LISTING →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SELLERS -->
+<div class="page" id="page-sellers">
+  <div id="s-noprofile">
+    <div class="sell-land">
+      <div class="lbl">SELLERS DASHBOARD</div>
+      <h1 style="font-size:76px">YOU'RE NOT A<br>SELLER YET</h1>
+      <p>Create your seller profile to start listing books. It only takes a couple of minutes.</p>
+      <button class="btn-accent" id="sellers-cta">START SELLING NOW →</button>
+    </div>
+  </div>
+  <div id="s-dashboard" style="display:none">
+    <div class="s-layout">
+      <div class="s-head">
+        <div>
+          <div class="lbl" style="margin-bottom:8px">SELLERS DASHBOARD</div>
+          <div class="s-title">MY LISTINGS</div>
+        </div>
+        <button class="btn-dark" id="new-listing-btn">+ NEW LISTING</button>
+      </div>
+      <div id="seller-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="page" id="page-checkout">
+  <!-- Checkout form state -->
+  <div id="co-form-state">
+    <div class="co-wrap">
+      <!-- Left: form -->
+      <div>
+        <div class="co-title">CHECKOUT</div>
+
+        <div class="co-section">
+          <div class="co-section-lbl">DELIVERY DETAILS</div>
+          <div class="co-grid">
+            <div class="co-fg full">
+              <label class="co-lbl">FULL NAME</label>
+              <input class="co-input" type="text" placeholder="Margarida Silva" id="co-name">
+            </div>
+            <div class="co-fg full">
+              <label class="co-lbl">EMAIL</label>
+              <input class="co-input" type="email" placeholder="you@example.pt" id="co-email">
+            </div>
+            <div class="co-fg full">
+              <label class="co-lbl">ADDRESS</label>
+              <input class="co-input" type="text" placeholder="Rua das Flores 12" id="co-address">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">CITY</label>
+              <input class="co-input" type="text" placeholder="Lisboa" id="co-city">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">POSTAL CODE</label>
+              <input class="co-input" type="text" placeholder="1200-195" id="co-postal">
+            </div>
+          </div>
+        </div>
+
+        <div class="co-section">
+          <div class="co-section-lbl">PAYMENT</div>
+          <div class="co-grid">
+            <div class="co-fg full">
+              <label class="co-lbl">CARD NUMBER</label>
+              <input class="co-input" type="text" placeholder="4242 4242 4242 4242" id="co-card" maxlength="19">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">EXPIRY</label>
+              <input class="co-input" type="text" placeholder="MM / YY" id="co-expiry" maxlength="7">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">CVC</label>
+              <input class="co-input" type="text" placeholder="123" id="co-cvc" maxlength="3">
+            </div>
+          </div>
+        </div>
+
+        <button class="co-place-btn" id="co-place-btn">PLACE ORDER · <span id="co-btn-total">€0.00</span></button>
+      </div>
+
+      <!-- Right: order summary -->
+      <div>
+        <div class="co-summary">
+          <div class="co-sum-title">ORDER SUMMARY</div>
+          <div id="co-items"></div>
+          <div class="co-totals">
+            <div class="co-row"><span>SUBTOTAL</span><span id="co-subtotal">€0.00</span></div>
+            <div class="co-row"><span>SHIPPING</span><span id="co-shipping">€0.00</span></div>
+            <div class="co-row total"><span>TOTAL</span><span id="co-total">€0.00</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmed state -->
+  <div id="co-confirmed-state" style="display:none">
+    <div class="co-confirmed">
+      <div class="co-tick">✓</div>
+      <h1>ORDER PLACED</h1>
+      <p>Thank you! Your order is confirmed. You'll receive a confirmation email shortly with pickup or shipping details.</p>
+      <button class="btn-dark" id="co-back-home">BACK TO THE SHELF →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CART -->
+<div class="cart-overlay" id="cart-overlay"></div>
+<div class="cart-side" id="cart-side">
+  <div class="cart-hd">
+    <h2>YOUR CART</h2>
+    <button class="x-btn" id="cart-close-btn">×</button>
+  </div>
+  <div class="cart-body" id="cart-body">
+    <div class="cart-empty-msg">Your cart is empty</div>
+  </div>
+  <div class="cart-ft" id="cart-ft" style="display:none">
+    <div class="cart-total-row"><span>TOTAL</span><span id="cart-total">€0.00</span></div>
+    <button class="btn-dark" style="width:100%;margin-bottom:8px" id="checkout-btn">PROCEED TO CHECKOUT →</button>
+    <button class="btn-ghost" style="width:100%" id="cart-continue">CONTINUE BROWSING</button>
+  </div>
+</div>
+
+<!-- BOOK MODAL -->
+<div class="modal-ov" id="modal-ov">
+  <div class="modal-box" id="modal-box">
+    <button class="modal-x" id="modal-x">×</button>
+    <div class="modal-grid">
+      <div><img class="modal-cover" id="m-cover" src="" alt=""></div>
+      <div>
+        <div class="m-badge" id="m-badge">CLASS A</div>
+        <div class="m-title" id="m-title">Title</div>
+        <div class="m-author" id="m-author">Author</div>
+        <div class="m-price" id="m-price">€0.00</div>
+        <div class="m-desc" id="m-desc">Description</div>
+        <div class="m-meta" id="m-meta"></div>
+        <div class="deliv-head">DELIVERY OPTIONS</div>
+        <div class="dopt on" id="dopt-pickup">
+          <input type="radio" name="deliv" value="pickup" checked>
+          <span class="dopt-lbl">Pickup — Lisboa, Porto or Cascais</span>
+          <span class="dopt-fee">FREE</span>
+        </div>
+        <div class="dopt" id="dopt-ship">
+          <input type="radio" name="deliv" value="shipping">
+          <span class="dopt-lbl">CTT Shipping (3–5 days)</span>
+          <span class="dopt-fee">+€3.50</span>
+        </div>
+        <div style="margin-bottom:20px"></div>
+        <button class="btn-dark" style="width:100%" id="modal-add-btn">ADD TO CART →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+// ─── DATA ─────────────────────────────────────────────────────────────
+var BOOKS = [
+  {id:1,title:'1984',author:'George Orwell',genre:'Fiction',cls:'B',price:8,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780451524935-L.jpg',
+   desc:'A dystopian masterpiece set in a totalitarian society ruled by Big Brother. Winston Smith\'s quiet rebellion against the Party is one of literature\'s most enduring stories.',year:1949},
+  {id:2,title:'Brave New World',author:'Aldous Huxley',genre:'Science Fiction',cls:'A',price:12,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780060850524-L.jpg',
+   desc:'Citizens engineered to love their own servitude. Huxley\'s vision of a future ruled by pleasure and conformity remains startlingly prescient.',year:1932},
+  {id:3,title:'The Hobbit',author:'J.R.R. Tolkien',genre:'Fantasy',cls:'A',price:15,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780345339683-L.jpg',
+   desc:'Bilbo Baggins is swept into an epic quest to reclaim the Lonely Mountain from a dragon, accompanied by thirteen dwarves and a wizard.',year:1937},
+  {id:4,title:'A Game of Thrones',author:'George R.R. Martin',genre:'Fantasy',cls:'B',price:10,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780553103540-L.jpg',
+   desc:'Seven noble families struggle for control of the Iron Throne. Political intrigue, betrayal, and a long-forgotten threat from beyond the Wall.',year:1996},
+  {id:5,title:'The Great Gatsby',author:'F. Scott Fitzgerald',genre:'Fiction',cls:'A',price:9,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780743273565-L.jpg',
+   desc:'Nick Carraway narrates the tragic story of Jay Gatsby\'s obsession with Daisy Buchanan, set against the glittering excess of the Jazz Age.',year:1925},
+  {id:6,title:'To Kill a Mockingbird',author:'Harper Lee',genre:'Fiction',cls:'B',price:7,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780061935466-L.jpg',
+   desc:'Through Scout Finch\'s eyes, we see racial injustice and moral courage in Depression-era Alabama. A Pulitzer Prize classic.',year:1960},
+  {id:7,title:'Pride and Prejudice',author:'Jane Austen',genre:'Romance',cls:'A',price:11,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg',
+   desc:'Elizabeth Bennet navigates manners, marriage, and misunderstanding — chiefly with the proud and reserved Mr. Darcy. Penguin Classics edition.',year:1813},
+  {id:8,title:'The Catcher in the Rye',author:'J.D. Salinger',genre:'Fiction',cls:'C',price:5,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780316769174-L.jpg',
+   desc:'Holden Caulfield\'s voice is as raw and restless as ever in this portrait of adolescent alienation in postwar New York.',year:1951},
+  {id:9,title:'Sapiens',author:'Yuval Noah Harari',genre:'Non-Fiction',cls:'B',price:14,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780062316097-L.jpg',
+   desc:'A sweeping history of humankind from the Stone Age to the present. How did Homo sapiens come to dominate the planet?',year:2011},
+  {id:10,title:'Dune',author:'Frank Herbert',genre:'Science Fiction',cls:'A',price:18,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780441013593-L.jpg',
+   desc:'Paul Atreides navigates the politics and ecology of the desert planet Arrakis, home to the universe\'s most precious substance: spice.',year:1965},
+  {id:11,title:'Norwegian Wood',author:'Haruki Murakami',genre:'Fiction',cls:'A',price:13,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780375704024-L.jpg',
+   desc:'A nostalgic and melancholic story of loss and sexuality in 1960s Tokyo. One of Murakami\'s most accessible and beloved novels.',year:1987},
+  {id:12,title:'Crime and Punishment',author:'Fyodor Dostoevsky',genre:'Fiction',cls:'B',price:9,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780140449136-L.jpg',
+   desc:'Raskolnikov murders a pawnbroker and then struggles with guilt and paranoia in this psychological tour de force.',year:1866},
+  {id:13,title:'The Alchemist',author:'Paulo Coelho',genre:'Fiction',cls:'A',price:10,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780061122415-L.jpg',
+   desc:'A young shepherd follows his dream of finding treasure near the Egyptian pyramids. A philosophical fable about listening to your heart.',year:1988},
+  {id:14,title:'The Name of the Rose',author:'Umberto Eco',genre:'Mystery',cls:'B',price:11,seller:'private',
+   cover:'https://covers.openlibrary.org/b/isbn/9780156001311-L.jpg',
+   desc:'A monk and his novice investigate a series of mysterious deaths in a 14th-century Italian monastery. Murder, manuscripts, and theology.',year:1980},
+  {id:15,title:'Educated',author:'Tara Westover',genre:'Biography',cls:'A',price:16,seller:'platform',
+   cover:'https://covers.openlibrary.org/b/isbn/9780399590504-L.jpg',
+   desc:'A memoir of growing up in a survivalist family in rural Idaho and ultimately earning a PhD from Cambridge. Extraordinary and urgent.',year:2018}
+];
+
+// ─── STATE ─────────────────────────────────────────────────────────────
+var cart = [];
+var currentModalId = null;
+var hasProfile = false;
+var sellerListings = [];
+var uploadCount = 0;
+var currentDelivery = 'pickup';
+var homeFeaturedType = 'platform';
+var activeFilters = {seller:'all', cls:'all', genre:'', min:null, max:null, search:''};
+
+// ─── NAVIGATION ────────────────────────────────────────────────────────
+function showPage(name) {
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('on');
+  var links = document.querySelectorAll('.nav-link');
+  for (var j = 0; j < links.length; j++) links[j].classList.remove('on');
+  var pg = document.getElementById('page-' + name);
+  if (pg) pg.classList.add('on');
+  var nl = document.getElementById('nl-' + name);
+  if (nl) nl.classList.add('on');
+  window.scrollTo(0, 0);
+  if (name === 'home') renderHome();
+  if (name === 'browse') renderBrowse();
+  if (name === 'quality-test') goStep(1);
+  if (name === 'sellers') renderSellers();
+}
+
+// ─── HOME ──────────────────────────────────────────────────────────────
+function renderHome() {
+  var list = [];
+  for (var i = 0; i < BOOKS.length; i++) {
+    if (BOOKS[i].seller === homeFeaturedType) list.push(BOOKS[i]);
+    if (list.length >= 8) break;
+  }
+  document.getElementById('home-grid').innerHTML = list.map(bookCard).join('');
+}
+
+document.getElementById('tab-platform').addEventListener('click', function() {
+  homeFeaturedType = 'platform';
+  document.getElementById('tab-platform').classList.add('on');
+  document.getElementById('tab-private').classList.remove('on');
+  renderHome();
+});
+document.getElementById('tab-private').addEventListener('click', function() {
+  homeFeaturedType = 'private';
+  document.getElementById('tab-private').classList.add('on');
+  document.getElementById('tab-platform').classList.remove('on');
+  renderHome();
+});
+
+// ─── BROWSE ────────────────────────────────────────────────────────────
+function getFiltered() {
+  return BOOKS.filter(function(b) {
+    if (activeFilters.seller !== 'all' && b.seller !== activeFilters.seller) return false;
+    if (activeFilters.cls !== 'all' && b.cls !== activeFilters.cls) return false;
+    if (activeFilters.genre && b.genre !== activeFilters.genre) return false;
+    if (activeFilters.min !== null && b.price < activeFilters.min) return false;
+    if (activeFilters.max !== null && b.price > activeFilters.max) return false;
+    if (activeFilters.search) {
+      var s = activeFilters.search;
+      var match = b.title.toLowerCase().indexOf(s) > -1 ||
+                  b.author.toLowerCase().indexOf(s) > -1 ||
+                  b.genre.toLowerCase().indexOf(s) > -1;
+      if (!match) return false;
+    }
+    return true;
+  });
+}
+
+function renderBrowse() {
+  var list = getFiltered();
+  var html = list.length
+    ? list.map(bookCard).join('')
+    : '<div class="no-results">No books match your filters</div>';
+  document.getElementById('browse-grid').innerHTML = html;
+  document.getElementById('br-bar').textContent = 'SHOWING ' + list.length + ' OF ' + BOOKS.length;
+  document.getElementById('shelf-lbl').textContent = 'THE SHELF · ' + BOOKS.length + ' TITLES TOTAL';
+}
+
+function applyFilters() {
+  activeFilters.genre = document.getElementById('genre-sel').value;
+  var minVal = document.getElementById('p-min').value;
+  var maxVal = document.getElementById('p-max').value;
+  activeFilters.min = minVal ? parseFloat(minVal) : null;
+  activeFilters.max = maxVal ? parseFloat(maxVal) : null;
+  activeFilters.search = document.getElementById('srch-inp').value.toLowerCase().trim();
+  renderBrowse();
+}
+
+// Filter buttons
+var fbtns = document.querySelectorAll('.fbtn');
+for (var fi = 0; fi < fbtns.length; fi++) {
+  fbtns[fi].addEventListener('click', (function(btn) {
+    return function() {
+      var type = btn.getAttribute('data-f');
+      var val = btn.getAttribute('data-v');
+      if (type === 'seller') activeFilters.seller = val;
+      if (type === 'cls') activeFilters.cls = val;
+      var siblings = btn.parentNode.querySelectorAll('.fbtn');
+      for (var k = 0; k < siblings.length; k++) siblings[k].classList.remove('on');
+      btn.classList.add('on');
+      renderBrowse();
+    };
+  })(fbtns[fi]));
+}
+
+document.getElementById('genre-sel').addEventListener('change', applyFilters);
+document.getElementById('p-min').addEventListener('input', applyFilters);
+document.getElementById('p-max').addEventListener('input', applyFilters);
+document.getElementById('srch-inp').addEventListener('input', applyFilters);
+
+// ─── BOOK CARD ─────────────────────────────────────────────────────────
+function bookCard(b) {
+  return '<div class="card" data-id="' + b.id + '">' +
+    '<div class="cover-wrap">' +
+      '<img src="' + b.cover + '" alt="' + escAttr(b.title) + '" ' +
+        'onerror="this.style.display=\'none\';this.parentNode.querySelector(\'.cover-placeholder\').style.display=\'flex\'">' +
+      '<div class="cover-placeholder" style="display:none">' +
+        '<div class="ph-title">' + escHtml(b.title) + '</div>' +
+        '<div class="ph-author">' + escHtml(b.author) + '</div>' +
+      '</div>' +
+      '<div class="cls-badge">CLASS ' + b.cls + '</div>' +
+    '</div>' +
+    '<div class="card-info">' +
+      '<h3>' + escHtml(b.title) + '</h3>' +
+      '<div class="au">' + escHtml(b.author) + '</div>' +
+      '<div class="gn">' + escHtml(b.genre) + '</div>' +
+      '<div class="card-foot">' +
+        '<div class="card-price">€' + b.price.toFixed(2) + '</div>' +
+        '<button class="add-btn" data-id="' + b.id + '">ADD →</button>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+}
+
+// Delegated click handlers for book cards and add buttons
+function handleGridClick(e) {
+  var addBtn = e.target.closest('.add-btn');
+  if (addBtn) {
+    e.stopPropagation();
+    addToCart(parseInt(addBtn.getAttribute('data-id'), 10));
+    return;
+  }
+  var card = e.target.closest('.card');
+  if (card) {
+    openModal(parseInt(card.getAttribute('data-id'), 10));
+  }
+}
+document.getElementById('home-grid').addEventListener('click', handleGridClick);
+document.getElementById('browse-grid').addEventListener('click', handleGridClick);
+
+// ─── MODAL ─────────────────────────────────────────────────────────────
+function openModal(id) {
+  var b = null;
+  for (var i = 0; i < BOOKS.length; i++) {
+    if (BOOKS[i].id === id) { b = BOOKS[i]; break; }
+  }
+  if (!b) return;
+  currentModalId = id;
+  document.getElementById('m-cover').src = b.cover;
+  document.getElementById('m-cover').alt = b.title;
+  document.getElementById('m-badge').textContent = 'CLASS ' + b.cls;
+  document.getElementById('m-title').textContent = b.title;
+  document.getElementById('m-author').textContent = 'by ' + b.author;
+  document.getElementById('m-price').textContent = '€' + b.price.toFixed(2);
+  document.getElementById('m-desc').textContent = b.desc;
+  document.getElementById('m-meta').innerHTML =
+    '<div class="m-meta-item"><label>GENRE</label><span>' + escHtml(b.genre) + '</span></div>' +
+    '<div class="m-meta-item"><label>CLASS</label><span>Class ' + b.cls + '</span></div>' +
+    '<div class="m-meta-item"><label>SELLER</label><span>' + (b.seller==='platform'?'Platform Stock':'Private Seller') + '</span></div>' +
+    '<div class="m-meta-item"><label>PUBLISHED</label><span>' + b.year + '</span></div>';
+  // Reset delivery to pickup each time modal opens
+  currentDelivery = 'pickup';
+  document.getElementById('dopt-pickup').classList.add('on');
+  document.getElementById('dopt-ship').classList.remove('on');
+  document.querySelector('#dopt-pickup input').checked = true;
+  document.querySelector('#dopt-ship input').checked = false;
+  // Update add button label if already in cart
+  var alreadyIn = false;
+  for (var ci = 0; ci < cart.length; ci++) {
+    if (cart[ci].id === id) { alreadyIn = true; break; }
+  }
+  document.getElementById('modal-add-btn').textContent = alreadyIn ? 'UPDATE DELIVERY →' : 'ADD TO CART →';
+  document.getElementById('modal-ov').classList.add('on');
+}
+
+function closeModal() {
+  document.getElementById('modal-ov').classList.remove('on');
+  currentModalId = null;
+}
+
+document.getElementById('modal-x').addEventListener('click', closeModal);
+document.getElementById('modal-ov').addEventListener('click', function(e) {
+  if (e.target === document.getElementById('modal-ov')) closeModal();
+});
+
+document.getElementById('dopt-pickup').addEventListener('click', function() {
+  document.getElementById('dopt-pickup').classList.add('on');
+  document.getElementById('dopt-ship').classList.remove('on');
+  document.querySelector('#dopt-pickup input').checked = true;
+  document.querySelector('#dopt-ship input').checked = false;
+});
+document.getElementById('dopt-ship').addEventListener('click', function() {
+  document.getElementById('dopt-ship').classList.add('on');
+  document.getElementById('dopt-pickup').classList.remove('on');
+  document.querySelector('#dopt-ship input').checked = true;
+  document.querySelector('#dopt-pickup input').checked = false;
+});
+
+document.getElementById('modal-add-btn').addEventListener('click', function() {
+  if (currentModalId !== null) {
+    // Read directly from the checked radio — no state variable needed
+    var checkedRadio = document.querySelector('input[name="deliv"]:checked');
+    var chosenDelivery = checkedRadio ? checkedRadio.value : 'pickup';
+    addToCart(currentModalId, chosenDelivery);
+  }
+  closeModal();
+});
+
+// ─── CART ──────────────────────────────────────────────────────────────
+function toggleCart() {
+  document.getElementById('cart-overlay').classList.toggle('on');
+  document.getElementById('cart-side').classList.toggle('on');
+}
+document.getElementById('cart-open-btn').addEventListener('click', toggleCart);
+document.getElementById('cart-close-btn').addEventListener('click', toggleCart);
+document.getElementById('cart-overlay').addEventListener('click', toggleCart);
+document.getElementById('cart-continue').addEventListener('click', toggleCart);
+
+function addToCart(id, delivery) {
+  var b = null;
+  for (var i = 0; i < BOOKS.length; i++) {
+    if (BOOKS[i].id === id) { b = BOOKS[i]; break; }
+  }
+  if (!b) return;
+  var deliveryChoice = delivery || 'pickup';
+  var existsIdx = -1;
+  for (var j = 0; j < cart.length; j++) {
+    if (cart[j].id === id) { existsIdx = j; break; }
+  }
+  if (existsIdx === -1) {
+    cart.push({id:b.id,title:b.title,author:b.author,cls:b.cls,price:b.price,cover:b.cover,seller:b.seller,delivery:deliveryChoice});
+    showToast('Added: "' + b.title + '" — ' + (deliveryChoice === 'shipping' ? 'CTT Shipping' : 'Pickup'));
+    // Animate badge
+    var badge = document.getElementById('cart-count');
+    badge.classList.remove('pop');
+    void badge.offsetWidth; // reflow to restart animation
+    badge.classList.add('pop');
+    setTimeout(function(){ badge.classList.remove('pop'); }, 400);
+  } else {
+    cart[existsIdx].delivery = deliveryChoice;
+    showToast('Delivery updated: ' + (deliveryChoice === 'shipping' ? 'CTT Shipping (+€3.50)' : 'Pickup (FREE)'));
+  }
+  updateCartUI();
+}
+
+function removeFromCart(id) {
+  var newCart = [];
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].id !== id) newCart.push(cart[i]);
+  }
+  cart = newCart;
+  updateCartUI();
+}
+
+function updateCartUI() {
+  var count = cart.length;
+  document.getElementById('cart-count').textContent = count < 10 ? '0' + count : '' + count;
+
+  var body = document.getElementById('cart-body');
+  var ft = document.getElementById('cart-ft');
+
+  if (count === 0) {
+    body.innerHTML = '<div class="cart-empty-msg">Your cart is empty</div>';
+    ft.style.display = 'none';
+    return;
+  }
+
+  var html = '';
+  var total = 0;
+  for (var i = 0; i < cart.length; i++) {
+    var item = cart[i];
+    var isShipping = item.delivery === 'shipping';
+    var itemPrice = item.price + (isShipping ? 3.5 : 0);
+    total += itemPrice;
+    var pickupSel = !isShipping ? ' selected' : '';
+    var shipSel = isShipping ? ' selected' : '';
+    html += '<div class="ci" data-id="' + item.id + '">' +
+      '<img src="' + item.cover + '" alt="' + escAttr(item.title) + '" ' +
+        'onerror="this.style.display=\'none\'">' +
+      '<div class="ci-info">' +
+        '<h4>' + escHtml(item.title) + '</h4>' +
+        '<p>' + escHtml(item.author) + '</p>' +
+        '<p>Class ' + item.cls + ' · ' + (item.seller === 'platform' ? 'Platform' : 'Private') + '</p>' +
+        '<select class="ci-deliv-sel" data-id="' + item.id + '">' +
+          '<option value="pickup"' + pickupSel + '>Pickup — FREE</option>' +
+          '<option value="shipping"' + shipSel + '>CTT Shipping (+€3.50)</option>' +
+        '</select>' +
+        (isShipping ? '<div class="ci-shipping-note">Shipping fee included in price</div>' : '') +
+      '</div>' +
+      '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">' +
+        '<div class="ci-price">€' + itemPrice.toFixed(2) + '</div>' +
+        '<button class="rm-btn" data-id="' + item.id + '" title="Remove">×</button>' +
+      '</div>' +
+    '</div>';
+  }
+  body.innerHTML = html;
+  ft.style.display = 'block';
+  document.getElementById('cart-total').textContent = '€' + total.toFixed(2);
+}
+
+function changeDelivery(id, deliveryType) {
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].id === id) {
+      cart[i].delivery = deliveryType;
+      break;
+    }
+  }
+  updateCartUI();
+}
+
+// ── Event delegation for cart body (remove + delivery change) ──
+document.getElementById('cart-body').addEventListener('click', function(e) {
+  var btn = e.target.closest('.rm-btn');
+  if (btn) {
+    removeFromCart(parseInt(btn.getAttribute('data-id'), 10));
+  }
+});
+document.getElementById('cart-body').addEventListener('change', function(e) {
+  var sel = e.target.closest('.ci-deliv-sel');
+  if (sel) {
+    changeDelivery(parseInt(sel.getAttribute('data-id'), 10), sel.value);
+  }
+});
+
+// ─── QUALITY TEST ──────────────────────────────────────────────────────
+var STEP_LABELS = ['ACCOUNT', 'QUALITY TEST', 'PHOTOS', 'LISTING'];
+
+function goStep(n) {
+  document.getElementById('qt-slbl').textContent = 'STEP 0' + n + ' OF 04: ' + STEP_LABELS[n - 1];
+  document.getElementById('qt-pfill').style.width = (n / 4 * 100) + '%';
+  for (var i = 1; i <= 4; i++) {
+    var si = document.getElementById('si-' + i);
+    var qs = document.getElementById('qs-' + i);
+    si.classList.remove('on', 'done');
+    if (i < n) si.classList.add('done');
+    else if (i === n) si.classList.add('on');
+    qs.style.display = i === n ? 'block' : 'none';
+  }
+}
+
+document.getElementById('qt1-back').addEventListener('click', function() { showPage('sell'); });
+document.getElementById('qt1-next').addEventListener('click', function() { goStep(2); });
+document.getElementById('qt2-back').addEventListener('click', function() { goStep(1); });
+document.getElementById('qt2-next').addEventListener('click', function() { goStep(3); });
+document.getElementById('qt3-back').addEventListener('click', function() { goStep(2); });
+document.getElementById('qt3-next').addEventListener('click', function() { goStep(4); });
+document.getElementById('qt4-back').addEventListener('click', function() { goStep(3); });
+document.getElementById('qt4-submit').addEventListener('click', submitListing);
+
+document.getElementById('upload-area').addEventListener('click', function() {
+  document.getElementById('photo-input').click();
+});
+document.getElementById('photo-input').addEventListener('change', function(e) {
+  var files = Array.prototype.slice.call(e.target.files);
+  uploadCount = files.length;
+  var grid = document.getElementById('photo-grid');
+  grid.innerHTML = '';
+  files.forEach(function(file) {
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      var img = document.createElement('img');
+      img.src = ev.target.result;
+      img.className = 'photo-thumb';
+      grid.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+});
+
+function submitListing() {
+  var title = document.getElementById('b-title').value || 'Untitled Book';
+  var author = document.getElementById('b-author').value || 'Unknown Author';
+  var genre = document.getElementById('b-genre').value || 'Fiction';
+  var price = parseFloat(document.getElementById('b-price').value) || 0;
+  sellerListings.push({id: Date.now(), title: title, author: author, genre: genre, price: price, photos: uploadCount});
+  hasProfile = true;
+  showToast('Listing submitted — pending approval');
+  showPage('sellers');
+}
+
+// ─── SELLERS DASHBOARD ─────────────────────────────────────────────────
+function renderSellers() {
+  var np = document.getElementById('s-noprofile');
+  var db = document.getElementById('s-dashboard');
+  if (!hasProfile) {
+    np.style.display = 'block';
+    db.style.display = 'none';
+    return;
+  }
+  np.style.display = 'none';
+  db.style.display = 'block';
+  var wrap = document.getElementById('seller-list');
+  if (sellerListings.length === 0) {
+    wrap.innerHTML = '<div class="placeholder-box">' +
+      '<h3>NO LISTINGS YET</h3>' +
+      '<p>Start by creating your first listing. We\'ll review it and award it a class within 24 hours.</p>' +
+      '<button class="btn-accent" id="first-listing-btn">CREATE YOUR FIRST LISTING →</button>' +
+    '</div>';
+    document.getElementById('first-listing-btn').addEventListener('click', function() {
+      showPage('quality-test');
+    });
+  } else {
+    var html = '';
+    for (var i = 0; i < sellerListings.length; i++) {
+      var l = sellerListings[i];
+      html += '<div class="pend-card">' +
+        '<div class="pend-thumb">📚</div>' +
+        '<div>' +
+          '<div class="pend-title">' + escHtml(l.title) + '</div>' +
+          '<div class="pend-meta">' + escHtml(l.author) + ' · ' + escHtml(l.genre) + '</div>' +
+          '<div class="pend-price">€' + l.price.toFixed(2) + '</div>' +
+          '<div class="pend-photos">📷 ' + l.photos + ' photo' + (l.photos !== 1 ? 's' : '') + ' uploaded</div>' +
+        '</div>' +
+        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px">' +
+          '<div class="pend-badge">⏳ PENDING APPROVAL</div>' +
+          '<div class="pend-note">Your listing has been submitted and is awaiting our team\'s review.</div>' +
+        '</div>' +
+      '</div>';
+    }
+    wrap.innerHTML = html;
+  }
+}
+
+// ─── TOAST ─────────────────────────────────────────────────────────────
+var toastTimer = null;
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('on');
+  if (toastTimer) clearTimeout(toastTimer);
+  toastTimer = setTimeout(function() { t.classList.remove('on'); }, 3000);
+}
+
+// ─── HELPERS ───────────────────────────────────────────────────────────
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+function escAttr(str) {
+  return String(str).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ─── CHECKOUT ──────────────────────────────────────────────────────────
+function showCheckout() {
+  // Close cart sidebar first
+  document.getElementById('cart-overlay').classList.remove('on');
+  document.getElementById('cart-side').classList.remove('on');
+
+  // Reset to form state
+  document.getElementById('co-form-state').style.display = 'block';
+  document.getElementById('co-confirmed-state').style.display = 'none';
+
+  // Populate order summary
+  var itemsEl = document.getElementById('co-items');
+  var html = '';
+  var subtotal = 0;
+  var shippingTotal = 0;
+
+  for (var i = 0; i < cart.length; i++) {
+    var item = cart[i];
+    var isShip = item.delivery === 'shipping';
+    var shipFee = isShip ? 3.5 : 0;
+    var linePrice = item.price + shipFee;
+    subtotal += item.price;
+    shippingTotal += shipFee;
+    html += '<div class="co-item">' +
+      '<img src="' + item.cover + '" alt="' + escAttr(item.title) + '" onerror="this.style.display=\'none\'">' +
+      '<div>' +
+        '<div class="co-item-title">' + escHtml(item.title) + '</div>' +
+        '<div class="co-item-meta">Class ' + item.cls + ' · ' + (isShip ? 'CTT Shipping' : 'Pickup') + '</div>' +
+      '</div>' +
+      '<div class="co-item-price">€' + linePrice.toFixed(2) + '</div>' +
+    '</div>';
+  }
+  itemsEl.innerHTML = html;
+
+  var total = subtotal + shippingTotal;
+  document.getElementById('co-subtotal').textContent = '€' + subtotal.toFixed(2);
+  document.getElementById('co-shipping').textContent = shippingTotal > 0 ? '€' + shippingTotal.toFixed(2) : '€0.00';
+  document.getElementById('co-total').textContent = '€' + total.toFixed(2);
+  document.getElementById('co-btn-total').textContent = '€' + total.toFixed(2);
+
+  showPage('checkout');
+}
+
+document.getElementById('checkout-btn').addEventListener('click', function() {
+  if (cart.length > 0) showCheckout();
+});
 
 document.getElementById('co-place-btn').addEventListener('click', function() {
   // Show confirmation, clear cart
