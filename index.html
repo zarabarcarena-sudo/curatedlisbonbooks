@@ -210,6 +210,39 @@ textarea.fi{height:96px;resize:vertical;font-family:'Barlow',system-ui,sans-seri
 .ci-deliv-sel:focus{outline:none;border-color:var(--text);}
 .ci-shipping-note{font-size:11px;color:var(--accent);font-family:'Barlow Condensed','Arial Narrow',sans-serif;margin-top:3px;letter-spacing:.04em;}
 
+/* ── CHECKOUT PAGE ── */
+.co-wrap{max-width:1200px;margin:0 auto;padding:60px 40px 80px;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:start;}
+.co-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:64px;text-transform:uppercase;line-height:1;margin-bottom:44px;}
+.co-section{margin-bottom:36px;}
+.co-section-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.co-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.co-fg{display:flex;flex-direction:column;gap:5px;}
+.co-fg.full{grid-column:1/-1;}
+.co-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.co-input{padding:14px 16px;border:1px solid var(--border);background:var(--white);font-family:'Barlow',system-ui,sans-serif;font-size:14px;color:var(--text);width:100%;transition:border-color .2s;}
+.co-input:focus{outline:none;border-color:var(--text);}
+.co-input::placeholder{color:var(--muted);opacity:.6;}
+.co-place-btn{width:100%;padding:18px;background:var(--text);color:var(--white);border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:18px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-top:32px;transition:background .2s;}
+.co-place-btn:hover{background:var(--accent);}
+.co-summary{background:var(--white);padding:32px;position:sticky;top:76px;}
+.co-sum-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:24px;}
+.co-item{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:start;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+.co-item img{width:52px;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--border);}
+.co-item-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:15px;margin-bottom:3px;}
+.co-item-meta{font-size:12px;color:var(--muted);}
+.co-item-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:15px;white-space:nowrap;}
+.co-totals{display:flex;flex-direction:column;gap:10px;margin-top:4px;}
+.co-row{display:flex;justify-content:space-between;align-items:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;letter-spacing:.06em;text-transform:uppercase;}
+.co-row span:last-child{font-weight:600;}
+.co-row.total{font-size:17px;font-weight:800;padding-top:12px;border-top:2px solid var(--text);margin-top:4px;}
+.co-row.total span{font-weight:800;}
+
+/* ORDER CONFIRMED */
+.co-confirmed{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - 56px);text-align:center;padding:60px 40px;}
+.co-confirmed h1{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:900;font-size:72px;text-transform:uppercase;line-height:.95;margin:16px 0 24px;}
+.co-confirmed p{font-size:16px;color:var(--muted);line-height:1.7;max-width:460px;margin:0 auto 36px;}
+.co-tick{font-size:56px;}
+
 hr.thin{border:none;border-top:1px solid var(--border);}
 </style>
 </head>
@@ -505,6 +538,88 @@ hr.thin{border:none;border-top:1px solid var(--border);}
   </div>
 </div>
 
+<!-- CHECKOUT -->
+<div class="page" id="page-checkout">
+  <!-- Checkout form state -->
+  <div id="co-form-state">
+    <div class="co-wrap">
+      <!-- Left: form -->
+      <div>
+        <div class="co-title">CHECKOUT</div>
+
+        <div class="co-section">
+          <div class="co-section-lbl">DELIVERY DETAILS</div>
+          <div class="co-grid">
+            <div class="co-fg full">
+              <label class="co-lbl">FULL NAME</label>
+              <input class="co-input" type="text" placeholder="Margarida Silva" id="co-name">
+            </div>
+            <div class="co-fg full">
+              <label class="co-lbl">EMAIL</label>
+              <input class="co-input" type="email" placeholder="you@example.pt" id="co-email">
+            </div>
+            <div class="co-fg full">
+              <label class="co-lbl">ADDRESS</label>
+              <input class="co-input" type="text" placeholder="Rua das Flores 12" id="co-address">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">CITY</label>
+              <input class="co-input" type="text" placeholder="Lisboa" id="co-city">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">POSTAL CODE</label>
+              <input class="co-input" type="text" placeholder="1200-195" id="co-postal">
+            </div>
+          </div>
+        </div>
+
+        <div class="co-section">
+          <div class="co-section-lbl">PAYMENT</div>
+          <div class="co-grid">
+            <div class="co-fg full">
+              <label class="co-lbl">CARD NUMBER</label>
+              <input class="co-input" type="text" placeholder="4242 4242 4242 4242" id="co-card" maxlength="19">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">EXPIRY</label>
+              <input class="co-input" type="text" placeholder="MM / YY" id="co-expiry" maxlength="7">
+            </div>
+            <div class="co-fg">
+              <label class="co-lbl">CVC</label>
+              <input class="co-input" type="text" placeholder="123" id="co-cvc" maxlength="3">
+            </div>
+          </div>
+        </div>
+
+        <button class="co-place-btn" id="co-place-btn">PLACE ORDER · <span id="co-btn-total">€0.00</span></button>
+      </div>
+
+      <!-- Right: order summary -->
+      <div>
+        <div class="co-summary">
+          <div class="co-sum-title">ORDER SUMMARY</div>
+          <div id="co-items"></div>
+          <div class="co-totals">
+            <div class="co-row"><span>SUBTOTAL</span><span id="co-subtotal">€0.00</span></div>
+            <div class="co-row"><span>SHIPPING</span><span id="co-shipping">€0.00</span></div>
+            <div class="co-row total"><span>TOTAL</span><span id="co-total">€0.00</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmed state -->
+  <div id="co-confirmed-state" style="display:none">
+    <div class="co-confirmed">
+      <div class="co-tick">✓</div>
+      <h1>ORDER PLACED</h1>
+      <p>Thank you! Your order is confirmed. You'll receive a confirmation email shortly with pickup or shipping details.</p>
+      <button class="btn-dark" id="co-back-home">BACK TO THE SHELF →</button>
+    </div>
+  </div>
+</div>
+
 <!-- CART -->
 <div class="cart-overlay" id="cart-overlay"></div>
 <div class="cart-side" id="cart-side">
@@ -517,7 +632,7 @@ hr.thin{border:none;border-top:1px solid var(--border);}
   </div>
   <div class="cart-ft" id="cart-ft" style="display:none">
     <div class="cart-total-row"><span>TOTAL</span><span id="cart-total">€0.00</span></div>
-    <button class="btn-dark" style="width:100%;margin-bottom:8px">PROCEED TO CHECKOUT →</button>
+    <button class="btn-dark" style="width:100%;margin-bottom:8px" id="checkout-btn">PROCEED TO CHECKOUT →</button>
     <button class="btn-ghost" style="width:100%" id="cart-continue">CONTINUE BROWSING</button>
   </div>
 </div>
@@ -805,14 +920,12 @@ document.getElementById('modal-ov').addEventListener('click', function(e) {
 });
 
 document.getElementById('dopt-pickup').addEventListener('click', function() {
-  currentDelivery = 'pickup';
   document.getElementById('dopt-pickup').classList.add('on');
   document.getElementById('dopt-ship').classList.remove('on');
   document.querySelector('#dopt-pickup input').checked = true;
   document.querySelector('#dopt-ship input').checked = false;
 });
 document.getElementById('dopt-ship').addEventListener('click', function() {
-  currentDelivery = 'shipping';
   document.getElementById('dopt-ship').classList.add('on');
   document.getElementById('dopt-pickup').classList.remove('on');
   document.querySelector('#dopt-ship input').checked = true;
@@ -820,7 +933,12 @@ document.getElementById('dopt-ship').addEventListener('click', function() {
 });
 
 document.getElementById('modal-add-btn').addEventListener('click', function() {
-  if (currentModalId !== null) addToCart(currentModalId, currentDelivery);
+  if (currentModalId !== null) {
+    // Read directly from the checked radio — no state variable needed
+    var checkedRadio = document.querySelector('input[name="deliv"]:checked');
+    var chosenDelivery = checkedRadio ? checkedRadio.value : 'pickup';
+    addToCart(currentModalId, chosenDelivery);
+  }
   closeModal();
 });
 
@@ -1058,6 +1176,77 @@ function escHtml(str) {
 function escAttr(str) {
   return String(str).replace(/"/g,'&quot;').replace(/'/g,'&#39;');
 }
+
+// ─── CHECKOUT ──────────────────────────────────────────────────────────
+function showCheckout() {
+  // Close cart sidebar first
+  document.getElementById('cart-overlay').classList.remove('on');
+  document.getElementById('cart-side').classList.remove('on');
+
+  // Reset to form state
+  document.getElementById('co-form-state').style.display = 'block';
+  document.getElementById('co-confirmed-state').style.display = 'none';
+
+  // Populate order summary
+  var itemsEl = document.getElementById('co-items');
+  var html = '';
+  var subtotal = 0;
+  var shippingTotal = 0;
+
+  for (var i = 0; i < cart.length; i++) {
+    var item = cart[i];
+    var isShip = item.delivery === 'shipping';
+    var shipFee = isShip ? 3.5 : 0;
+    var linePrice = item.price + shipFee;
+    subtotal += item.price;
+    shippingTotal += shipFee;
+    html += '<div class="co-item">' +
+      '<img src="' + item.cover + '" alt="' + escAttr(item.title) + '" onerror="this.style.display=\'none\'">' +
+      '<div>' +
+        '<div class="co-item-title">' + escHtml(item.title) + '</div>' +
+        '<div class="co-item-meta">Class ' + item.cls + ' · ' + (isShip ? 'CTT Shipping' : 'Pickup') + '</div>' +
+      '</div>' +
+      '<div class="co-item-price">€' + linePrice.toFixed(2) + '</div>' +
+    '</div>';
+  }
+  itemsEl.innerHTML = html;
+
+  var total = subtotal + shippingTotal;
+  document.getElementById('co-subtotal').textContent = '€' + subtotal.toFixed(2);
+  document.getElementById('co-shipping').textContent = shippingTotal > 0 ? '€' + shippingTotal.toFixed(2) : '€0.00';
+  document.getElementById('co-total').textContent = '€' + total.toFixed(2);
+  document.getElementById('co-btn-total').textContent = '€' + total.toFixed(2);
+
+  showPage('checkout');
+}
+
+document.getElementById('checkout-btn').addEventListener('click', function() {
+  if (cart.length > 0) showCheckout();
+});
+
+document.getElementById('co-place-btn').addEventListener('click', function() {
+  // Show confirmation, clear cart
+  document.getElementById('co-form-state').style.display = 'none';
+  document.getElementById('co-confirmed-state').style.display = 'block';
+  cart = [];
+  updateCartUI();
+  window.scrollTo(0, 0);
+});
+
+document.getElementById('co-back-home').addEventListener('click', function() {
+  showPage('home');
+});
+
+// Card number auto-formatting
+document.getElementById('co-card').addEventListener('input', function() {
+  var v = this.value.replace(/\D/g, '').substring(0, 16);
+  this.value = v.replace(/(.{4})/g, '$1 ').trim();
+});
+document.getElementById('co-expiry').addEventListener('input', function() {
+  var v = this.value.replace(/\D/g, '').substring(0, 4);
+  if (v.length > 2) this.value = v.substring(0, 2) + ' / ' + v.substring(2);
+  else this.value = v;
+});
 
 // ─── NAV BUTTON WIRING ─────────────────────────────────────────────────
 document.getElementById('logo').addEventListener('click', function() { showPage('home'); });
