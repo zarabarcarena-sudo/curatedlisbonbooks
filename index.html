@@ -158,12 +158,12 @@ textarea.fi{height:96px;resize:vertical;font-family:'Barlow',system-ui,sans-seri
 /* ── CART SIDEBAR ── */
 .cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:200;}
 .cart-overlay.on{display:block;}
-.cart-side{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:var(--white);z-index:201;display:flex;flex-direction:column;transition:right .3s ease;padding:32px;}
+.cart-side{position:fixed;top:0;right:-420px;width:420px;height:100vh;background:var(--white);z-index:201;display:grid;grid-template-rows:auto 1fr auto;transition:right .3s ease;}
 .cart-side.on{right:0;}
-.cart-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.cart-hd{display:flex;justify-content:space-between;align-items:center;padding:32px 32px 24px;border-bottom:1px solid var(--border);}
 .cart-hd h2{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:22px;text-transform:uppercase;}
 .x-btn{background:none;border:none;cursor:pointer;font-size:24px;color:var(--muted);line-height:1;}
-.cart-body{flex:1;overflow-y:auto;}
+.cart-body{overflow-y:auto;padding:24px 32px;}
 .cart-empty-msg{height:100%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);}
 .ci{display:grid;grid-template-columns:58px 1fr auto;gap:12px;align-items:start;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--border);}
 .ci img{width:58px;aspect-ratio:2/3;object-fit:cover;display:block;background:var(--border);}
@@ -172,7 +172,7 @@ textarea.fi{height:96px;resize:vertical;font-family:'Barlow',system-ui,sans-seri
 .ci-price{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:16px;}
 .rm-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;line-height:1;}
 .rm-btn:hover{color:var(--accent);}
-.cart-ft{padding-top:20px;border-top:1px solid var(--border);}
+.cart-ft{padding:20px 32px 32px;border-top:1px solid var(--border);}
 .cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
 .cart-total-row span{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.08em;}
 
@@ -1179,16 +1179,16 @@ function escAttr(str) {
 
 // ─── CHECKOUT ──────────────────────────────────────────────────────────
 function showCheckout() {
-  // Close cart sidebar first
+  // Close cart
   document.getElementById('cart-overlay').classList.remove('on');
   document.getElementById('cart-side').classList.remove('on');
 
-  // Reset to form state
-  document.getElementById('co-form-state').style.display = 'block';
+  // Reset form/confirmed states
+  document.getElementById('co-form-state').style.display = '';
   document.getElementById('co-confirmed-state').style.display = 'none';
 
-  // Populate order summary
-  var itemsEl = document.getElementById('co-items');
+  // Build order summary
+  var coItems = document.getElementById('co-items');
   var html = '';
   var subtotal = 0;
   var shippingTotal = 0;
@@ -1201,28 +1201,32 @@ function showCheckout() {
     subtotal += item.price;
     shippingTotal += shipFee;
     html += '<div class="co-item">' +
-      '<img src="' + item.cover + '" alt="' + escAttr(item.title) + '" onerror="this.style.display=\'none\'">' +
+      '<img src="' + item.cover + '" alt="" style="width:52px;aspect-ratio:2/3;object-fit:cover;background:var(--border)">' +
       '<div>' +
         '<div class="co-item-title">' + escHtml(item.title) + '</div>' +
-        '<div class="co-item-meta">Class ' + item.cls + ' · ' + (isShip ? 'CTT Shipping' : 'Pickup') + '</div>' +
+        '<div class="co-item-meta">Class ' + item.cls + ' &middot; ' + (isShip ? 'CTT Shipping' : 'Pickup') + '</div>' +
       '</div>' +
-      '<div class="co-item-price">€' + linePrice.toFixed(2) + '</div>' +
+      '<div class="co-item-price">&#8364;' + linePrice.toFixed(2) + '</div>' +
     '</div>';
   }
-  itemsEl.innerHTML = html;
+  coItems.innerHTML = html;
 
-  var total = subtotal + shippingTotal;
+  var grandTotal = subtotal + shippingTotal;
   document.getElementById('co-subtotal').textContent = '€' + subtotal.toFixed(2);
-  document.getElementById('co-shipping').textContent = shippingTotal > 0 ? '€' + shippingTotal.toFixed(2) : '€0.00';
-  document.getElementById('co-total').textContent = '€' + total.toFixed(2);
-  document.getElementById('co-btn-total').textContent = '€' + total.toFixed(2);
+  document.getElementById('co-shipping').textContent = shippingTotal > 0 ? '€' + shippingTotal.toFixed(2) : 'FREE';
+  document.getElementById('co-total').textContent = '€' + grandTotal.toFixed(2);
+  document.getElementById('co-btn-total').textContent = '€' + grandTotal.toFixed(2);
 
-  showPage('checkout');
+  // Navigate — do it directly instead of calling showPage to avoid any side-effects
+  var allPages = document.querySelectorAll('.page');
+  for (var p = 0; p < allPages.length; p++) allPages[p].classList.remove('on');
+  document.getElementById('page-checkout').classList.add('on');
+  var allNavLinks = document.querySelectorAll('.nav-link');
+  for (var n = 0; n < allNavLinks.length; n++) allNavLinks[n].classList.remove('on');
+  window.scrollTo(0, 0);
 }
 
-document.getElementById('checkout-btn').addEventListener('click', function() {
-  if (cart.length > 0) showCheckout();
-});
+document.getElementById('checkout-btn').addEventListener('click', showCheckout);
 
 document.getElementById('co-place-btn').addEventListener('click', function() {
   // Show confirmation, clear cart
