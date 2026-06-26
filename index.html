@@ -198,8 +198,17 @@ textarea.fi{height:96px;resize:vertical;font-family:'Barlow',system-ui,sans-seri
 .dopt-fee{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:12px;color:var(--muted);}
 
 /* TOAST */
-.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--text);color:var(--white);padding:13px 28px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;z-index:400;transition:transform .3s;pointer-events:none;}
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--text);color:var(--white);padding:13px 28px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;z-index:400;transition:transform .3s;pointer-events:none;white-space:nowrap;}
 .toast.on{transform:translateX(-50%) translateY(0);}
+
+/* BADGE POP */
+@keyframes badgePop{0%{transform:scale(1)}40%{transform:scale(1.6)}100%{transform:scale(1)}}
+.badge.pop{animation:badgePop .35s ease;}
+
+/* CART DELIVERY SELECT */
+.ci-deliv-sel{margin-top:7px;width:100%;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;letter-spacing:.04em;border:1px solid var(--border);background:var(--bg);padding:4px 6px;color:var(--text);cursor:pointer;}
+.ci-deliv-sel:focus{outline:none;border-color:var(--text);}
+.ci-shipping-note{font-size:11px;color:var(--accent);font-family:'Barlow Condensed','Arial Narrow',sans-serif;margin-top:3px;letter-spacing:.04em;}
 
 hr.thin{border:none;border-top:1px solid var(--border);}
 </style>
@@ -605,6 +614,7 @@ var currentModalId = null;
 var hasProfile = false;
 var sellerListings = [];
 var uploadCount = 0;
+var currentDelivery = 'pickup';
 var homeFeaturedType = 'platform';
 var activeFilters = {seller:'all', cls:'all', genre:'', min:null, max:null, search:''};
 
@@ -769,8 +779,18 @@ function openModal(id) {
     '<div class="m-meta-item"><label>CLASS</label><span>Class ' + b.cls + '</span></div>' +
     '<div class="m-meta-item"><label>SELLER</label><span>' + (b.seller==='platform'?'Platform Stock':'Private Seller') + '</span></div>' +
     '<div class="m-meta-item"><label>PUBLISHED</label><span>' + b.year + '</span></div>';
+  // Reset delivery to pickup each time modal opens
+  currentDelivery = 'pickup';
   document.getElementById('dopt-pickup').classList.add('on');
   document.getElementById('dopt-ship').classList.remove('on');
+  document.querySelector('#dopt-pickup input').checked = true;
+  document.querySelector('#dopt-ship input').checked = false;
+  // Update add button label if already in cart
+  var alreadyIn = false;
+  for (var ci = 0; ci < cart.length; ci++) {
+    if (cart[ci].id === id) { alreadyIn = true; break; }
+  }
+  document.getElementById('modal-add-btn').textContent = alreadyIn ? 'UPDATE DELIVERY →' : 'ADD TO CART →';
   document.getElementById('modal-ov').classList.add('on');
 }
 
@@ -785,18 +805,22 @@ document.getElementById('modal-ov').addEventListener('click', function(e) {
 });
 
 document.getElementById('dopt-pickup').addEventListener('click', function() {
+  currentDelivery = 'pickup';
   document.getElementById('dopt-pickup').classList.add('on');
   document.getElementById('dopt-ship').classList.remove('on');
   document.querySelector('#dopt-pickup input').checked = true;
+  document.querySelector('#dopt-ship input').checked = false;
 });
 document.getElementById('dopt-ship').addEventListener('click', function() {
+  currentDelivery = 'shipping';
   document.getElementById('dopt-ship').classList.add('on');
   document.getElementById('dopt-pickup').classList.remove('on');
   document.querySelector('#dopt-ship input').checked = true;
+  document.querySelector('#dopt-pickup input').checked = false;
 });
 
 document.getElementById('modal-add-btn').addEventListener('click', function() {
-  if (currentModalId !== null) addToCart(currentModalId);
+  if (currentModalId !== null) addToCart(currentModalId, currentDelivery);
   closeModal();
 });
 
@@ -810,19 +834,31 @@ document.getElementById('cart-close-btn').addEventListener('click', toggleCart);
 document.getElementById('cart-overlay').addEventListener('click', toggleCart);
 document.getElementById('cart-continue').addEventListener('click', toggleCart);
 
-function addToCart(id) {
+function addToCart(id, delivery) {
   var b = null;
   for (var i = 0; i < BOOKS.length; i++) {
     if (BOOKS[i].id === id) { b = BOOKS[i]; break; }
   }
   if (!b) return;
-  var exists = false;
+  var deliveryChoice = delivery || 'pickup';
+  var existsIdx = -1;
   for (var j = 0; j < cart.length; j++) {
-    if (cart[j].id === id) { exists = true; break; }
+    if (cart[j].id === id) { existsIdx = j; break; }
   }
-  if (!exists) cart.push({id:b.id,title:b.title,author:b.author,cls:b.cls,price:b.price,cover:b.cover,seller:b.seller});
+  if (existsIdx === -1) {
+    cart.push({id:b.id,title:b.title,author:b.author,cls:b.cls,price:b.price,cover:b.cover,seller:b.seller,delivery:deliveryChoice});
+    showToast('Added: "' + b.title + '" — ' + (deliveryChoice === 'shipping' ? 'CTT Shipping' : 'Pickup'));
+    // Animate badge
+    var badge = document.getElementById('cart-count');
+    badge.classList.remove('pop');
+    void badge.offsetWidth; // reflow to restart animation
+    badge.classList.add('pop');
+    setTimeout(function(){ badge.classList.remove('pop'); }, 400);
+  } else {
+    cart[existsIdx].delivery = deliveryChoice;
+    showToast('Delivery updated: ' + (deliveryChoice === 'shipping' ? 'CTT Shipping (+€3.50)' : 'Pickup (FREE)'));
+  }
   updateCartUI();
-  showToast('"' + b.title + '" added to cart');
 }
 
 function removeFromCart(id) {
@@ -851,35 +887,58 @@ function updateCartUI() {
   var total = 0;
   for (var i = 0; i < cart.length; i++) {
     var item = cart[i];
-    total += item.price;
-    html += '<div class="ci">' +
+    var isShipping = item.delivery === 'shipping';
+    var itemPrice = item.price + (isShipping ? 3.5 : 0);
+    total += itemPrice;
+    var pickupSel = !isShipping ? ' selected' : '';
+    var shipSel = isShipping ? ' selected' : '';
+    html += '<div class="ci" data-id="' + item.id + '">' +
       '<img src="' + item.cover + '" alt="' + escAttr(item.title) + '" ' +
         'onerror="this.style.display=\'none\'">' +
       '<div class="ci-info">' +
         '<h4>' + escHtml(item.title) + '</h4>' +
         '<p>' + escHtml(item.author) + '</p>' +
-        '<p>Class ' + item.cls + ' · ' + (item.seller==='platform'?'Platform':'Private') + '</p>' +
+        '<p>Class ' + item.cls + ' · ' + (item.seller === 'platform' ? 'Platform' : 'Private') + '</p>' +
+        '<select class="ci-deliv-sel" data-id="' + item.id + '">' +
+          '<option value="pickup"' + pickupSel + '>Pickup — FREE</option>' +
+          '<option value="shipping"' + shipSel + '>CTT Shipping (+€3.50)</option>' +
+        '</select>' +
+        (isShipping ? '<div class="ci-shipping-note">Shipping fee included in price</div>' : '') +
       '</div>' +
       '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">' +
-        '<div class="ci-price">€' + item.price.toFixed(2) + '</div>' +
-        '<button class="rm-btn" data-id="' + item.id + '">×</button>' +
+        '<div class="ci-price">€' + itemPrice.toFixed(2) + '</div>' +
+        '<button class="rm-btn" data-id="' + item.id + '" title="Remove">×</button>' +
       '</div>' +
     '</div>';
   }
   body.innerHTML = html;
   ft.style.display = 'block';
   document.getElementById('cart-total').textContent = '€' + total.toFixed(2);
-
-  // Attach remove button listeners
-  var rmBtns = body.querySelectorAll('.rm-btn');
-  for (var j = 0; j < rmBtns.length; j++) {
-    rmBtns[j].addEventListener('click', (function(btn) {
-      return function() {
-        removeFromCart(parseInt(btn.getAttribute('data-id'), 10));
-      };
-    })(rmBtns[j]));
-  }
 }
+
+function changeDelivery(id, deliveryType) {
+  for (var i = 0; i < cart.length; i++) {
+    if (cart[i].id === id) {
+      cart[i].delivery = deliveryType;
+      break;
+    }
+  }
+  updateCartUI();
+}
+
+// ── Event delegation for cart body (remove + delivery change) ──
+document.getElementById('cart-body').addEventListener('click', function(e) {
+  var btn = e.target.closest('.rm-btn');
+  if (btn) {
+    removeFromCart(parseInt(btn.getAttribute('data-id'), 10));
+  }
+});
+document.getElementById('cart-body').addEventListener('change', function(e) {
+  var sel = e.target.closest('.ci-deliv-sel');
+  if (sel) {
+    changeDelivery(parseInt(sel.getAttribute('data-id'), 10), sel.value);
+  }
+});
 
 // ─── QUALITY TEST ──────────────────────────────────────────────────────
 var STEP_LABELS = ['ACCOUNT', 'QUALITY TEST', 'PHOTOS', 'LISTING'];
