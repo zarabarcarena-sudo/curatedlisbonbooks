@@ -255,6 +255,38 @@ textarea.fi{height:96px;resize:vertical;font-family:'Barlow',system-ui,sans-seri
 .co-tick{font-size:56px;}
 
 hr.thin{border:none;border-top:1px solid var(--border);}
+
+/* ── AUTH ── */
+.auth-nav-group{display:flex;align-items:center;gap:8px;}
+.btn-nav-ghost{background:transparent;border:1.5px solid var(--border);color:var(--text);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s;}
+.btn-nav-ghost:hover{border-color:var(--text);}
+.btn-nav-solid{background:var(--text);color:var(--white);border:1.5px solid var(--text);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s;}
+.btn-nav-solid:hover{background:var(--accent);border-color:var(--accent);}
+.user-chip{display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text);}
+.user-chip span{color:var(--muted);font-weight:400;}
+.btn-logout{background:none;border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);cursor:pointer;padding:0;text-decoration:underline;}
+.btn-logout:hover{color:var(--accent);}
+/* Auth modal */
+.auth-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;align-items:center;justify-content:center;}
+.auth-ov.on{display:flex;}
+.auth-box{background:var(--white);width:90%;max-width:440px;padding:48px;position:relative;}
+.auth-x{position:absolute;top:16px;right:20px;background:none;border:none;cursor:pointer;font-size:24px;color:var(--muted);line-height:1;}
+.auth-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:32px;}
+.auth-tab{flex:1;background:none;border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:12px 0;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;}
+.auth-tab.on{color:var(--text);border-bottom-color:var(--text);}
+.auth-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:28px;text-transform:uppercase;margin-bottom:24px;}
+.auth-form{display:none;}
+.auth-form.on{display:block;}
+.auth-field{margin-bottom:16px;}
+.auth-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:600;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px;}
+.auth-input{width:100%;padding:13px 14px;border:1px solid var(--border);background:var(--bg);font-family:'Barlow',system-ui,sans-serif;font-size:14px;color:var(--text);}
+.auth-input:focus{outline:none;border-color:var(--text);}
+.auth-input::placeholder{color:var(--muted);opacity:.6;}
+.auth-submit{width:100%;padding:15px;background:var(--text);color:var(--white);border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:15px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-top:8px;transition:background .2s;}
+.auth-submit:hover{background:var(--accent);}
+.auth-switch{text-align:center;margin-top:18px;font-size:13px;color:var(--muted);}
+.auth-switch button{background:none;border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);cursor:pointer;text-decoration:underline;}
+.auth-error{font-size:12px;color:var(--accent);margin-top:10px;display:none;}
 </style>
 </head>
 <body>
@@ -268,7 +300,19 @@ hr.thin{border:none;border-top:1px solid var(--border);}
     <span class="nav-link" data-p="sell" id="nl-sell">SELL</span>
     <span class="nav-link" data-p="sellers" id="nl-sellers">SELLERS</span>
   </div>
-  <button class="cart-btn" id="cart-open-btn">CART <span class="badge" id="cart-count">00</span></button>
+  <div style="display:flex;align-items:center;gap:10px">
+    <!-- Shown when logged OUT -->
+    <div class="auth-nav-group" id="auth-nav-guest">
+      <button class="btn-nav-ghost" id="nav-login-btn">LOG IN</button>
+      <button class="btn-nav-solid" id="nav-signup-btn">SIGN UP</button>
+    </div>
+    <!-- Shown when logged IN -->
+    <div class="user-chip" id="auth-nav-user" style="display:none">
+      <span>HI, <strong id="nav-username"></strong></span>
+      <button class="btn-logout" id="nav-logout-btn">LOG OUT</button>
+    </div>
+    <button class="cart-btn" id="cart-open-btn">CART <span class="badge" id="cart-count">00</span></button>
+  </div>
 </nav>
 
 <!-- HOME -->
@@ -659,6 +703,57 @@ hr.thin{border:none;border-top:1px solid var(--border);}
   </div>
 </div>
 
+<!-- AUTH MODAL -->
+<div class="auth-ov" id="auth-ov">
+  <div class="auth-box">
+    <button class="auth-x" id="auth-x">×</button>
+    <div class="auth-tabs">
+      <button class="auth-tab on" id="auth-tab-login">LOG IN</button>
+      <button class="auth-tab" id="auth-tab-signup">SIGN UP</button>
+    </div>
+
+    <!-- Login form -->
+    <div class="auth-form on" id="auth-form-login">
+      <div class="auth-title">WELCOME BACK</div>
+      <div class="auth-field">
+        <label class="auth-lbl" for="login-email">EMAIL</label>
+        <input class="auth-input" type="email" id="login-email" placeholder="you@example.pt" autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label class="auth-lbl" for="login-pass">PASSWORD</label>
+        <input class="auth-input" type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <div class="auth-error" id="login-error">Incorrect email or password.</div>
+      <button class="auth-submit" id="login-submit">LOG IN →</button>
+      <div class="auth-switch">Don't have an account? <button id="switch-to-signup">SIGN UP</button></div>
+    </div>
+
+    <!-- Signup form -->
+    <div class="auth-form" id="auth-form-signup">
+      <div class="auth-title">CREATE ACCOUNT</div>
+      <div class="auth-field">
+        <label class="auth-lbl" for="signup-name">FULL NAME</label>
+        <input class="auth-input" type="text" id="signup-name" placeholder="Margarida Silva" autocomplete="name">
+      </div>
+      <div class="auth-field">
+        <label class="auth-lbl" for="signup-email">EMAIL</label>
+        <input class="auth-input" type="email" id="signup-email" placeholder="you@example.pt" autocomplete="email">
+      </div>
+      <div class="auth-field">
+        <label class="auth-lbl" for="signup-pass">PASSWORD</label>
+        <input class="auth-input" type="password" id="signup-pass" placeholder="Min. 6 characters" autocomplete="new-password">
+      </div>
+      <div class="auth-field">
+        <label class="auth-lbl" for="signup-pass2">CONFIRM PASSWORD</label>
+        <input class="auth-input" type="password" id="signup-pass2" placeholder="Repeat password" autocomplete="new-password">
+      </div>
+      <div class="auth-error" id="signup-error">Please fill in all fields correctly.</div>
+      <button class="auth-submit" id="signup-submit">CREATE ACCOUNT →</button>
+      <div class="auth-switch">Already have an account? <button id="switch-to-login">LOG IN</button></div>
+    </div>
+  </div>
+</div>
+
 <!-- CART -->
 <div class="cart-overlay" id="cart-overlay"></div>
 <div class="cart-side" id="cart-side">
@@ -771,6 +866,12 @@ var uploadCount = 0;
 var currentDelivery = 'pickup';
 var homeFeaturedType = 'platform';
 var activeFilters = {seller:'all', cls:'all', genre:'', min:null, max:null, search:''};
+
+// Auth state
+var isLoggedIn = false;
+var currentUser = {name: '', email: ''};
+var registeredUsers = []; // simple in-memory user store
+var pendingCartAction = null; // {id, delivery} — stored when cart triggers auth
 
 // ─── NAVIGATION ────────────────────────────────────────────────────────
 function showPage(name) {
@@ -992,6 +1093,12 @@ document.getElementById('cart-overlay').addEventListener('click', toggleCart);
 document.getElementById('cart-continue').addEventListener('click', toggleCart);
 
 function addToCart(id, delivery) {
+  // Gate on authentication
+  if (!isLoggedIn) {
+    pendingCartAction = {id: id, delivery: delivery || 'pickup'};
+    showAuthModal('login');
+    return;
+  }
   var b = null;
   for (var i = 0; i < BOOKS.length; i++) {
     if (BOOKS[i].id === id) { b = BOOKS[i]; break; }
@@ -1005,10 +1112,9 @@ function addToCart(id, delivery) {
   if (existsIdx === -1) {
     cart.push({id:b.id,title:b.title,author:b.author,cls:b.cls,price:b.price,cover:b.cover,seller:b.seller,delivery:deliveryChoice});
     showToast('Added: "' + b.title + '" — ' + (deliveryChoice === 'shipping' ? 'CTT Shipping' : 'Pickup'));
-    // Animate badge
     var badge = document.getElementById('cart-count');
     badge.classList.remove('pop');
-    void badge.offsetWidth; // reflow to restart animation
+    void badge.offsetWidth;
     badge.classList.add('pop');
     setTimeout(function(){ badge.classList.remove('pop'); }, 400);
   } else {
@@ -1306,6 +1412,103 @@ document.getElementById('seller-list').addEventListener('click', function(e) {
   if (btn) {
     var id = parseInt(btn.getAttribute('data-edit-id'), 10);
     editListing(id);
+  }
+});
+
+// ─── AUTH ──────────────────────────────────────────────────────────────
+function updateAuthUI() {
+  if (isLoggedIn) {
+    document.getElementById('auth-nav-guest').style.display = 'none';
+    document.getElementById('auth-nav-user').style.display = 'flex';
+    document.getElementById('nav-username').textContent = currentUser.name;
+  } else {
+    document.getElementById('auth-nav-guest').style.display = 'flex';
+    document.getElementById('auth-nav-user').style.display = 'none';
+  }
+}
+
+function showAuthModal(mode) {
+  var loginTab = document.getElementById('auth-tab-login');
+  var signupTab = document.getElementById('auth-tab-signup');
+  var loginForm = document.getElementById('auth-form-login');
+  var signupForm = document.getElementById('auth-form-signup');
+  document.getElementById('login-error').style.display = 'none';
+  document.getElementById('signup-error').style.display = 'none';
+  if (mode === 'signup') {
+    loginTab.classList.remove('on'); signupTab.classList.add('on');
+    loginForm.classList.remove('on'); signupForm.classList.add('on');
+  } else {
+    loginTab.classList.add('on'); signupTab.classList.remove('on');
+    loginForm.classList.add('on'); signupForm.classList.remove('on');
+  }
+  document.getElementById('auth-ov').classList.add('on');
+}
+
+function closeAuthModal() {
+  document.getElementById('auth-ov').classList.remove('on');
+}
+
+document.getElementById('auth-tab-login').addEventListener('click', function() { showAuthModal('login'); });
+document.getElementById('auth-tab-signup').addEventListener('click', function() { showAuthModal('signup'); });
+document.getElementById('switch-to-signup').addEventListener('click', function() { showAuthModal('signup'); });
+document.getElementById('switch-to-login').addEventListener('click', function() { showAuthModal('login'); });
+document.getElementById('auth-x').addEventListener('click', function() { pendingCartAction = null; closeAuthModal(); });
+document.getElementById('auth-ov').addEventListener('click', function(e) {
+  if (e.target === document.getElementById('auth-ov')) { pendingCartAction = null; closeAuthModal(); }
+});
+
+document.getElementById('nav-login-btn').addEventListener('click', function() { showAuthModal('login'); });
+document.getElementById('nav-signup-btn').addEventListener('click', function() { showAuthModal('signup'); });
+document.getElementById('nav-logout-btn').addEventListener('click', function() {
+  isLoggedIn = false;
+  currentUser = {name: '', email: ''};
+  updateAuthUI();
+  showToast('Logged out successfully');
+});
+
+document.getElementById('login-submit').addEventListener('click', function() {
+  var email = document.getElementById('login-email').value.trim();
+  var pass = document.getElementById('login-pass').value;
+  var errEl = document.getElementById('login-error');
+  var found = null;
+  for (var i = 0; i < registeredUsers.length; i++) {
+    if (registeredUsers[i].email === email && registeredUsers[i].password === pass) {
+      found = registeredUsers[i]; break;
+    }
+  }
+  if (!found) { errEl.style.display = 'block'; return; }
+  errEl.style.display = 'none';
+  isLoggedIn = true;
+  currentUser = {name: found.name, email: found.email};
+  updateAuthUI();
+  closeAuthModal();
+  showToast('Welcome back, ' + currentUser.name + '!');
+  if (pendingCartAction) {
+    var a = pendingCartAction; pendingCartAction = null;
+    addToCart(a.id, a.delivery);
+  }
+});
+
+document.getElementById('signup-submit').addEventListener('click', function() {
+  var name = document.getElementById('signup-name').value.trim();
+  var email = document.getElementById('signup-email').value.trim();
+  var pass = document.getElementById('signup-pass').value;
+  var pass2 = document.getElementById('signup-pass2').value;
+  var errEl = document.getElementById('signup-error');
+  if (!name || !email || !pass || pass.length < 6 || pass !== pass2) {
+    errEl.textContent = pass !== pass2 ? 'Passwords do not match.' : 'Please fill in all fields (min. 6 char password).';
+    errEl.style.display = 'block'; return;
+  }
+  errEl.style.display = 'none';
+  registeredUsers.push({name: name, email: email, password: pass});
+  isLoggedIn = true;
+  currentUser = {name: name, email: email};
+  updateAuthUI();
+  closeAuthModal();
+  showToast('Account created! Welcome, ' + name + '!');
+  if (pendingCartAction) {
+    var a = pendingCartAction; pendingCartAction = null;
+    addToCart(a.id, a.delivery);
   }
 });
 
