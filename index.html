@@ -287,7 +287,65 @@ hr.thin{border:none;border-top:1px solid var(--border);}
 .auth-switch{text-align:center;margin-top:18px;font-size:13px;color:var(--muted);}
 .auth-switch button{background:none;border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);cursor:pointer;text-decoration:underline;}
 .auth-error{font-size:12px;color:var(--accent);margin-top:10px;display:none;}
+/* Admin panel */
+.admin-wrap{max-width:960px;margin:0 auto;padding:60px 24px;}
+.admin-banner{background:var(--text);color:var(--white);padding:28px 32px;margin-bottom:40px;display:flex;justify-content:space-between;align-items:center;}
+.admin-banner-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:22px;letter-spacing:.12em;text-transform:uppercase;}
+.admin-banner-sub{font-size:12px;opacity:.65;letter-spacing:.06em;text-transform:uppercase;margin-top:4px;}
+.admin-tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:32px;}
+.admin-tab{background:none;border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;}
+.admin-tab.on{color:var(--text);border-bottom-color:var(--text);}
+.admin-panel{display:none;}
+.admin-panel.on{display:block;}
+.admin-empty{text-align:center;padding:60px 0;color:var(--muted);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:14px;letter-spacing:.08em;text-transform:uppercase;}
+.admin-loading{text-align:center;padding:40px 0;color:var(--muted);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;}
+.order-card{border:1px solid var(--border);padding:20px 24px;margin-bottom:16px;background:var(--white);}
+.order-card-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.order-id{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.order-ts{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right;}
+.order-total-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:20px;}
+.order-buyer{font-size:13px;color:var(--muted);margin-bottom:8px;}
+.order-item-row{font-size:12px;color:var(--text);padding:4px 0;border-top:1px solid var(--border);}
+.listing-card{border:1px solid var(--border);padding:20px 24px;margin-bottom:16px;background:var(--white);display:flex;gap:20px;align-items:flex-start;}
+.listing-cover-sm{width:56px;aspect-ratio:2/3;object-fit:cover;background:var(--border);flex-shrink:0;display:block;}
+.listing-cover-ph{width:56px;aspect-ratio:2/3;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.listing-info{flex:1;min-width:0;}
+.listing-card-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:18px;text-transform:uppercase;}
+.listing-card-meta{font-size:12px;color:var(--muted);margin:4px 0 8px;}
+.listing-card-desc{font-size:12px;color:var(--text);line-height:1.5;margin-bottom:10px;}
+.listing-card-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.btn-approve{background:var(--text);color:var(--white);border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:background .2s;}
+.btn-approve:hover{background:#2d5a1b;}
+.btn-reject{background:transparent;border:1.5px solid var(--accent);color:var(--accent);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;}
+.btn-reject:hover{background:var(--accent);color:var(--white);}
+.btn-admin-edit{background:transparent;border:1.5px solid var(--text);color:var(--text);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;cursor:pointer;}
+.btn-admin-edit:hover{background:var(--text);color:var(--white);}
+.status-pill{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;display:inline-block;}
+.status-pending{background:#fff3cd;color:#856404;}
+.status-approved{background:#d1e7dd;color:#0a3622;}
+.status-rejected{background:#f8d7da;color:#842029;}
+.admin-config-warn{background:#fff3cd;border:1px solid #ffc107;padding:16px 20px;margin-bottom:28px;font-size:13px;line-height:1.55;}
+.admin-config-warn code{background:rgba(0,0,0,.08);padding:2px 5px;font-size:11px;}
+/* Admin edit overlay */
+.ae-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;align-items:center;justify-content:center;}
+.ae-ov.on{display:flex;}
+.ae-box{background:var(--white);width:90%;max-width:500px;padding:40px;position:relative;max-height:90vh;overflow-y:auto;}
+.ae-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:22px;text-transform:uppercase;margin-bottom:24px;}
+.ae-x{position:absolute;top:14px;right:18px;background:none;border:none;cursor:pointer;font-size:24px;color:var(--muted);}
+.ae-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin-bottom:16px;}
+.ae-full{grid-column:1/-1;}
+.ae-field label{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;}
+.ae-field input,.ae-field select,.ae-field textarea{width:100%;padding:10px 12px;border:1px solid var(--border);background:var(--bg);font-family:'Barlow',system-ui,sans-serif;font-size:13px;color:var(--text);box-sizing:border-box;}
+.ae-field textarea{height:80px;resize:vertical;}
+.ae-save{width:100%;padding:14px;background:var(--text);color:var(--white);border:none;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:14px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;margin-top:8px;}
+.ae-save:hover{background:var(--accent);}
+.nav-admin-btn{background:transparent;border:1.5px solid var(--accent);color:var(--accent);font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;cursor:pointer;transition:all .2s;}
+.nav-admin-btn:hover{background:var(--accent);color:var(--white);}
 </style>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -311,6 +369,7 @@ hr.thin{border:none;border-top:1px solid var(--border);}
       <span>HI, <strong id="nav-username"></strong></span>
       <button class="btn-logout" id="nav-logout-btn">LOG OUT</button>
     </div>
+    <button class="nav-admin-btn" id="nav-admin-btn" style="display:none">ADMIN</button>
     <button class="cart-btn" id="cart-open-btn">CART <span class="badge" id="cart-count">00</span></button>
   </div>
 </nav>
@@ -703,6 +762,65 @@ hr.thin{border:none;border-top:1px solid var(--border);}
   </div>
 </div>
 
+<!-- ADMIN PAGE -->
+<div class="page" id="page-admin">
+  <div class="admin-wrap">
+    <div class="admin-banner">
+      <div>
+        <div class="admin-banner-title">LIVRARIA.PT — ADMIN</div>
+        <div class="admin-banner-sub">Manage orders, listings &amp; sellers</div>
+      </div>
+    </div>
+    <div class="admin-config-warn" id="admin-config-warn" style="display:none">
+      <strong>Firebase not configured.</strong> Open <code>index.html</code> in a text editor and paste your Firebase project values into the <code>FIREBASE_CONFIG</code> object near the top of the <code>&lt;script&gt;</code> block. See the setup guide included with your file.
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab on" data-atab="orders" id="atab-orders">ORDERS</button>
+      <button class="admin-tab" data-atab="pending" id="atab-pending">PENDING LISTINGS</button>
+      <button class="admin-tab" data-atab="listings" id="atab-listings">ALL LISTINGS</button>
+    </div>
+    <!-- Orders -->
+    <div class="admin-panel on" id="admin-panel-orders">
+      <div id="admin-orders-list"><div class="admin-loading">LOADING ORDERS…</div></div>
+    </div>
+    <!-- Pending listings -->
+    <div class="admin-panel" id="admin-panel-pending">
+      <div id="admin-pending-list"><div class="admin-loading">LOADING LISTINGS…</div></div>
+    </div>
+    <!-- All listings -->
+    <div class="admin-panel" id="admin-panel-listings">
+      <div id="admin-listings-list"><div class="admin-loading">LOADING LISTINGS…</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN EDIT MODAL -->
+<div class="ae-ov" id="ae-ov">
+  <div class="ae-box">
+    <button class="ae-x" id="ae-x">×</button>
+    <div class="ae-title">EDIT LISTING</div>
+    <input type="hidden" id="ae-doc-id">
+    <div class="ae-grid">
+      <div class="ae-field ae-full"><label>TITLE</label><input id="ae-title" type="text"></div>
+      <div class="ae-field ae-full"><label>AUTHOR</label><input id="ae-author" type="text"></div>
+      <div class="ae-field"><label>GENRE</label>
+        <select id="ae-genre">
+          <option>Fiction</option><option>Fantasy</option><option>Science Fiction</option>
+          <option>Mystery</option><option>Romance</option><option>Non-Fiction</option>
+          <option>Biography</option><option>History</option><option>Poetry</option><option>Other</option>
+        </select>
+      </div>
+      <div class="ae-field"><label>CLASS</label>
+        <select id="ae-cls"><option value="A">A — Fine</option><option value="B">B — Good</option><option value="C">C — Fair</option></select>
+      </div>
+      <div class="ae-field"><label>PRICE (€)</label><input id="ae-price" type="number" step="0.01" min="0"></div>
+      <div class="ae-field"><label>YEAR</label><input id="ae-year" type="number" min="1000" max="2099"></div>
+      <div class="ae-field ae-full"><label>DESCRIPTION</label><textarea id="ae-desc"></textarea></div>
+    </div>
+    <button class="ae-save" id="ae-save">SAVE CHANGES →</button>
+  </div>
+</div>
+
 <!-- AUTH MODAL -->
 <div class="auth-ov" id="auth-ov">
   <div class="auth-box">
@@ -806,6 +924,31 @@ hr.thin{border:none;border-top:1px solid var(--border);}
 <div class="toast" id="toast"></div>
 
 <script>
+// ─── FIREBASE CONFIG ────────────────────────────────────────────────────
+// 1. Go to https://console.firebase.google.com → create a project
+// 2. Add a Web App → copy the firebaseConfig values below
+// 3. Enable Authentication → Email/Password
+// 4. Enable Firestore Database (start in test mode)
+var FIREBASE_CONFIG = {
+  apiKey:            "AIzaSyB-SkBv1ZnA5xzvyciOFe-pZyQFJRyH2UY",
+  authDomain:        "livrariapt-a4160.firebaseapp.com",
+  projectId:         "livrariapt-a4160",
+  storageBucket:     "livrariapt-a4160.firebasestorage.app",
+  messagingSenderId: "535032502983",
+  appId:             "1:535032502983:web:b7c6e40ce45081fb05fce2",
+  measurementId:     "G-MS3L98KCCW"
+};
+var fbApp = firebase.initializeApp(FIREBASE_CONFIG);
+var fbAuth = firebase.auth();
+var fbDb   = firebase.firestore();
+
+// ─── ADMIN EMAILS ───────────────────────────────────────────────────────
+// Add the email address(es) that should have admin access
+var ADMIN_EMAILS = ['zarabarcarena@gmail.com'];
+function isAdminEmail(email) {
+  return ADMIN_EMAILS.indexOf((email || '').toLowerCase()) > -1;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 
 // ─── DATA ─────────────────────────────────────────────────────────────
@@ -870,9 +1013,7 @@ var activeFilters = {seller:'all', cls:'all', genre:'', min:null, max:null, sear
 // Auth state
 var isLoggedIn = false;
 var currentUser = {name: '', email: ''};
-var registeredUsers = [
-  {name: 'Test User', email: 'test@livraria.pt', password: 'test123'}
-]; // simple in-memory user store (test account pre-loaded)
+var registeredUsers = []; // replaced by Firebase Auth
 var pendingCartAction = null; // {id, delivery} — stored when cart triggers auth
 
 // ─── NAVIGATION ────────────────────────────────────────────────────────
@@ -890,6 +1031,7 @@ function showPage(name) {
   if (name === 'browse') renderBrowse();
   if (name === 'quality-test') goStep(1);
   if (name === 'sellers') renderSellers();
+  if (name === 'admin') showPage_admin_hook();
 }
 
 // ─── HOME ──────────────────────────────────────────────────────────────
@@ -1277,56 +1419,68 @@ document.getElementById('photo-input').addEventListener('change', function(e) {
 });
 
 function submitListing() {
-  var title = document.getElementById('b-title').value || 'Untitled Book';
-  var author = document.getElementById('b-author').value || 'Unknown Author';
-  var genre = document.getElementById('b-genre').value || 'Fiction';
-  var year = document.getElementById('b-year').value || '';
+  var title     = document.getElementById('b-title').value || 'Untitled Book';
+  var author    = document.getElementById('b-author').value || 'Unknown Author';
+  var genre     = document.getElementById('b-genre').value || 'Fiction';
+  var year      = document.getElementById('b-year').value || '';
   var condition = document.getElementById('b-cond').value || 'B';
-  var desc = document.getElementById('b-desc').value || '';
-  var price = parseFloat(document.getElementById('b-price').value) || 0;
-  var delivery = document.getElementById('b-delivery').value || 'pickup';
-  var pickup = document.getElementById('b-pickup').value || '';
+  var desc      = document.getElementById('b-desc').value || '';
+  var price     = parseFloat(document.getElementById('b-price').value) || 0;
+  var delivery  = document.getElementById('b-delivery').value || 'pickup';
+  var pickup    = document.getElementById('b-pickup').value || '';
+  var sellerName= document.getElementById('s-name').value || currentUser.name;
+  var sellerCity= document.getElementById('s-city').value || '';
 
-  if (editingListingId !== null) {
-    // Update existing listing
-    for (var i = 0; i < sellerListings.length; i++) {
-      if (sellerListings[i].id === editingListingId) {
-        sellerListings[i].title = title;
-        sellerListings[i].author = author;
-        sellerListings[i].genre = genre;
-        sellerListings[i].year = year;
-        sellerListings[i].condition = condition;
-        sellerListings[i].desc = desc;
-        sellerListings[i].price = price;
-        sellerListings[i].delivery = delivery;
-        sellerListings[i].pickup = pickup;
-        sellerListings[i].photos = uploadCount;
-        if (coverPhotoDataUrl) sellerListings[i].cover = coverPhotoDataUrl;
-        sellerListings[i].status = 'pending';
-        break;
-      }
-    }
+  var data = {
+    uid: currentUser.uid || 'anon',
+    sellerName: sellerName, sellerCity: sellerCity,
+    title: title, author: author, genre: genre,
+    year: year, cls: condition, desc: desc, price: price,
+    delivery: delivery, pickup: pickup, photos: uploadCount,
+    cover: coverPhotoDataUrl || '',
+    status: 'pending',
+    submittedAt: firebase.firestore.FieldValue.serverTimestamp()
+  };
+
+  var promise = editingListingId
+    ? fbDb.collection('listings').doc(editingListingId).update(data)
+    : fbDb.collection('listings').add(data);
+
+  promise.then(function() {
     editingListingId = null;
-    showToast('Listing updated — resubmitted for approval');
-  } else {
-    // New listing
-    sellerListings.push({
-      id: Date.now(), title: title, author: author, genre: genre,
-      year: year, condition: condition, desc: desc, price: price,
-      delivery: delivery, pickup: pickup, photos: uploadCount,
-      cover: coverPhotoDataUrl, status: 'pending'
-    });
-    showToast('Listing submitted — pending approval');
-  }
-  coverPhotoDataUrl = '';
-  hasProfile = true;
-  showPage('sellers');
+    coverPhotoDataUrl = '';
+    hasProfile = true;
+    showToast(editingListingId ? 'Listing updated — resubmitted for approval' : 'Listing submitted — pending approval');
+    showPage('sellers');
+  }).catch(function(err) {
+    // Fallback: store in memory if Firebase not configured
+    if (editingListingId !== null) {
+      for (var i = 0; i < sellerListings.length; i++) {
+        if (sellerListings[i].id === editingListingId) {
+          Object.assign(sellerListings[i], {title:title,author:author,genre:genre,year:year,condition:condition,desc:desc,price:price,delivery:delivery,pickup:pickup,photos:uploadCount,status:'pending'});
+          if (coverPhotoDataUrl) sellerListings[i].cover = coverPhotoDataUrl;
+          break;
+        }
+      }
+      editingListingId = null;
+      showToast('Listing updated (offline mode)');
+    } else {
+      sellerListings.push({id:Date.now(),title:title,author:author,genre:genre,year:year,condition:condition,desc:desc,price:price,delivery:delivery,pickup:pickup,photos:uploadCount,cover:coverPhotoDataUrl,status:'pending'});
+      showToast('Listing submitted (offline mode)');
+    }
+    coverPhotoDataUrl = '';
+    hasProfile = true;
+    showPage('sellers');
+  });
 }
 
 function editListing(id) {
+  // id may be a Firestore string ID or a legacy numeric id
   var l = null;
   for (var i = 0; i < sellerListings.length; i++) {
-    if (sellerListings[i].id === id) { l = sellerListings[i]; break; }
+    if (sellerListings[i].firestoreId === id || String(sellerListings[i].id) === String(id)) {
+      l = sellerListings[i]; break;
+    }
   }
   if (!l) return;
   editingListingId = id;
@@ -1360,73 +1514,90 @@ function editListing(id) {
 
 // ─── SELLERS DASHBOARD ─────────────────────────────────────────────────
 function renderSellers() {
-  var np = document.getElementById('s-noprofile');
-  var db = document.getElementById('s-dashboard');
-  if (!hasProfile) {
-    np.style.display = 'block';
-    db.style.display = 'none';
-    return;
-  }
-  np.style.display = 'none';
-  db.style.display = 'block';
+  var np   = document.getElementById('s-noprofile');
+  var dash = document.getElementById('s-dashboard');
   var wrap = document.getElementById('seller-list');
+
+  if (!isLoggedIn) {
+    np.style.display = 'block'; dash.style.display = 'none'; return;
+  }
+
+  // Try to load from Firestore; fall back to in-memory sellerListings
+  fbDb.collection('listings')
+    .where('uid', '==', currentUser.uid)
+    .orderBy('submittedAt', 'desc')
+    .get()
+    .then(function(snap) {
+      sellerListings = [];
+      snap.forEach(function(doc) {
+        sellerListings.push(Object.assign({firestoreId: doc.id}, doc.data()));
+      });
+      _renderSellerListings(np, dash, wrap);
+    })
+    .catch(function() {
+      // Firestore not configured — show in-memory listings
+      _renderSellerListings(np, dash, wrap);
+    });
+}
+
+function _renderSellerListings(np, dash, wrap) {
+  if (sellerListings.length === 0 && !hasProfile) {
+    np.style.display = 'block'; dash.style.display = 'none'; return;
+  }
+  np.style.display = 'none'; dash.style.display = 'block';
   if (sellerListings.length === 0) {
     wrap.innerHTML = '<div class="placeholder-box">' +
       '<h3>NO LISTINGS YET</h3>' +
-      '<p>Start by creating your first listing. We\'ll review it and award it a class within 24 hours.</p>' +
+      '<p>Start by creating your first listing.</p>' +
       '<button class="btn-accent" id="first-listing-btn">CREATE YOUR FIRST LISTING →</button>' +
     '</div>';
     document.getElementById('first-listing-btn').addEventListener('click', function() {
-      editingListingId = null;
-      coverPhotoDataUrl = '';
-      showPage('quality-test');
-      goStep(1);
+      editingListingId = null; coverPhotoDataUrl = '';
+      showPage('quality-test'); goStep(1);
     });
-  } else {
-    var html = '';
-    for (var i = 0; i < sellerListings.length; i++) {
-      var l = sellerListings[i];
-      var thumbHtml = l.cover
-        ? '<img class="pend-cover" src="' + l.cover + '" alt="' + escAttr(l.title) + '">'
-        : '<div class="pend-cover-ph">📚</div>';
-      html += '<div class="pend-card">' +
-        thumbHtml +
-        '<div style="flex:1;min-width:0">' +
-          '<div class="pend-title">' + escHtml(l.title) + '</div>' +
-          '<div class="pend-meta">' + escHtml(l.author) + ' · ' + escHtml(l.genre) + '</div>' +
-          '<div class="pend-price">€' + l.price.toFixed(2) + '</div>' +
-          '<div class="pend-photos">📷 ' + l.photos + ' photo' + (l.photos !== 1 ? 's' : '') + ' uploaded</div>' +
-        '</div>' +
-        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0">' +
-          '<div class="pend-badge">⏳ PENDING APPROVAL</div>' +
-          '<div class="pend-note">Awaiting review from our team.</div>' +
-          '<button class="pend-edit-btn" data-edit-id="' + l.id + '">EDIT &amp; RESUBMIT →</button>' +
-        '</div>' +
-      '</div>';
-    }
-    wrap.innerHTML = html;
+    return;
   }
+  var html = '';
+  for (var i = 0; i < sellerListings.length; i++) {
+    var l = sellerListings[i];
+    var editKey = l.firestoreId || l.id;
+    var statusLabel = l.status === 'approved' ? '✓ APPROVED' : l.status === 'rejected' ? '✗ REJECTED' : '⏳ PENDING';
+    var thumbHtml = l.cover
+      ? '<img class="pend-cover" src="' + l.cover + '" alt="' + escAttr(l.title) + '">'
+      : '<div class="pend-cover-ph">📚</div>';
+    html += '<div class="pend-card">' +
+      thumbHtml +
+      '<div style="flex:1;min-width:0">' +
+        '<div class="pend-title">' + escHtml(l.title) + '</div>' +
+        '<div class="pend-meta">' + escHtml(l.author) + ' · ' + escHtml(l.genre) + '</div>' +
+        '<div class="pend-price">€' + (l.price||0).toFixed(2) + '</div>' +
+        '<div class="pend-photos">📷 ' + (l.photos||0) + ' photo' + (l.photos !== 1 ? 's' : '') + ' uploaded</div>' +
+      '</div>' +
+      '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0">' +
+        '<div class="pend-badge">' + statusLabel + '</div>' +
+        '<div class="pend-note">Awaiting review from our team.</div>' +
+        '<button class="pend-edit-btn" data-edit-id="' + escAttr(String(editKey)) + '">EDIT &amp; RESUBMIT →</button>' +
+      '</div>' +
+    '</div>';
+  }
+  wrap.innerHTML = html;
 }
 
 // Event delegation for edit buttons in seller list
 document.getElementById('seller-list').addEventListener('click', function(e) {
   var btn = e.target.closest('.pend-edit-btn');
   if (btn) {
-    var id = parseInt(btn.getAttribute('data-edit-id'), 10);
-    editListing(id);
+    editListing(btn.getAttribute('data-edit-id')); // string ID (Firestore) or numeric
   }
 });
 
 // ─── AUTH ──────────────────────────────────────────────────────────────
 function updateAuthUI() {
-  if (isLoggedIn) {
-    document.getElementById('auth-nav-guest').style.display = 'none';
-    document.getElementById('auth-nav-user').style.display = 'flex';
-    document.getElementById('nav-username').textContent = currentUser.name;
-  } else {
-    document.getElementById('auth-nav-guest').style.display = 'flex';
-    document.getElementById('auth-nav-user').style.display = 'none';
-  }
+  var admin = isLoggedIn && isAdminEmail(currentUser.email);
+  document.getElementById('auth-nav-guest').style.display = isLoggedIn ? 'none' : 'flex';
+  document.getElementById('auth-nav-user').style.display  = isLoggedIn ? 'flex' : 'none';
+  document.getElementById('nav-admin-btn').style.display  = admin ? ''    : 'none';
+  if (isLoggedIn) document.getElementById('nav-username').textContent = currentUser.name;
 }
 
 function showAuthModal(mode) {
@@ -1462,56 +1633,84 @@ document.getElementById('auth-ov').addEventListener('click', function(e) {
 document.getElementById('nav-login-btn').addEventListener('click', function() { showAuthModal('login'); });
 document.getElementById('nav-signup-btn').addEventListener('click', function() { showAuthModal('signup'); });
 document.getElementById('nav-logout-btn').addEventListener('click', function() {
-  isLoggedIn = false;
-  currentUser = {name: '', email: ''};
+  var wasAdmin = isAdminEmail(currentUser.email);
+  fbAuth.signOut().then(function() {
+    showToast('Logged out successfully');
+    if (wasAdmin) showPage('home');
+  });
+});
+document.getElementById('nav-admin-btn').addEventListener('click', function() { showPage('admin'); });
+
+// Firebase auth state — single source of truth
+fbAuth.onAuthStateChanged(function(fbUser) {
+  if (fbUser) {
+    isLoggedIn = true;
+    currentUser = {
+      name:  fbUser.displayName || fbUser.email.split('@')[0],
+      email: fbUser.email,
+      uid:   fbUser.uid
+    };
+  } else {
+    isLoggedIn = false;
+    currentUser = {name: '', email: '', uid: ''};
+  }
   updateAuthUI();
-  showToast('Logged out successfully');
 });
 
 document.getElementById('login-submit').addEventListener('click', function() {
   var email = document.getElementById('login-email').value.trim();
-  var pass = document.getElementById('login-pass').value;
+  var pass  = document.getElementById('login-pass').value;
   var errEl = document.getElementById('login-error');
-  var found = null;
-  for (var i = 0; i < registeredUsers.length; i++) {
-    if (registeredUsers[i].email === email && registeredUsers[i].password === pass) {
-      found = registeredUsers[i]; break;
-    }
-  }
-  if (!found) { errEl.style.display = 'block'; return; }
   errEl.style.display = 'none';
-  isLoggedIn = true;
-  currentUser = {name: found.name, email: found.email};
-  updateAuthUI();
-  closeAuthModal();
-  showToast('Welcome back, ' + currentUser.name + '!');
-  if (pendingCartAction) {
-    var a = pendingCartAction; pendingCartAction = null;
-    addToCart(a.id, a.delivery);
-  }
+  fbAuth.signInWithEmailAndPassword(email, pass)
+    .then(function(cred) {
+      var dispName = cred.user.displayName || email.split('@')[0];
+      closeAuthModal();
+      showToast('Welcome back, ' + dispName + '!');
+      if (pendingCartAction) {
+        var a = pendingCartAction; pendingCartAction = null;
+        addToCart(a.id, a.delivery);
+      }
+    })
+    .catch(function() {
+      errEl.textContent = 'Incorrect email or password.';
+      errEl.style.display = 'block';
+    });
 });
 
 document.getElementById('signup-submit').addEventListener('click', function() {
-  var name = document.getElementById('signup-name').value.trim();
+  var name  = document.getElementById('signup-name').value.trim();
   var email = document.getElementById('signup-email').value.trim();
-  var pass = document.getElementById('signup-pass').value;
+  var pass  = document.getElementById('signup-pass').value;
   var pass2 = document.getElementById('signup-pass2').value;
   var errEl = document.getElementById('signup-error');
+  errEl.style.display = 'none';
   if (!name || !email || !pass || pass.length < 6 || pass !== pass2) {
     errEl.textContent = pass !== pass2 ? 'Passwords do not match.' : 'Please fill in all fields (min. 6 char password).';
     errEl.style.display = 'block'; return;
   }
-  errEl.style.display = 'none';
-  registeredUsers.push({name: name, email: email, password: pass});
-  isLoggedIn = true;
-  currentUser = {name: name, email: email};
-  updateAuthUI();
-  closeAuthModal();
-  showToast('Account created! Welcome, ' + name + '!');
-  if (pendingCartAction) {
-    var a = pendingCartAction; pendingCartAction = null;
-    addToCart(a.id, a.delivery);
-  }
+  fbAuth.createUserWithEmailAndPassword(email, pass)
+    .then(function(cred) {
+      var uid = cred.user.uid;
+      return cred.user.updateProfile({displayName: name}).then(function() {
+        return fbDb.collection('users').doc(uid).set({
+          name: name, email: email,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      });
+    })
+    .then(function() {
+      closeAuthModal();
+      showToast('Account created! Welcome, ' + name + '!');
+      if (pendingCartAction) {
+        var a = pendingCartAction; pendingCartAction = null;
+        addToCart(a.id, a.delivery);
+      }
+    })
+    .catch(function(err) {
+      errEl.textContent = err.message || 'Could not create account.';
+      errEl.style.display = 'block';
+    });
 });
 
 // ─── TOAST ─────────────────────────────────────────────────────────────
@@ -1586,6 +1785,32 @@ function showCheckout() {
 document.getElementById('checkout-btn').addEventListener('click', showCheckout);
 
 document.getElementById('co-place-btn').addEventListener('click', function() {
+  // Calculate totals from current cart
+  var subtotal = 0, shippingTotal = 0;
+  var cartSnapshot = cart.slice();
+  for (var ci = 0; ci < cartSnapshot.length; ci++) {
+    subtotal += cartSnapshot[ci].price;
+    if (cartSnapshot[ci].delivery === 'shipping') shippingTotal += 3.5;
+  }
+  var grandTotal = subtotal + shippingTotal;
+  var billingName = (document.getElementById('co-name') ? document.getElementById('co-name').value : '') || currentUser.name;
+
+  // Save order to Firestore
+  fbDb.collection('orders').add({
+    uid:          currentUser.uid || 'guest',
+    buyerName:    currentUser.name,
+    buyerEmail:   currentUser.email,
+    billingName:  billingName,
+    items:        cartSnapshot.map(function(i) {
+      return {id:i.id, title:i.title, author:i.author, cls:i.cls, price:i.price, delivery:i.delivery, seller:i.seller};
+    }),
+    subtotal:     subtotal,
+    shipping:     shippingTotal,
+    total:        grandTotal,
+    status:       'confirmed',
+    placedAt:     firebase.firestore.FieldValue.serverTimestamp()
+  }).catch(function() { /* Firestore not configured — proceed anyway */ });
+
   // Show confirmation, clear cart
   document.getElementById('co-form-state').style.display = 'none';
   document.getElementById('co-confirmed-state').style.display = 'block';
@@ -1607,6 +1832,193 @@ document.getElementById('co-expiry').addEventListener('input', function() {
   var v = this.value.replace(/\D/g, '').substring(0, 4);
   if (v.length > 2) this.value = v.substring(0, 2) + ' / ' + v.substring(2);
   else this.value = v;
+});
+
+// ─── ADMIN PANEL ───────────────────────────────────────────────────────
+var aeCurrentDocId = null;
+
+function showPage_admin_hook() {
+  // Called whenever admin page is shown
+  var warn = document.getElementById('admin-config-warn');
+  if (FIREBASE_CONFIG.apiKey === 'PASTE_YOUR_API_KEY') {
+    if (warn) warn.style.display = 'block';
+  } else {
+    if (warn) warn.style.display = 'none';
+    loadAdminOrders();
+  }
+}
+
+function loadAdminOrders() {
+  var el = document.getElementById('admin-orders-list');
+  el.innerHTML = '<div class="admin-loading">LOADING ORDERS…</div>';
+  fbDb.collection('orders').orderBy('placedAt', 'desc').get().then(function(snap) {
+    if (snap.empty) {
+      el.innerHTML = '<div class="admin-empty">NO ORDERS YET</div>'; return;
+    }
+    var html = '';
+    snap.forEach(function(doc) {
+      var o = doc.data();
+      var ts = o.placedAt && o.placedAt.toDate ? o.placedAt.toDate().toLocaleString('en-GB') : '—';
+      var itemsHtml = '';
+      if (o.items) {
+        for (var i = 0; i < o.items.length; i++) {
+          var it = o.items[i];
+          itemsHtml += '<div class="order-item-row">' +
+            escHtml(it.title) + ' by ' + escHtml(it.author||'') +
+            ' · Class ' + (it.cls||'') +
+            ' · ' + (it.delivery === 'shipping' ? 'Shipping' : 'Pickup') +
+            ' · €' + ((it.price||0) + (it.delivery==='shipping'?3.5:0)).toFixed(2) +
+          '</div>';
+        }
+      }
+      html += '<div class="order-card">' +
+        '<div class="order-card-hd">' +
+          '<div><div class="order-id">ORDER #' + doc.id.substring(0,8).toUpperCase() + '</div>' +
+          '<div class="order-buyer">' + escHtml(o.buyerName||'') + ' · ' + escHtml(o.buyerEmail||'') + '</div></div>' +
+          '<div><div class="order-total-lbl">€' + (o.total||0).toFixed(2) + '</div>' +
+          '<div class="order-ts">' + ts + '</div></div>' +
+        '</div>' +
+        itemsHtml +
+      '</div>';
+    });
+    el.innerHTML = html;
+  }).catch(function() {
+    el.innerHTML = '<div class="admin-empty">Could not load orders. Check Firebase config.</div>';
+  });
+}
+
+function loadAdminListings(filter, targetElId) {
+  var el = document.getElementById(targetElId);
+  el.innerHTML = '<div class="admin-loading">LOADING…</div>';
+  var q = fbDb.collection('listings');
+  if (filter) q = q.where('status', '==', filter);
+  q.orderBy('submittedAt', 'desc').get().then(function(snap) {
+    if (snap.empty) {
+      el.innerHTML = '<div class="admin-empty">NONE TO SHOW</div>'; return;
+    }
+    var html = '';
+    snap.forEach(function(doc) {
+      var l = doc.data();
+      var statusCls = 'status-' + (l.status||'pending');
+      var coverHtml = l.cover
+        ? '<img class="listing-cover-sm" src="' + l.cover + '" alt="">'
+        : '<div class="listing-cover-ph">📚</div>';
+      var isPending = (l.status === 'pending' || !l.status);
+      html += '<div class="listing-card">' +
+        coverHtml +
+        '<div class="listing-info">' +
+          '<div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">' +
+            '<span class="listing-card-title">' + escHtml(l.title||'') + '</span>' +
+            '<span class="status-pill ' + statusCls + '">' + (l.status||'pending').toUpperCase() + '</span>' +
+          '</div>' +
+          '<div class="listing-card-meta">by ' + escHtml(l.author||'') +
+            ' · ' + escHtml(l.genre||'') +
+            ' · Class ' + (l.cls||'?') +
+            ' · €' + (l.price||0).toFixed(2) +
+            ' · Seller: ' + escHtml(l.sellerName||'') +
+            (l.sellerCity ? ' (' + escHtml(l.sellerCity) + ')' : '') +
+          '</div>' +
+          '<div class="listing-card-desc">' + escHtml((l.desc||'').substring(0, 200)) + '</div>' +
+          '<div class="listing-card-actions">' +
+            (isPending ? '<button class="btn-approve" data-id="' + doc.id + '" data-action="approve">APPROVE</button>' : '') +
+            (isPending ? '<button class="btn-reject" data-id="' + doc.id + '" data-action="reject">REJECT</button>' : '') +
+            '<button class="btn-admin-edit" data-id="' + doc.id + '" data-action="edit" ' +
+              'data-title="' + escAttr(l.title||'') + '" ' +
+              'data-author="' + escAttr(l.author||'') + '" ' +
+              'data-genre="' + escAttr(l.genre||'') + '" ' +
+              'data-cls="' + escAttr(l.cls||'B') + '" ' +
+              'data-price="' + (l.price||0) + '" ' +
+              'data-year="' + escAttr(String(l.year||'')) + '" ' +
+              'data-desc="' + escAttr(l.desc||'') + '">' +
+              'EDIT</button>' +
+            (l.status === 'approved' ? '<button class="btn-reject" data-id="' + doc.id + '" data-action="remove" style="border-color:var(--muted);color:var(--muted)">REMOVE</button>' : '') +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    });
+    el.innerHTML = html;
+  }).catch(function() {
+    el.innerHTML = '<div class="admin-empty">Could not load listings. Check Firebase config.</div>';
+  });
+}
+
+function handleAdminListingAction(e) {
+  var btn = e.target.closest('[data-action]');
+  if (!btn) return;
+  var action = btn.getAttribute('data-action');
+  var docId  = btn.getAttribute('data-id');
+  if (action === 'approve') {
+    fbDb.collection('listings').doc(docId).update({status:'approved'}).then(function() {
+      showToast('Listing approved!');
+      loadAdminListings('pending', 'admin-pending-list');
+    });
+  } else if (action === 'reject' || action === 'remove') {
+    fbDb.collection('listings').doc(docId).update({status:'rejected'}).then(function() {
+      showToast('Listing ' + (action === 'remove' ? 'removed' : 'rejected'));
+      loadAdminListings('pending', 'admin-pending-list');
+      loadAdminListings(null, 'admin-listings-list');
+    });
+  } else if (action === 'edit') {
+    aeCurrentDocId = docId;
+    document.getElementById('ae-title').value  = btn.getAttribute('data-title')  || '';
+    document.getElementById('ae-author').value = btn.getAttribute('data-author') || '';
+    document.getElementById('ae-genre').value  = btn.getAttribute('data-genre')  || 'Fiction';
+    document.getElementById('ae-cls').value    = btn.getAttribute('data-cls')    || 'B';
+    document.getElementById('ae-price').value  = btn.getAttribute('data-price')  || '';
+    document.getElementById('ae-year').value   = btn.getAttribute('data-year')   || '';
+    document.getElementById('ae-desc').value   = btn.getAttribute('data-desc')   || '';
+    document.getElementById('ae-ov').classList.add('on');
+  }
+}
+
+document.getElementById('admin-pending-list').addEventListener('click', handleAdminListingAction);
+document.getElementById('admin-listings-list').addEventListener('click', handleAdminListingAction);
+
+document.getElementById('ae-save').addEventListener('click', function() {
+  if (!aeCurrentDocId) return;
+  var updates = {
+    title:  document.getElementById('ae-title').value,
+    author: document.getElementById('ae-author').value,
+    genre:  document.getElementById('ae-genre').value,
+    cls:    document.getElementById('ae-cls').value,
+    price:  parseFloat(document.getElementById('ae-price').value) || 0,
+    year:   document.getElementById('ae-year').value,
+    desc:   document.getElementById('ae-desc').value
+  };
+  fbDb.collection('listings').doc(aeCurrentDocId).update(updates).then(function() {
+    document.getElementById('ae-ov').classList.remove('on');
+    showToast('Listing updated!');
+    loadAdminListings(null, 'admin-listings-list');
+    loadAdminListings('pending', 'admin-pending-list');
+    aeCurrentDocId = null;
+  }).catch(function(err) {
+    showToast('Error: ' + err.message);
+  });
+});
+
+document.getElementById('ae-x').addEventListener('click', function() {
+  document.getElementById('ae-ov').classList.remove('on');
+  aeCurrentDocId = null;
+});
+document.getElementById('ae-ov').addEventListener('click', function(e) {
+  if (e.target === document.getElementById('ae-ov')) {
+    document.getElementById('ae-ov').classList.remove('on');
+    aeCurrentDocId = null;
+  }
+});
+
+// Admin tab switching
+document.querySelectorAll('.admin-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    var target = tab.getAttribute('data-atab');
+    document.querySelectorAll('.admin-tab').forEach(function(t) { t.classList.remove('on'); });
+    document.querySelectorAll('.admin-panel').forEach(function(p) { p.classList.remove('on'); });
+    tab.classList.add('on');
+    document.getElementById('admin-panel-' + target).classList.add('on');
+    if (target === 'orders')   loadAdminOrders();
+    if (target === 'pending')  loadAdminListings('pending', 'admin-pending-list');
+    if (target === 'listings') loadAdminListings(null, 'admin-listings-list');
+  });
 });
 
 // ─── NAV BUTTON WIRING ─────────────────────────────────────────────────
