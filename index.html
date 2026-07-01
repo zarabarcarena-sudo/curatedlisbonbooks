@@ -870,7 +870,9 @@ var activeFilters = {seller:'all', cls:'all', genre:'', min:null, max:null, sear
 // Auth state
 var isLoggedIn = false;
 var currentUser = {name: '', email: ''};
-var registeredUsers = []; // simple in-memory user store
+var registeredUsers = [
+  {name: 'Test User', email: 'test@livraria.pt', password: 'test123'}
+]; // simple in-memory user store (test account pre-loaded)
 var pendingCartAction = null; // {id, delivery} — stored when cart triggers auth
 
 // ─── NAVIGATION ────────────────────────────────────────────────────────
