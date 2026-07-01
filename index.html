@@ -1067,6 +1067,7 @@ var registeredUsers = []; // replaced by Firebase Auth
 var pendingCartAction = null; // {id, delivery} — stored when cart triggers auth
 var firestoreListings = [];   // approved listings loaded from Firestore
 var isAdminListingMode = false; // true when admin adds a platform listing
+var conditionPhotos = [];     // compressed condition photo data URLs
 
 // ─── NAVIGATION ────────────────────────────────────────────────────────
 function showPage(name) {
@@ -1428,37 +1429,61 @@ document.getElementById('qt4-next').addEventListener('click', function() {
 document.getElementById('qt5-back').addEventListener('click', function() { goStep(4); });
 document.getElementById('qt5-submit').addEventListener('click', submitListing);
 
-// Cover photo upload — label element triggers the input; just handle the change
+// Image compression helper — resizes + JPEG encodes before Firestore storage
+function compressImage(file, maxPx, quality, cb) {
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    var img = new Image();
+    img.onload = function() {
+      var w = img.width, h = img.height;
+      if (w > maxPx) { h = Math.round(h * maxPx / w); w = maxPx; }
+      if (h > maxPx) { w = Math.round(w * maxPx / h); h = maxPx; }
+      var cvs = document.createElement('canvas');
+      cvs.width = w; cvs.height = h;
+      cvs.getContext('2d').drawImage(img, 0, 0, w, h);
+      cb(cvs.toDataURL('image/jpeg', quality));
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// Cover photo upload — compress to 600px / 0.75 quality before storing
 document.getElementById('cover-input').addEventListener('change', function(e) {
   var file = e.target.files[0];
   if (!file) return;
-  var reader = new FileReader();
-  reader.onload = function(ev) {
-    coverPhotoDataUrl = ev.target.result;
+  compressImage(file, 600, 0.75, function(compressed) {
+    coverPhotoDataUrl = compressed;
     document.getElementById('cover-preview-img').src = coverPhotoDataUrl;
     document.getElementById('cover-preview-wrap').style.display = 'block';
-  };
-  reader.readAsDataURL(file);
+  });
 });
 
-// Condition photos upload
+// Condition photos upload — compress to 480px / 0.65 quality, store up to 8
 document.getElementById('upload-area').addEventListener('click', function() {
   document.getElementById('photo-input').click();
 });
 document.getElementById('photo-input').addEventListener('change', function(e) {
-  var files = Array.prototype.slice.call(e.target.files);
+  var files = Array.prototype.slice.call(e.target.files).slice(0, 8);
   uploadCount = files.length;
+  conditionPhotos = [];
   var grid = document.getElementById('photo-grid');
-  grid.innerHTML = '';
+  grid.innerHTML = '<div style="grid-column:1/-1;font-family:\'Barlow Condensed\',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 0">Compressing ' + files.length + ' photo' + (files.length !== 1 ? 's' : '') + '…</div>';
+  var done = 0;
   files.forEach(function(file) {
-    var reader = new FileReader();
-    reader.onload = function(ev) {
-      var img = document.createElement('img');
-      img.src = ev.target.result;
-      img.className = 'photo-thumb';
-      grid.appendChild(img);
-    };
-    reader.readAsDataURL(file);
+    compressImage(file, 480, 0.65, function(url) {
+      conditionPhotos.push(url);
+      done++;
+      if (done === files.length) {
+        grid.innerHTML = '';
+        conditionPhotos.forEach(function(dataUrl) {
+          var img = document.createElement('img');
+          img.src = dataUrl;
+          img.className = 'photo-thumb';
+          grid.appendChild(img);
+        });
+      }
+    });
   });
 });
 
@@ -1484,6 +1509,7 @@ function submitListing() {
     year: year, cls: condition, desc: desc, price: price,
     delivery: delivery, pickup: pickup, photos: uploadCount,
     cover: coverPhotoDataUrl || '',
+    conditionPhotos: conditionPhotos.slice(0, 4),
     status: isAdminListingMode ? 'approved' : 'pending',
     submittedAt: firebase.firestore.FieldValue.serverTimestamp()
   };
@@ -1500,12 +1526,14 @@ function submitListing() {
       firestoreListings.push({id:newId,title:title,author:author,genre:genre,cls:condition,price:price,seller:'platform',cover:coverPhotoDataUrl||'',desc:desc,year:year});
       isAdminListingMode = false;
       coverPhotoDataUrl = '';
+      conditionPhotos = [];
       showToast('Platform listing added and live!');
       showPage('admin');
       return;
     }
     editingListingId = null;
     coverPhotoDataUrl = '';
+    conditionPhotos = [];
     hasProfile = true;
     showToast(editingListingId ? 'Listing updated — resubmitted for approval' : 'Listing submitted — pending approval');
     showPage('sellers');
@@ -1527,6 +1555,7 @@ function submitListing() {
       showToast('Listing submitted (offline mode)');
     }
     coverPhotoDataUrl = '';
+    conditionPhotos = [];
     hasProfile = true;
     showPage('sellers');
   });
@@ -2042,8 +2071,17 @@ function loadAdminSellers() {
       '</div>';
     });
     el.innerHTML = html;
-  }).catch(function() {
-    el.innerHTML = '<div class="admin-empty">Could not load sellers. Check Firebase config.</div>';
+  }).catch(function(err) {
+    var msg = err && err.message ? err.message : 'Unknown error';
+    el.innerHTML = '<div style="padding:24px;font-family:\'Barlow Condensed\',sans-serif">' +
+      '<div style="font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:8px">Could Not Load Sellers</div>' +
+      '<div style="font-size:12px;color:var(--accent);margin-bottom:14px">' + escHtml(msg) + '</div>' +
+      '<div style="background:#fff8f0;border:1px solid #ffd0a0;padding:16px;font-size:12px;line-height:1.7;color:var(--ink)">' +
+      '<strong style="letter-spacing:.06em;text-transform:uppercase">Fix: Update Firestore Security Rules</strong><br>' +
+      '1. Open <a href="https://console.firebase.google.com/project/livrariapt-a4160/firestore/rules" target="_blank" style="color:var(--accent)">Firebase Console → Firestore → Rules</a><br>' +
+      '2. Replace all content with:<br>' +
+      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
+      '3. Click <strong>Publish</strong>, then reload this page.</div></div>';
   });
 }
 
@@ -2126,8 +2164,17 @@ function loadAdminListings() {
       '</div>';
     }
     el.innerHTML = html;
-  }).catch(function() {
-    el.innerHTML = '<div class="admin-empty">Could not load listings. Check Firebase config.</div>';
+  }).catch(function(err) {
+    var msg = err && err.message ? err.message : 'Unknown error';
+    el.innerHTML = '<div style="padding:24px;font-family:\'Barlow Condensed\',sans-serif">' +
+      '<div style="font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:8px">Could Not Load Listings</div>' +
+      '<div style="font-size:12px;color:var(--accent);margin-bottom:14px">' + escHtml(msg) + '</div>' +
+      '<div style="background:#fff8f0;border:1px solid #ffd0a0;padding:16px;font-size:12px;line-height:1.7;color:var(--ink)">' +
+      '<strong style="letter-spacing:.06em;text-transform:uppercase">Fix: Update Firestore Security Rules</strong><br>' +
+      '1. Open <a href="https://console.firebase.google.com/project/livrariapt-a4160/firestore/rules" target="_blank" style="color:var(--accent)">Firebase Console → Firestore → Rules</a><br>' +
+      '2. Replace all content with:<br>' +
+      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
+      '3. Click <strong>Publish</strong>, then reload this page.</div></div>';
   });
 }
 
@@ -2182,7 +2229,16 @@ function loadAdminPending() {
     }
     el.innerHTML = html;
   }).catch(function(err) {
-    el.innerHTML = '<div class="admin-empty">Could not load: ' + (err&&err.message?err.message:'Check Firebase config') + '</div>';
+    var msg = err && err.message ? err.message : 'Unknown error';
+    el.innerHTML = '<div style="padding:24px;font-family:\'Barlow Condensed\',sans-serif">' +
+      '<div style="font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:8px">Could Not Load Pending Listings</div>' +
+      '<div style="font-size:12px;color:var(--accent);margin-bottom:14px">' + escHtml(msg) + '</div>' +
+      '<div style="background:#fff8f0;border:1px solid #ffd0a0;padding:16px;font-size:12px;line-height:1.7;color:var(--ink)">' +
+      '<strong style="letter-spacing:.06em;text-transform:uppercase">Fix: Update Firestore Security Rules</strong><br>' +
+      '1. Open <a href="https://console.firebase.google.com/project/livrariapt-a4160/firestore/rules" target="_blank" style="color:var(--accent)">Firebase Console → Firestore → Rules</a><br>' +
+      '2. Replace all content with:<br>' +
+      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
+      '3. Click <strong>Publish</strong>, then reload this page.</div></div>';
   });
 }
 
@@ -2334,8 +2390,17 @@ function loadAdminOrders() {
       '</div>';
     });
     el.innerHTML = html;
-  }).catch(function() {
-    el.innerHTML = '<div class="admin-empty">Could not load orders. Check Firebase config.</div>';
+  }).catch(function(err) {
+    var msg = err && err.message ? err.message : 'Unknown error';
+    el.innerHTML = '<div style="padding:24px;font-family:\'Barlow Condensed\',sans-serif">' +
+      '<div style="font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-bottom:8px">Could Not Load Orders</div>' +
+      '<div style="font-size:12px;color:var(--accent);margin-bottom:14px">' + escHtml(msg) + '</div>' +
+      '<div style="background:#fff8f0;border:1px solid #ffd0a0;padding:16px;font-size:12px;line-height:1.7;color:var(--ink)">' +
+      '<strong style="letter-spacing:.06em;text-transform:uppercase">Fix: Update Firestore Security Rules</strong><br>' +
+      '1. Open <a href="https://console.firebase.google.com/project/livrariapt-a4160/firestore/rules" target="_blank" style="color:var(--accent)">Firebase Console → Firestore → Rules</a><br>' +
+      '2. Replace all content with:<br>' +
+      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
+      '3. Click <strong>Publish</strong>, then reload this page.</div></div>';
   });
 }
 
