@@ -430,7 +430,7 @@ hr.thin{border:none;border-top:1px solid var(--border);}
     <span class="nav-link" data-p="browse" id="nl-browse">BROWSE</span>
     <span class="nav-link" data-p="sell" id="nl-sell">SELL</span>
     <span class="nav-link" data-p="sellers" id="nl-sellers">SELLERS</span>
-    <span class="nav-link" data-p="orders" id="nl-orders" style="display:none">MY ORDERS</span>
+    <span class="nav-link" data-p="orders" id="nl-orders">YOUR ORDERS</span>
   </div>
   <div style="display:flex;align-items:center;gap:10px">
     <!-- Shown when logged OUT -->
@@ -848,24 +848,17 @@ hr.thin{border:none;border-top:1px solid var(--border);}
     </div>
   </div>
 
-  <!-- Confirmed state — MBway payment instructions -->
+  <!-- Confirmed state -->
   <div id="co-confirmed-state" style="display:none">
     <div class="co-confirmed">
       <div class="co-tick">✓</div>
       <h1>ORDER PLACED</h1>
-      <p>Your order is in! Now complete your payment via MBway to confirm it.</p>
-      <div class="mbway-box">
-        <div class="mbway-box-lbl">Send payment to this MBway number</div>
-        <div class="mbway-number" id="conf-mbway-number">+351 912 345 678</div>
-        <div class="mbway-amount">Amount: <span id="conf-mbway-amount">€0.00</span></div>
-        <div style="border-top:1px solid var(--border);margin:14px 0"></div>
-        <div class="mbway-step"><span class="mbway-step-num">1</span><span class="mbway-step-txt">Open your MBway app and select <strong>Send Money</strong></span></div>
-        <div class="mbway-step"><span class="mbway-step-num">2</span><span class="mbway-step-txt">Enter the number above and the exact amount shown</span></div>
-        <div class="mbway-step"><span class="mbway-step-num">3</span><span class="mbway-step-txt">Use your email as the payment reference</span></div>
-        <div class="mbway-note" style="margin-top:10px">We'll confirm your payment and update your order status within a few hours.</div>
+      <p>Your order is in! We'll send your MBway payment details shortly — check <strong>Your Orders</strong> for updates.</p>
+      <div style="background:#f9f8f6;border-left:3px solid var(--accent);padding:16px 20px;margin:24px 0;text-align:left;font-size:14px;line-height:1.7">
+        We'll review your order and send you the MBway number to pay to. Once we receive your payment, your order will be confirmed and on its way.
       </div>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-        <button class="btn-dark" id="co-view-orders">VIEW MY ORDERS →</button>
+        <button class="btn-dark" id="co-view-orders">VIEW YOUR ORDERS →</button>
         <button class="btn-ghost" id="co-back-home">BACK TO SHELF</button>
       </div>
     </div>
@@ -1848,7 +1841,7 @@ function updateAuthUI() {
   document.getElementById('auth-nav-guest').style.display = isLoggedIn ? 'none' : 'flex';
   document.getElementById('auth-nav-user').style.display  = isLoggedIn ? 'flex' : 'none';
   document.getElementById('nav-admin-btn').style.display  = admin ? ''    : 'none';
-  document.getElementById('nl-orders').style.display      = (isLoggedIn && !admin) ? '' : 'none';
+  document.getElementById('nl-orders').style.display      = admin ? 'none' : '';
   if (isLoggedIn) document.getElementById('nav-username').textContent = currentUser.name;
 }
 
@@ -2115,15 +2108,11 @@ document.getElementById('co-place-btn').addEventListener('click', function() {
     subtotal:     subtotal,
     shipping:     shippingTotal,
     total:        grandTotal,
-    status:       'pending_payment',
+    status:       'pending',
     placedAt:     firebase.firestore.FieldValue.serverTimestamp()
   }).catch(function() { /* Firestore not configured — proceed anyway */ });
 
-  // Show confirmation with MBway details, clear cart
-  var mbEl = document.getElementById('conf-mbway-number');
-  var amtEl = document.getElementById('conf-mbway-amount');
-  if (mbEl) mbEl.textContent = MBWAY_NUMBER;
-  if (amtEl) amtEl.textContent = '€' + grandTotal.toFixed(2);
+  // Show confirmation, clear cart
   document.getElementById('co-form-state').style.display = 'none';
   document.getElementById('co-confirmed-state').style.display = 'block';
   cart = [];
@@ -2171,8 +2160,9 @@ function renderOrders() {
       var html = '';
       for (var oi = 0; oi < docs.length; oi++) {
         var o = docs[oi].data;
-        var stages = ['pending_payment', 'payment_confirmed', 'ready', 'completed'];
-        var stageLabels = ['Awaiting Payment', 'Payment Confirmed', 'On The Way', 'Delivered'];
+        // Status stages
+        var stages      = ['pending', 'mbway_sent', 'payment_confirmed', 'completed'];
+        var stageLabels = ['Order Placed', 'MBway Sent', 'Payment Confirmed', 'On The Way'];
         var curStage = stages.indexOf(o.status);
         if (curStage < 0) curStage = 0;
         // Items list
@@ -2187,15 +2177,30 @@ function renderOrders() {
         if (o.placedAt && o.placedAt.toDate) {
           dateStr = o.placedAt.toDate().toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
         }
-        // MBway reminder for pending orders
-        var mbwayReminder = '';
-        if (o.status === 'pending_payment') {
-          mbwayReminder = '<div class="buyer-mbway-reminder">' +
-            '<strong>Payment pending</strong> — send <strong>€' + (o.total || 0).toFixed(2) +
-            '</strong> via MBway to <strong>' + MBWAY_NUMBER + '</strong>' +
+        // Status message block
+        var statusBlock = '';
+        if (o.status === 'pending') {
+          statusBlock = '<div class="buyer-mbway-reminder" style="background:#f9f8f6;border-color:var(--border);color:var(--muted)">' +
+            'We\'re reviewing your order and will send your MBway payment details shortly.' +
+            '</div>';
+        } else if (o.status === 'mbway_sent') {
+          var mbNum = o.mbwayNumber || MBWAY_NUMBER;
+          statusBlock = '<div class="buyer-mbway-reminder">' +
+            '<strong>Payment details ready!</strong> Please send <strong>€' + (o.total || 0).toFixed(2) +
+            '</strong> via MBway to:<br>' +
+            '<span style="font-size:22px;font-family:\'Barlow Condensed\',sans-serif;font-weight:800;letter-spacing:.06em;display:block;margin:8px 0">' + mbNum + '</span>' +
+            'Use your email as the payment reference. Once we receive it, we\'ll confirm your order.' +
+            '</div>';
+        } else if (o.status === 'payment_confirmed') {
+          statusBlock = '<div class="buyer-mbway-reminder" style="background:#f0fff4;border-color:#4caf50">' +
+            '✓ <strong>Payment confirmed — your order is on the way!</strong> Thank you for your purchase.' +
+            '</div>';
+        } else if (o.status === 'completed') {
+          statusBlock = '<div class="buyer-mbway-reminder" style="background:#f9f8f6;border-color:var(--border)">' +
+            '✓ <strong>Order delivered.</strong> Thank you!' +
             '</div>';
         }
-        // Progress steps (reuse .op-step / .op-dot / .op-dot-inner / .op-lbl CSS)
+        // Progress steps
         var stepsHtml = '';
         for (var si = 0; si < stages.length; si++) {
           var stepCls = si < curStage ? 'op-step done' : (si === curStage ? 'op-step active' : 'op-step');
@@ -2214,7 +2219,7 @@ function renderOrders() {
           '</div>' +
           '<div class="buyer-order-body">' +
             '<div class="order-progress">' + stepsHtml + '</div>' +
-            mbwayReminder +
+            statusBlock +
             itemsHtml +
           '</div>' +
         '</div>';
@@ -2623,12 +2628,12 @@ function loadAdminOrders() {
       var doc = {id: item.id, data: function() { return item.data; }};
       var o = doc.data();
       var ts = o.placedAt && o.placedAt.toDate ? o.placedAt.toDate().toLocaleString('en-GB') : '—';
-      var status = o.status || 'pending_payment';
+      var status = o.status || 'pending';
       var statusLabel =
-        status === 'payment_confirmed' ? '<span class="order-status-badge os-paid">MBWAY PAID</span>' :
-        status === 'ready'             ? '<span class="order-status-badge os-ready">READY / SHIPPED</span>' :
+        status === 'mbway_sent'        ? '<span class="order-status-badge os-pending">MBWAY SENT — AWAITING PAYMENT</span>' :
+        status === 'payment_confirmed' ? '<span class="order-status-badge os-paid">MBWAY PAID — ON THE WAY</span>' :
         status === 'completed'         ? '<span class="order-status-badge os-completed">COMPLETED</span>' :
-                                         '<span class="order-status-badge os-pending">AWAITING MBWAY</span>';
+                                         '<span class="order-status-badge os-pending">NEW ORDER</span>';
       var itemsHtml = '';
       if (o.items) {
         for (var i = 0; i < o.items.length; i++) {
@@ -2642,12 +2647,11 @@ function loadAdminOrders() {
         }
       }
       var actionBtns = '';
-      if (status === 'pending_payment') {
-        actionBtns = '<button class="btn-mbway" data-oid="' + doc.id + '" data-ostatus="payment_confirmed">✓ CONFIRM MBWAY PAYMENT</button>';
+      if (status === 'pending') {
+        actionBtns = '<button class="btn-mbway" data-oid="' + doc.id + '" data-ostatus="mbway_sent">📱 SEND MBWAY NUMBER</button>';
+      } else if (status === 'mbway_sent') {
+        actionBtns = '<button class="btn-mbway" style="background:#2a7a2a" data-oid="' + doc.id + '" data-ostatus="payment_confirmed">✓ CONFIRM MBWAY PAYMENT</button>';
       } else if (status === 'payment_confirmed') {
-        actionBtns = '<button class="btn-fulfill" data-oid="' + doc.id + '" data-ostatus="ready">CONFIRM ' +
-          (o.items && o.items.some(function(it){return it.delivery==='shipping';}) ? 'SHIPPED' : 'READY FOR PICKUP') + '</button>';
-      } else if (status === 'ready') {
         actionBtns = '<button class="btn-fulfill" style="background:#666" data-oid="' + doc.id + '" data-ostatus="completed">MARK COMPLETED</button>';
       }
       html += '<div class="order-card">' +
@@ -2687,9 +2691,11 @@ document.getElementById('admin-orders-list').addEventListener('click', function(
   if (!btn) return;
   var oid       = btn.getAttribute('data-oid');
   var newStatus = btn.getAttribute('data-ostatus');
-  fbDb.collection('orders').doc(oid).update({status: newStatus}).then(function() {
-    var msg = newStatus === 'payment_confirmed' ? 'MBWay payment confirmed!' :
-              newStatus === 'ready'             ? 'Order marked as ready/shipped!' :
+  var update    = {status: newStatus};
+  if (newStatus === 'mbway_sent') update.mbwayNumber = MBWAY_NUMBER;
+  fbDb.collection('orders').doc(oid).update(update).then(function() {
+    var msg = newStatus === 'mbway_sent'        ? 'MBway number sent to buyer!' :
+              newStatus === 'payment_confirmed' ? 'Payment confirmed — buyer notified!' :
                                                   'Order completed!';
     showToast(msg);
     loadAdminOrders();
