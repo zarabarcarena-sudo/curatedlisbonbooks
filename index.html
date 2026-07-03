@@ -630,46 +630,46 @@ hr.thin{border:none;border-top:1px solid var(--border);}
           <div class="qt-ctitle">360° PHOTO UPLOAD</div>
           <div class="qt-csub">Upload one photo per angle. Place the book on a neutral, well-lit surface. You need at least 3 photos to submit — all 8 angles speed up approval.</div>
           <div class="photo-slots-grid" id="photo-slots-grid">
-            <div class="photo-slot" id="pslot-0">
-              <span class="slot-plus">+</span><span class="slot-lbl">FRONT COVER</span>
+            <label class="photo-slot" id="pslot-0" for="psinput-0">
+              <span class="slot-plus" id="psplus-0">+</span><span class="slot-lbl" id="pslbl-0">FRONT COVER</span>
               <img class="slot-img" id="psimg-0" alt="">
-              <input type="file" id="psinput-0" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
-            </div>
-            <div class="photo-slot" id="pslot-1">
-              <span class="slot-plus">+</span><span class="slot-lbl">BACK COVER</span>
+              <input type="file" id="psinput-0" accept="image/*" style="display:none">
+            </label>
+            <label class="photo-slot" id="pslot-1" for="psinput-1">
+              <span class="slot-plus" id="psplus-1">+</span><span class="slot-lbl" id="pslbl-1">BACK COVER</span>
               <img class="slot-img" id="psimg-1" alt="">
-              <input type="file" id="psinput-1" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
-            </div>
-            <div class="photo-slot" id="pslot-2">
-              <span class="slot-plus">+</span><span class="slot-lbl">SPINE</span>
+              <input type="file" id="psinput-1" accept="image/*" style="display:none">
+            </label>
+            <label class="photo-slot" id="pslot-2" for="psinput-2">
+              <span class="slot-plus" id="psplus-2">+</span><span class="slot-lbl" id="pslbl-2">SPINE</span>
               <img class="slot-img" id="psimg-2" alt="">
-              <input type="file" id="psinput-2" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
-            </div>
-            <div class="photo-slot" id="pslot-3">
-              <span class="slot-plus">+</span><span class="slot-lbl">TOP EDGE</span>
+              <input type="file" id="psinput-2" accept="image/*" style="display:none">
+            </label>
+            <label class="photo-slot" id="pslot-3" for="psinput-3">
+              <span class="slot-plus" id="psplus-3">+</span><span class="slot-lbl" id="pslbl-3">TOP EDGE</span>
               <img class="slot-img" id="psimg-3" alt="">
-              <input type="file" id="psinput-3" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
-            </div>
-            <div class="photo-slot" id="pslot-4">
-              <span class="slot-plus">+</span><span class="slot-lbl">BOTTOM EDGE</span>
+              <input type="file" id="psinput-3" accept="image/*" style="display:none">
+            </label>
+            <label class="photo-slot" id="pslot-4" for="psinput-4">
+              <span class="slot-plus" id="psplus-4">+</span><span class="slot-lbl" id="pslbl-4">BOTTOM EDGE</span>
               <img class="slot-img" id="psimg-4" alt="">
-              <input type="file" id="psinput-4" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
-            </div>
-            <div class="photo-slot" id="pslot-5">
-              <span class="slot-plus">+</span><span class="slot-lbl">INSIDE FRONT PAGE</span>
+              <input type="file" id="psinput-4" accept="image/*" style="display:none">
+            </label>
+            <label class="photo-slot" id="pslot-5" for="psinput-5">
+              <span class="slot-plus" id="psplus-5">+</span><span class="slot-lbl" id="pslbl-5">INSIDE FRONT PAGE</span>
               <img class="slot-img" id="psimg-5" alt="">
-              <input type="file" id="psinput-5" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
-            </div>
-            <div class="photo-slot" id="pslot-6">
-              <span class="slot-plus">+</span><span class="slot-lbl">RANDOM PAGE SPREAD</span>
+              <input type="file" id="psinput-5" accept="image/*" style="display:none">
+            </label>
+            <label class="photo-slot" id="pslot-6" for="psinput-6">
+              <span class="slot-plus" id="psplus-6">+</span><span class="slot-lbl" id="pslbl-6">RANDOM PAGE SPREAD</span>
               <img class="slot-img" id="psimg-6" alt="">
-              <input type="file" id="psinput-6" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
-            </div>
-            <div class="photo-slot" id="pslot-7">
-              <span class="slot-plus">+</span><span class="slot-lbl">DEFECT CLOSE-UP</span>
+              <input type="file" id="psinput-6" accept="image/*" style="display:none">
+            </label>
+            <label class="photo-slot" id="pslot-7" for="psinput-7">
+              <span class="slot-plus" id="psplus-7">+</span><span class="slot-lbl" id="pslbl-7">DEFECT CLOSE-UP</span>
               <img class="slot-img" id="psimg-7" alt="">
-              <input type="file" id="psinput-7" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
-            </div>
+              <input type="file" id="psinput-7" accept="image/*" style="display:none">
+            </label>
           </div>
           <div class="photo-counter-box">
             <div class="photo-counter-lbl">PHOTOS UPLOADED: <span id="photo-upload-count">0</span> / 8</div>
@@ -1515,45 +1515,42 @@ function resetPhotoSlots() {
   var countEl = document.getElementById('photo-upload-count');
   if (countEl) countEl.textContent = '0';
   for (var i = 0; i < 8; i++) {
-    var slot = document.getElementById('pslot-' + i);
-    var img  = document.getElementById('psimg-' + i);
-    var inp  = document.getElementById('psinput-' + i);
+    var slot = document.getElementById('pslot-'  + i);
+    var img  = document.getElementById('psimg-'  + i);
+    var plus = document.getElementById('psplus-' + i);
+    var lbl  = document.getElementById('pslbl-'  + i);
+    var inp  = document.getElementById('psinput-'+ i);
     if (slot) slot.classList.remove('filled');
     if (img)  { img.style.display = 'none'; img.src = ''; }
+    if (plus) { plus.style.display = 'block'; plus.textContent = '+'; }
+    if (lbl)  lbl.style.display = 'block';
     if (inp)  inp.value = '';
-    if (slot) {
-      var plus = slot.querySelector('.slot-plus');
-      var lbl  = slot.querySelector('.slot-lbl');
-      if (plus) { plus.style.display = 'block'; plus.textContent = '+'; }
-      if (lbl)  lbl.style.display = 'block';
-    }
   }
 }
 
+// Each slot is a <label for="psinput-N"> — clicking it natively opens that slot's file picker.
+// Only the change handlers are needed here; no click wiring required.
 (function() {
   for (var i = 0; i < 8; i++) {
     (function(idx) {
-      var slot  = document.getElementById('pslot-' + idx);
-      var inp   = document.getElementById('psinput-' + idx);
-      // Click the slot div → trigger that slot's file input
-      slot.addEventListener('click', function() { inp.click(); });
-      // Handle file selection for this slot
-      inp.addEventListener('change', function(e) {
+      document.getElementById('psinput-' + idx).addEventListener('change', function(e) {
         var file = e.target.files[0];
         if (!file) return;
-        var plus = slot.querySelector('.slot-plus');
+        // Show loading indicator in this slot
+        var plus = document.getElementById('psplus-' + idx);
         if (plus) plus.textContent = '…';
         compressImage(file, 480, 0.65, function(url) {
           conditionPhotos[idx] = url;
-          var img = document.getElementById('psimg-' + idx);
-          img.src = url;
-          img.style.display = 'block';
-          var p = slot.querySelector('.slot-plus');
-          var l = slot.querySelector('.slot-lbl');
-          if (p) p.style.display = 'none';
-          if (l) l.style.display = 'none';
-          slot.classList.add('filled');
-          // Update counter
+          // Show photo, hide placeholder text
+          var img  = document.getElementById('psimg-'  + idx);
+          var slot = document.getElementById('pslot-'  + idx);
+          var p    = document.getElementById('psplus-' + idx);
+          var l    = document.getElementById('pslbl-'  + idx);
+          if (img)  { img.src = url; img.style.display = 'block'; }
+          if (p)    p.style.display = 'none';
+          if (l)    l.style.display = 'none';
+          if (slot) slot.classList.add('filled');
+          // Recount filled slots
           var count = 0;
           for (var j = 0; j < 8; j++) { if (conditionPhotos[j]) count++; }
           uploadCount = count;
@@ -1678,16 +1675,14 @@ function editListing(id) {
     for (var pi = 0; pi < l.conditionPhotos.length && pi < 8; pi++) {
       if (!l.conditionPhotos[pi]) continue;
       conditionPhotos[pi] = l.conditionPhotos[pi];
-      var pslot = document.getElementById('pslot-' + pi);
-      var psimg = document.getElementById('psimg-' + pi);
-      if (psimg) { psimg.src = l.conditionPhotos[pi]; psimg.style.display = 'block'; }
-      if (pslot) {
-        pslot.classList.add('filled');
-        var pp = pslot.querySelector('.slot-plus');
-        var pl = pslot.querySelector('.slot-lbl');
-        if (pp) pp.style.display = 'none';
-        if (pl) pl.style.display = 'none';
-      }
+      var psimg = document.getElementById('psimg-'  + pi);
+      var pslot = document.getElementById('pslot-'  + pi);
+      var psplus= document.getElementById('psplus-' + pi);
+      var pslbl = document.getElementById('pslbl-'  + pi);
+      if (psimg)  { psimg.src = l.conditionPhotos[pi]; psimg.style.display = 'block'; }
+      if (pslot)  pslot.classList.add('filled');
+      if (psplus) psplus.style.display = 'none';
+      if (pslbl)  pslbl.style.display  = 'none';
     }
     uploadCount = l.conditionPhotos.filter(function(p){ return !!p; }).length;
     var countEl = document.getElementById('photo-upload-count');
