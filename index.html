@@ -1527,37 +1527,39 @@ function submitListing() {
       isAdminListingMode = false;
       coverPhotoDataUrl = '';
       conditionPhotos = [];
+      renderHome(); renderBrowse();
       showToast('Platform listing added and live!');
       showPage('admin');
       return;
     }
+    var wasEditing = editingListingId !== null;
     editingListingId = null;
     coverPhotoDataUrl = '';
     conditionPhotos = [];
     hasProfile = true;
-    showToast(editingListingId ? 'Listing updated — resubmitted for approval' : 'Listing submitted — pending approval');
+    showToast(wasEditing ? 'Listing updated — resubmitted for approval' : 'Listing submitted for approval!');
     showPage('sellers');
   }).catch(function(err) {
     isAdminListingMode = false;
-    // Fallback: store in memory if Firebase not configured
-    if (editingListingId !== null) {
-      for (var i = 0; i < sellerListings.length; i++) {
-        if (sellerListings[i].id === editingListingId) {
-          Object.assign(sellerListings[i], {title:title,author:author,genre:genre,year:year,condition:condition,desc:desc,price:price,delivery:delivery,pickup:pickup,photos:uploadCount,status:'pending'});
-          if (coverPhotoDataUrl) sellerListings[i].cover = coverPhotoDataUrl;
-          break;
-        }
-      }
-      editingListingId = null;
-      showToast('Listing updated (offline mode)');
-    } else {
-      sellerListings.push({id:Date.now(),title:title,author:author,genre:genre,year:year,condition:condition,desc:desc,price:price,delivery:delivery,pickup:pickup,photos:uploadCount,cover:coverPhotoDataUrl,status:'pending'});
-      showToast('Listing submitted (offline mode)');
-    }
+    var msg = err && err.message ? err.message : 'Unknown error';
+    var needsRules = msg.indexOf('permission') > -1 || msg.indexOf('Permission') > -1 || msg.indexOf('Missing') > -1 || msg.indexOf('PERMISSION') > -1;
     coverPhotoDataUrl = '';
     conditionPhotos = [];
-    hasProfile = true;
-    showPage('sellers');
+    // Show a clear error — do NOT silently fall back to offline mode
+    var errBox = document.createElement('div');
+    errBox.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+    errBox.innerHTML = '<div style="background:#fff;max-width:480px;width:100%;padding:28px 32px;font-family:\'Barlow Condensed\',sans-serif">' +
+      '<div style="font-size:15px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;color:var(--accent)">⚠ Listing Could Not Be Saved</div>' +
+      '<div style="font-size:12px;color:#555;margin-bottom:14px">' + escHtml(msg) + '</div>' +
+      (needsRules ? '<div style="background:#fff8f0;border:1px solid #ffd0a0;padding:14px;font-size:12px;line-height:1.8;margin-bottom:16px">' +
+        '<strong style="text-transform:uppercase;letter-spacing:.06em">Your Firestore rules need updating</strong><br>' +
+        '1. Open <a href="https://console.firebase.google.com/project/livrariapt-a4160/firestore/rules" target="_blank" style="color:var(--accent)">Firebase Console → Firestore → Rules</a><br>' +
+        '2. Replace everything with:<br>' +
+        '<pre style="background:#f5f5f5;padding:8px;font-size:10px;margin:6px 0;overflow:auto;white-space:pre">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /listings/{listing} {\n      allow read: if true;\n      allow write: if request.auth != null;\n    }\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
+        '3. Click <strong>Publish</strong>, then try submitting again.</div>' : '') +
+      '<button onclick="this.parentElement.parentElement.remove()" style="background:var(--ink);color:#fff;border:none;font-family:\'Barlow Condensed\',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:10px 22px;cursor:pointer;width:100%">CLOSE</button>' +
+    '</div>';
+    document.body.appendChild(errBox);
   });
 }
 
@@ -2006,11 +2008,32 @@ function showPage_admin_hook() {
   var warn = document.getElementById('admin-config-warn');
   if (FIREBASE_CONFIG.apiKey === 'PASTE_YOUR_API_KEY') {
     if (warn) warn.style.display = 'block';
-  } else {
-    if (warn) warn.style.display = 'none';
+    return;
+  }
+  if (warn) warn.style.display = 'none';
+  // Quick connection test — try reading one document to verify Firestore rules are live
+  var testEl = document.getElementById('admin-sellers-list');
+  testEl.innerHTML = '<div class="admin-loading">CONNECTING TO FIREBASE…</div>';
+  fbDb.collection('listings').limit(1).get().then(function() {
+    // Connected — load all tabs
     loadAdminSellers();
     refreshPendingBadge();
-  }
+  }).catch(function(err) {
+    var msg = err && err.message ? err.message : 'Unknown error';
+    testEl.innerHTML = '<div style="padding:24px;font-family:\'Barlow Condensed\',sans-serif">' +
+      '<div style="font-size:16px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:8px">⚠ Firebase Not Connected</div>' +
+      '<div style="font-size:12px;color:#555;margin-bottom:16px">Error: ' + escHtml(msg) + '</div>' +
+      '<div style="background:#fff8f0;border:1px solid #ffd0a0;padding:18px;font-size:13px;line-height:1.9">' +
+        '<strong style="text-transform:uppercase;letter-spacing:.06em;font-size:12px">One-time fix: Update your Firestore Rules</strong><br>' +
+        '1. Open <a href="https://console.firebase.google.com/project/livrariapt-a4160/firestore/rules" target="_blank" style="color:var(--accent);font-weight:600">Firebase Console → Firestore → Rules</a> (opens in new tab)<br>' +
+        '2. Delete everything in the editor and paste this:<br>' +
+        '<pre style="background:#f5f5f5;border:1px solid #ddd;padding:12px;font-size:11px;margin:8px 0;overflow:auto;white-space:pre">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /listings/{listing} {\n      allow read: if true;\n      allow write: if request.auth != null;\n    }\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
+        '3. Click the blue <strong>Publish</strong> button<br>' +
+        '4. Come back here and click Retry<br>' +
+      '</div>' +
+      '<button onclick="showPage_admin_hook()" style="margin-top:16px;background:var(--ink);color:#fff;border:none;font-family:\'Barlow Condensed\',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:12px 24px;cursor:pointer">↻ RETRY CONNECTION</button>' +
+    '</div>';
+  });
 }
 
 function refreshPendingBadge() {
@@ -2096,7 +2119,7 @@ function loadAdminSellers() {
       '<strong style="letter-spacing:.06em;text-transform:uppercase">Fix: Update Firestore Security Rules</strong><br>' +
       '1. Open <a href="https://console.firebase.google.com/project/livrariapt-a4160/firestore/rules" target="_blank" style="color:var(--accent)">Firebase Console → Firestore → Rules</a><br>' +
       '2. Replace all content with:<br>' +
-      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
+      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto;white-space:pre">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /listings/{listing} {\n      allow read: if true;\n      allow write: if request.auth != null;\n    }\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
       '3. Click <strong>Publish</strong>, then reload this page.</div></div>';
   });
 }
@@ -2189,7 +2212,7 @@ function loadAdminListings() {
       '<strong style="letter-spacing:.06em;text-transform:uppercase">Fix: Update Firestore Security Rules</strong><br>' +
       '1. Open <a href="https://console.firebase.google.com/project/livrariapt-a4160/firestore/rules" target="_blank" style="color:var(--accent)">Firebase Console → Firestore → Rules</a><br>' +
       '2. Replace all content with:<br>' +
-      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
+      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto;white-space:pre">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /listings/{listing} {\n      allow read: if true;\n      allow write: if request.auth != null;\n    }\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
       '3. Click <strong>Publish</strong>, then reload this page.</div></div>';
   });
 }
@@ -2267,7 +2290,7 @@ function loadAdminPending() {
       '<strong style="letter-spacing:.06em;text-transform:uppercase">Fix: Update Firestore Security Rules</strong><br>' +
       '1. Open <a href="https://console.firebase.google.com/project/livrariapt-a4160/firestore/rules" target="_blank" style="color:var(--accent)">Firebase Console → Firestore → Rules</a><br>' +
       '2. Replace all content with:<br>' +
-      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
+      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto;white-space:pre">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /listings/{listing} {\n      allow read: if true;\n      allow write: if request.auth != null;\n    }\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
       '3. Click <strong>Publish</strong>, then reload this page.</div></div>';
   });
 }
@@ -2429,7 +2452,7 @@ function loadAdminOrders() {
       '<strong style="letter-spacing:.06em;text-transform:uppercase">Fix: Update Firestore Security Rules</strong><br>' +
       '1. Open <a href="https://console.firebase.google.com/project/livrariapt-a4160/firestore/rules" target="_blank" style="color:var(--accent)">Firebase Console → Firestore → Rules</a><br>' +
       '2. Replace all content with:<br>' +
-      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
+      '<pre style="background:#f5f5f5;padding:10px;margin:8px 0;font-size:11px;overflow:auto;white-space:pre">rules_version = \'2\';\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /listings/{listing} {\n      allow read: if true;\n      allow write: if request.auth != null;\n    }\n    match /{document=**} {\n      allow read, write: if request.auth != null;\n    }\n  }\n}</pre>' +
       '3. Click <strong>Publish</strong>, then reload this page.</div></div>';
   });
 }
