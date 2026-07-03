@@ -264,6 +264,38 @@ textarea.fi{height:96px;resize:vertical;font-family:'Barlow',system-ui,sans-seri
 .co-confirmed h1{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:900;font-size:72px;text-transform:uppercase;line-height:.95;margin:16px 0 24px;}
 .co-confirmed p{font-size:16px;color:var(--muted);line-height:1.7;max-width:460px;margin:0 auto 36px;}
 .co-tick{font-size:56px;}
+/* MBWAY PAYMENT BOX */
+.mbway-box{background:var(--white);border:2px solid var(--text);padding:28px 36px;margin:0 auto 32px;max-width:440px;width:100%;text-align:center;}
+.mbway-box-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;}
+.mbway-number{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:900;font-size:38px;letter-spacing:.04em;color:var(--text);margin-bottom:8px;}
+.mbway-amount{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:16px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;}
+.mbway-note{font-size:13px;color:var(--muted);line-height:1.6;}
+.mbway-step{display:flex;align-items:flex-start;gap:12px;text-align:left;margin-bottom:10px;}
+.mbway-step-num{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:18px;color:var(--accent);min-width:24px;}
+.mbway-step-txt{font-size:13px;color:var(--ink);line-height:1.5;}
+/* YOUR ORDERS PAGE */
+.orders-wrap{max-width:820px;margin:0 auto;padding:48px 40px 80px;}
+.orders-title{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:900;font-size:56px;text-transform:uppercase;line-height:1;margin-bottom:8px;}
+.orders-sub{font-size:14px;color:var(--muted);margin-bottom:36px;}
+.buyer-order-card{background:var(--white);border:1px solid var(--border);margin-bottom:20px;overflow:hidden;}
+.buyer-order-hd{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--border);background:var(--bg);}
+.buyer-order-id{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.buyer-order-total{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-weight:800;font-size:18px;}
+.buyer-order-body{padding:20px;}
+.buyer-order-item{font-size:13px;color:var(--ink);padding:5px 0;border-bottom:1px dotted var(--border);}
+.buyer-order-item:last-child{border-bottom:none;}
+/* Order progress tracker */
+.order-progress{display:flex;align-items:center;gap:0;margin:18px 0 4px;}
+.op-step{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;}
+.op-step:not(:last-child)::after{content:'';position:absolute;top:13px;left:50%;right:-50%;height:2px;background:var(--border);z-index:0;}
+.op-step.done:not(:last-child)::after{background:var(--accent);}
+.op-dot{width:26px;height:26px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;position:relative;z-index:1;transition:background .3s;}
+.op-step.done .op-dot{background:var(--accent);}
+.op-step.active .op-dot{background:var(--text);box-shadow:0 0 0 3px rgba(26,24,22,.2);}
+.op-dot-inner{width:10px;height:10px;border-radius:50%;background:#fff;}
+.op-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:6px;text-align:center;}
+.op-step.done .op-lbl,.op-step.active .op-lbl{color:var(--text);font-weight:700;}
+.buyer-mbway-reminder{background:#fff8f0;border-left:3px solid var(--accent);padding:14px 16px;margin-top:14px;font-size:13px;line-height:1.6;}
 
 hr.thin{border:none;border-top:1px solid var(--border);}
 
@@ -398,6 +430,7 @@ hr.thin{border:none;border-top:1px solid var(--border);}
     <span class="nav-link" data-p="browse" id="nl-browse">BROWSE</span>
     <span class="nav-link" data-p="sell" id="nl-sell">SELL</span>
     <span class="nav-link" data-p="sellers" id="nl-sellers">SELLERS</span>
+    <span class="nav-link" data-p="orders" id="nl-orders" style="display:none">MY ORDERS</span>
   </div>
   <div style="display:flex;align-items:center;gap:10px">
     <!-- Shown when logged OUT -->
@@ -790,20 +823,10 @@ hr.thin{border:none;border-top:1px solid var(--border);}
         </div>
 
         <div class="co-section">
-          <div class="co-section-lbl">PAYMENT</div>
-          <div class="co-grid">
-            <div class="co-fg full">
-              <label class="co-lbl">CARD NUMBER</label>
-              <input class="co-input" type="text" placeholder="4242 4242 4242 4242" id="co-card" maxlength="19">
-            </div>
-            <div class="co-fg">
-              <label class="co-lbl">EXPIRY</label>
-              <input class="co-input" type="text" placeholder="MM / YY" id="co-expiry" maxlength="7">
-            </div>
-            <div class="co-fg">
-              <label class="co-lbl">CVC</label>
-              <input class="co-input" type="text" placeholder="123" id="co-cvc" maxlength="3">
-            </div>
+          <div class="co-section-lbl">PAYMENT — MBWAY</div>
+          <div style="background:#f9f8f6;border-left:3px solid var(--accent);padding:16px 20px;font-size:13px;line-height:1.7;color:var(--ink)">
+            <strong style="font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:6px">How it works</strong>
+            After placing your order you will see our MBway number and the exact amount to send. No card details needed — just pay from your MBway app once you see the instructions.
           </div>
         </div>
 
@@ -825,14 +848,36 @@ hr.thin{border:none;border-top:1px solid var(--border);}
     </div>
   </div>
 
-  <!-- Confirmed state -->
+  <!-- Confirmed state — MBway payment instructions -->
   <div id="co-confirmed-state" style="display:none">
     <div class="co-confirmed">
       <div class="co-tick">✓</div>
       <h1>ORDER PLACED</h1>
-      <p>Thank you! Your order is confirmed. You'll receive a confirmation email shortly with pickup or shipping details.</p>
-      <button class="btn-dark" id="co-back-home">BACK TO THE SHELF →</button>
+      <p>Your order is in! Now complete your payment via MBway to confirm it.</p>
+      <div class="mbway-box">
+        <div class="mbway-box-lbl">Send payment to this MBway number</div>
+        <div class="mbway-number" id="conf-mbway-number">+351 912 345 678</div>
+        <div class="mbway-amount">Amount: <span id="conf-mbway-amount">€0.00</span></div>
+        <div style="border-top:1px solid var(--border);margin:14px 0"></div>
+        <div class="mbway-step"><span class="mbway-step-num">1</span><span class="mbway-step-txt">Open your MBway app and select <strong>Send Money</strong></span></div>
+        <div class="mbway-step"><span class="mbway-step-num">2</span><span class="mbway-step-txt">Enter the number above and the exact amount shown</span></div>
+        <div class="mbway-step"><span class="mbway-step-num">3</span><span class="mbway-step-txt">Use your email as the payment reference</span></div>
+        <div class="mbway-note" style="margin-top:10px">We'll confirm your payment and update your order status within a few hours.</div>
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button class="btn-dark" id="co-view-orders">VIEW MY ORDERS →</button>
+        <button class="btn-ghost" id="co-back-home">BACK TO SHELF</button>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- YOUR ORDERS PAGE -->
+<div class="page" id="page-orders">
+  <div class="orders-wrap">
+    <div class="orders-title">MY ORDERS</div>
+    <div class="orders-sub">Track your purchases and payment status.</div>
+    <div id="orders-list"><div class="admin-loading">LOADING YOUR ORDERS…</div></div>
   </div>
 </div>
 
@@ -1039,6 +1084,9 @@ var fbDb   = firebase.firestore();
 // ─── ADMIN EMAILS ───────────────────────────────────────────────────────
 // Add the email address(es) that should have admin access
 var ADMIN_EMAILS = ['zarabarcarena@gmail.com'];
+// ─── MBWAY PAYMENT NUMBER ────────────────────────────────────────────────
+// Change this to your actual MBway number
+var MBWAY_NUMBER = '+351 912 345 678';
 function isAdminEmail(email) {
   return ADMIN_EMAILS.indexOf((email || '').toLowerCase()) > -1;
 }
@@ -1129,6 +1177,7 @@ function showPage(name) {
   if (name === 'quality-test') goStep(1);
   if (name === 'sellers') renderSellers();
   if (name === 'admin') showPage_admin_hook();
+  if (name === 'orders') renderOrders();
 }
 
 // ─── HOME ──────────────────────────────────────────────────────────────
@@ -1799,6 +1848,7 @@ function updateAuthUI() {
   document.getElementById('auth-nav-guest').style.display = isLoggedIn ? 'none' : 'flex';
   document.getElementById('auth-nav-user').style.display  = isLoggedIn ? 'flex' : 'none';
   document.getElementById('nav-admin-btn').style.display  = admin ? ''    : 'none';
+  document.getElementById('nl-orders').style.display      = (isLoggedIn && !admin) ? '' : 'none';
   if (isLoggedIn) document.getElementById('nav-username').textContent = currentUser.name;
 }
 
@@ -2069,7 +2119,11 @@ document.getElementById('co-place-btn').addEventListener('click', function() {
     placedAt:     firebase.firestore.FieldValue.serverTimestamp()
   }).catch(function() { /* Firestore not configured — proceed anyway */ });
 
-  // Show confirmation, clear cart
+  // Show confirmation with MBway details, clear cart
+  var mbEl = document.getElementById('conf-mbway-number');
+  var amtEl = document.getElementById('conf-mbway-amount');
+  if (mbEl) mbEl.textContent = MBWAY_NUMBER;
+  if (amtEl) amtEl.textContent = '€' + grandTotal.toFixed(2);
   document.getElementById('co-form-state').style.display = 'none';
   document.getElementById('co-confirmed-state').style.display = 'block';
   cart = [];
@@ -2081,16 +2135,96 @@ document.getElementById('co-back-home').addEventListener('click', function() {
   showPage('home');
 });
 
-// Card number auto-formatting
-document.getElementById('co-card').addEventListener('input', function() {
-  var v = this.value.replace(/\D/g, '').substring(0, 16);
-  this.value = v.replace(/(.{4})/g, '$1 ').trim();
+document.getElementById('co-view-orders').addEventListener('click', function() {
+  showPage('orders');
 });
-document.getElementById('co-expiry').addEventListener('input', function() {
-  var v = this.value.replace(/\D/g, '').substring(0, 4);
-  if (v.length > 2) this.value = v.substring(0, 2) + ' / ' + v.substring(2);
-  else this.value = v;
+
+document.getElementById('nl-orders').addEventListener('click', function() {
+  showPage('orders');
 });
+
+// ─── MY ORDERS (BUYER) ─────────────────────────────────────────────────
+function renderOrders() {
+  var el = document.getElementById('orders-list');
+  if (!el) return;
+  if (!isLoggedIn) {
+    el.innerHTML = '<div class="admin-loading" style="text-align:center;padding:48px 0">Please log in to view your orders.</div>';
+    return;
+  }
+  el.innerHTML = '<div class="admin-loading">LOADING YOUR ORDERS…</div>';
+  fbDb.collection('orders')
+    .where('uid', '==', currentUser.uid || 'guest')
+    .get()
+    .then(function(snap) {
+      if (snap.empty) {
+        el.innerHTML = '<div class="admin-loading" style="text-align:center;padding:48px 0;color:var(--muted)">No orders yet. Start shopping!</div>';
+        return;
+      }
+      // Sort newest first in JS (avoids composite index requirement)
+      var docs = [];
+      snap.forEach(function(d) { docs.push({id: d.id, data: d.data()}); });
+      docs.sort(function(a, b) {
+        var ta = a.data.placedAt ? a.data.placedAt.toMillis() : 0;
+        var tb = b.data.placedAt ? b.data.placedAt.toMillis() : 0;
+        return tb - ta;
+      });
+      var html = '';
+      for (var oi = 0; oi < docs.length; oi++) {
+        var o = docs[oi].data;
+        var stages = ['pending_payment', 'payment_confirmed', 'ready', 'completed'];
+        var stageLabels = ['Awaiting Payment', 'Payment Confirmed', 'On The Way', 'Delivered'];
+        var curStage = stages.indexOf(o.status);
+        if (curStage < 0) curStage = 0;
+        // Items list
+        var itemsHtml = '';
+        if (o.items && o.items.length) {
+          for (var ii = 0; ii < o.items.length; ii++) {
+            itemsHtml += '<div class="buyer-order-item">• ' + o.items[ii].title + ' — €' + (o.items[ii].price || 0).toFixed(2) + '</div>';
+          }
+        }
+        // Date
+        var dateStr = '';
+        if (o.placedAt && o.placedAt.toDate) {
+          dateStr = o.placedAt.toDate().toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'});
+        }
+        // MBway reminder for pending orders
+        var mbwayReminder = '';
+        if (o.status === 'pending_payment') {
+          mbwayReminder = '<div class="buyer-mbway-reminder">' +
+            '<strong>Payment pending</strong> — send <strong>€' + (o.total || 0).toFixed(2) +
+            '</strong> via MBway to <strong>' + MBWAY_NUMBER + '</strong>' +
+            '</div>';
+        }
+        // Progress steps (reuse .op-step / .op-dot / .op-dot-inner / .op-lbl CSS)
+        var stepsHtml = '';
+        for (var si = 0; si < stages.length; si++) {
+          var stepCls = si < curStage ? 'op-step done' : (si === curStage ? 'op-step active' : 'op-step');
+          stepsHtml += '<div class="' + stepCls + '">' +
+            '<div class="op-dot"><div class="op-dot-inner"></div></div>' +
+            '<div class="op-lbl">' + stageLabels[si] + '</div>' +
+            '</div>';
+        }
+        html += '<div class="buyer-order-card">' +
+          '<div class="buyer-order-hd">' +
+            '<div>' +
+              '<span class="buyer-order-id">ORDER #' + docs[oi].id.substring(0, 8).toUpperCase() + '</span>' +
+              (dateStr ? '<span style="font-size:11px;color:var(--muted);margin-left:8px">· ' + dateStr + '</span>' : '') +
+            '</div>' +
+            '<div class="buyer-order-total">€' + (o.total || 0).toFixed(2) + '</div>' +
+          '</div>' +
+          '<div class="buyer-order-body">' +
+            '<div class="order-progress">' + stepsHtml + '</div>' +
+            mbwayReminder +
+            itemsHtml +
+          '</div>' +
+        '</div>';
+      }
+      el.innerHTML = html;
+    })
+    .catch(function(err) {
+      el.innerHTML = '<div class="admin-loading" style="color:#c00">Could not load orders. ' + err.message + '</div>';
+    });
+}
 
 // ─── ADMIN PANEL ───────────────────────────────────────────────────────
 var aeCurrentDocId = null;
