@@ -1652,24 +1652,40 @@ function _renderSellerListings(np, dash, wrap) {
   for (var i = 0; i < sellerListings.length; i++) {
     var l = sellerListings[i];
     var editKey = l.firestoreId || l.id;
-    var statusLabel = l.status === 'approved' ? '✓ APPROVED' : l.status === 'rejected' ? '✗ REJECTED' : '⏳ PENDING';
-    var feedbackHtml = (l.status === 'rejected' && l.feedbackNote) ? '<div class="feedback-note">📝 Admin note: ' + escHtml(l.feedbackNote) + '</div>' : '';
+    var st = l.status || 'pending';
+    var statusLabel = st === 'approved' ? '✓ APPROVED' : st === 'rejected' ? '✗ REJECTED' : '⏳ AWAITING REVIEW';
+    var statusPill  = st === 'approved' ? 'status-approved' : st === 'rejected' ? 'status-rejected' : 'status-pending';
+    var feedbackHtml = (st === 'rejected' && l.feedbackNote) ? '<div class="feedback-note">📝 Admin note: ' + escHtml(l.feedbackNote) + '</div>' : '';
+    var statusNote  = st === 'pending'  ? '<div class="pend-note">Awaiting review from our team.</div>' :
+                      st === 'approved' ? '<div class="pend-note" style="color:#0a3622">Your listing is live ✓</div>' : '';
+    var editBtnLabel = st === 'rejected' ? 'EDIT &amp; RESUBMIT →' : 'EDIT →';
     var thumbHtml = l.cover
       ? '<img class="pend-cover" src="' + l.cover + '" alt="' + escAttr(l.title) + '">'
       : '<div class="pend-cover-ph">📚</div>';
+    // Condition photo strip
+    var photoStripHtml = '';
+    if (l.conditionPhotos && l.conditionPhotos.length > 0) {
+      photoStripHtml = '<div style="display:flex;gap:4px;margin-top:8px;flex-wrap:wrap">';
+      for (var p = 0; p < l.conditionPhotos.length; p++) {
+        photoStripHtml += '<img src="' + l.conditionPhotos[p] + '" style="width:52px;height:52px;object-fit:cover;border:1px solid var(--border)">';
+      }
+      photoStripHtml += '</div>';
+    } else if (l.photos > 0) {
+      photoStripHtml = '<div class="pend-photos">📷 ' + l.photos + ' condition photo' + (l.photos !== 1 ? 's' : '') + ' submitted</div>';
+    }
     html += '<div class="pend-card">' +
       thumbHtml +
       '<div style="flex:1;min-width:0">' +
         '<div class="pend-title">' + escHtml(l.title) + '</div>' +
         '<div class="pend-meta">' + escHtml(l.author) + ' · ' + escHtml(l.genre) + '</div>' +
         '<div class="pend-price">€' + (l.price||0).toFixed(2) + '</div>' +
-        '<div class="pend-photos">📷 ' + (l.photos||0) + ' photo' + (l.photos !== 1 ? 's' : '') + ' uploaded</div>' +
+        photoStripHtml +
         feedbackHtml +
       '</div>' +
       '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;flex-shrink:0">' +
-        '<div class="pend-badge">' + statusLabel + '</div>' +
-        '<div class="pend-note">Awaiting review from our team.</div>' +
-        '<button class="pend-edit-btn" data-edit-id="' + escAttr(String(editKey)) + '">EDIT &amp; RESUBMIT →</button>' +
+        '<span class="status-pill ' + statusPill + '">' + statusLabel + '</span>' +
+        statusNote +
+        '<button class="pend-edit-btn" data-edit-id="' + escAttr(String(editKey)) + '">' + editBtnLabel + '</button>' +
       '</div>' +
     '</div>';
   }
@@ -2191,19 +2207,32 @@ function loadAdminPending() {
       var tb = b.submittedAt && b.submittedAt.toDate ? b.submittedAt.toDate().getTime() : 0;
       return ta - tb; // oldest first — review in order received
     });
-    var html = '<div style="font-size:12px;color:var(--muted);margin-bottom:20px;font-family:\'Barlow Condensed\',sans-serif;letter-spacing:.06em;text-transform:uppercase">' + docs.length + ' listing' + (docs.length!==1?'s':'') + ' awaiting review — oldest first</div>';
+    var html = '<div style="font-size:12px;color:var(--muted);margin-bottom:20px;font-family:\'Barlow Condensed\',sans-serif;letter-spacing:.06em;text-transform:uppercase">' + docs.length + ' listing' + (docs.length!==1?'s':'') + ' pending review — oldest first</div>';
     for (var i = 0; i < docs.length; i++) {
       var l = docs[i];
       var ts = l.submittedAt && l.submittedAt.toDate ? l.submittedAt.toDate().toLocaleString('en-GB') : '—';
       var coverHtml = l.cover
         ? '<img class="listing-cover-sm" src="' + l.cover + '" alt="">'
         : '<div class="listing-cover-ph">📚</div>';
+      // Condition photos strip for admin review
+      var condPhotosHtml = '';
+      if (l.conditionPhotos && l.conditionPhotos.length > 0) {
+        condPhotosHtml = '<div style="margin-top:10px">' +
+          '<div style="font-family:\'Barlow Condensed\',sans-serif;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:5px">Condition photos (' + l.conditionPhotos.length + ')</div>' +
+          '<div style="display:flex;gap:5px;flex-wrap:wrap">';
+        for (var p = 0; p < l.conditionPhotos.length; p++) {
+          condPhotosHtml += '<img src="' + l.conditionPhotos[p] + '" style="width:72px;height:72px;object-fit:cover;border:1px solid var(--border);cursor:pointer" onclick="window.open(this.src)">';
+        }
+        condPhotosHtml += '</div></div>';
+      } else if (l.photos > 0) {
+        condPhotosHtml = '<div style="font-size:11px;color:var(--muted);margin-top:6px">📷 ' + l.photos + ' condition photo' + (l.photos !== 1 ? 's' : '') + ' (submitted before photo storage was enabled)</div>';
+      }
       html += '<div class="listing-card">' +
         coverHtml +
         '<div class="listing-info">' +
           '<div style="display:flex;align-items:center;gap:10px;margin-bottom:2px">' +
             '<span class="listing-card-title">' + escHtml(l.title||'') + '</span>' +
-            '<span class="status-pill status-pending">PENDING</span>' +
+            '<span class="status-pill status-pending">PENDING REVIEW</span>' +
           '</div>' +
           '<div class="listing-card-meta">by ' + escHtml(l.author||'') +
             ' · ' + escHtml(l.genre||'') + ' · Class ' + (l.cls||'?') +
@@ -2212,6 +2241,7 @@ function loadAdminPending() {
             ' · Submitted: ' + ts +
           '</div>' +
           '<div class="listing-card-desc">' + escHtml((l.desc||'').substring(0,200)) + '</div>' +
+          condPhotosHtml +
           '<div class="listing-card-actions">' +
             '<button class="btn-approve" data-id="' + l._id + '" data-action="approve">✓ APPROVE</button>' +
             '<button class="btn-reject"  data-id="' + l._id + '" data-action="reject-feedback">✗ REJECT</button>' +
