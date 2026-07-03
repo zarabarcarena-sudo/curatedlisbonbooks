@@ -133,6 +133,17 @@ textarea.fi{height:96px;resize:vertical;font-family:'Barlow',system-ui,sans-seri
 .upload-hint{font-size:13px;color:var(--muted);}
 .photo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:12px;}
 .photo-thumb{aspect-ratio:1;object-fit:cover;width:100%;}
+/* 360° PHOTO SLOTS */
+.photo-slots-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0 20px;}
+.photo-slot{position:relative;aspect-ratio:1;background:#f0ede9;border:1.5px dashed #c4bdb5;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;transition:border-color .2s;}
+.photo-slot:hover{border-color:var(--accent);}
+.photo-slot.filled{border-style:solid;border-color:#8a7f75;}
+.slot-plus{font-size:28px;font-weight:300;color:#8a7f75;display:block;line-height:1;margin-bottom:6px;pointer-events:none;}
+.slot-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#8a7f75;display:block;text-align:center;padding:0 4px;pointer-events:none;}
+.slot-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none;}
+.photo-counter-box{border-left:3px solid var(--accent);background:#f9f8f6;padding:16px 20px;margin-top:4px;}
+.photo-counter-lbl{font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:8px;}
+.photo-counter-note{font-size:13px;color:var(--ink);line-height:1.55;}
 /* COVER PHOTO STEP */
 .cover-upload-outer{display:flex;gap:36px;align-items:flex-start;}
 .cover-upload-zone{flex:1;}
@@ -613,24 +624,57 @@ hr.thin{border:none;border-top:1px solid var(--border);}
         </div>
       </div>
 
-      <!-- Step 4: Condition Photos (was Step 3) -->
+      <!-- Step 4: 360° Photo Upload -->
       <div id="qs-4" style="display:none">
         <div class="qt-card">
-          <div class="qt-ctitle">UPLOAD YOUR PHOTOS</div>
-          <div class="qt-csub">We need at least 4 shots: front cover, back cover, spine, and any visible defects. Clear photos speed up approval.</div>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">
-            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Front Cover</div>
-            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Back Cover</div>
-            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Spine</div>
-            <div style="text-align:center;font-family:'Barlow Condensed','Arial Narrow',sans-serif;font-size:10px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase">Defects</div>
+          <div class="qt-ctitle">360° PHOTO UPLOAD</div>
+          <div class="qt-csub">Upload one photo per angle. Place the book on a neutral, well-lit surface. You need at least 3 photos to submit — all 8 angles speed up approval.</div>
+          <div class="photo-slots-grid" id="photo-slots-grid">
+            <div class="photo-slot" id="pslot-0">
+              <span class="slot-plus">+</span><span class="slot-lbl">FRONT COVER</span>
+              <img class="slot-img" id="psimg-0" alt="">
+              <input type="file" id="psinput-0" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
+            </div>
+            <div class="photo-slot" id="pslot-1">
+              <span class="slot-plus">+</span><span class="slot-lbl">BACK COVER</span>
+              <img class="slot-img" id="psimg-1" alt="">
+              <input type="file" id="psinput-1" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
+            </div>
+            <div class="photo-slot" id="pslot-2">
+              <span class="slot-plus">+</span><span class="slot-lbl">SPINE</span>
+              <img class="slot-img" id="psimg-2" alt="">
+              <input type="file" id="psinput-2" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
+            </div>
+            <div class="photo-slot" id="pslot-3">
+              <span class="slot-plus">+</span><span class="slot-lbl">TOP EDGE</span>
+              <img class="slot-img" id="psimg-3" alt="">
+              <input type="file" id="psinput-3" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
+            </div>
+            <div class="photo-slot" id="pslot-4">
+              <span class="slot-plus">+</span><span class="slot-lbl">BOTTOM EDGE</span>
+              <img class="slot-img" id="psimg-4" alt="">
+              <input type="file" id="psinput-4" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
+            </div>
+            <div class="photo-slot" id="pslot-5">
+              <span class="slot-plus">+</span><span class="slot-lbl">INSIDE FRONT PAGE</span>
+              <img class="slot-img" id="psimg-5" alt="">
+              <input type="file" id="psinput-5" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
+            </div>
+            <div class="photo-slot" id="pslot-6">
+              <span class="slot-plus">+</span><span class="slot-lbl">RANDOM PAGE SPREAD</span>
+              <img class="slot-img" id="psimg-6" alt="">
+              <input type="file" id="psinput-6" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
+            </div>
+            <div class="photo-slot" id="pslot-7">
+              <span class="slot-plus">+</span><span class="slot-lbl">DEFECT CLOSE-UP</span>
+              <img class="slot-img" id="psimg-7" alt="">
+              <input type="file" id="psinput-7" accept="image/*" style="position:absolute;width:1px;height:1px;opacity:0;top:0;left:0">
+            </div>
           </div>
-          <div class="upload-area" id="upload-area">
-            <div class="upload-icon">📷</div>
-            <div class="upload-label">CLICK TO UPLOAD PHOTOS</div>
-            <div class="upload-hint">JPG, PNG or WEBP · up to 10 photos · max 10 MB each</div>
-            <input type="file" id="photo-input" multiple accept="image/*" style="display:none">
+          <div class="photo-counter-box">
+            <div class="photo-counter-lbl">PHOTOS UPLOADED: <span id="photo-upload-count">0</span> / 8</div>
+            <div class="photo-counter-note">When you submit, our team analyses lighting, wear patterns, and cross-checks your defect declaration. The final Class will be awarded within 24–48 hours.</div>
           </div>
-          <div class="photo-grid" id="photo-grid"></div>
         </div>
         <div class="qt-nav">
           <button class="btn-back" id="qt4-back">← BACK</button>
@@ -1413,6 +1457,7 @@ function goStep(n) {
 
 document.getElementById('qt1-back').addEventListener('click', function() {
   editingListingId = null; coverPhotoDataUrl = '';
+  resetPhotoSlots();
   showPage('sell');
 });
 document.getElementById('qt1-next').addEventListener('click', function() { goStep(2); });
@@ -1422,7 +1467,11 @@ document.getElementById('qt3-back').addEventListener('click', function() { goSte
 document.getElementById('qt3-next').addEventListener('click', function() { goStep(4); });
 document.getElementById('qt4-back').addEventListener('click', function() { goStep(3); });
 document.getElementById('qt4-next').addEventListener('click', function() {
-  // Update submit button label before showing step 5
+  var filled = conditionPhotos.filter(function(p){ return !!p; }).length;
+  if (filled < 3) {
+    showToast('Please upload at least 3 photos to continue (' + filled + '/3 so far)');
+    return;
+  }
   document.getElementById('qt5-submit').textContent = editingListingId !== null ? 'UPDATE LISTING →' : 'SUBMIT LISTING →';
   goStep(5);
 });
@@ -1459,33 +1508,62 @@ document.getElementById('cover-input').addEventListener('change', function(e) {
   });
 });
 
-// Condition photos upload — compress to 480px / 0.65 quality, store up to 8
-document.getElementById('upload-area').addEventListener('click', function() {
-  document.getElementById('photo-input').click();
-});
-document.getElementById('photo-input').addEventListener('change', function(e) {
-  var files = Array.prototype.slice.call(e.target.files).slice(0, 8);
-  uploadCount = files.length;
+// 360° photo slots — each slot has its own input, click slot → open that slot's picker
+function resetPhotoSlots() {
   conditionPhotos = [];
-  var grid = document.getElementById('photo-grid');
-  grid.innerHTML = '<div style="grid-column:1/-1;font-family:\'Barlow Condensed\',sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 0">Compressing ' + files.length + ' photo' + (files.length !== 1 ? 's' : '') + '…</div>';
-  var done = 0;
-  files.forEach(function(file) {
-    compressImage(file, 480, 0.65, function(url) {
-      conditionPhotos.push(url);
-      done++;
-      if (done === files.length) {
-        grid.innerHTML = '';
-        conditionPhotos.forEach(function(dataUrl) {
-          var img = document.createElement('img');
-          img.src = dataUrl;
-          img.className = 'photo-thumb';
-          grid.appendChild(img);
+  uploadCount = 0;
+  var countEl = document.getElementById('photo-upload-count');
+  if (countEl) countEl.textContent = '0';
+  for (var i = 0; i < 8; i++) {
+    var slot = document.getElementById('pslot-' + i);
+    var img  = document.getElementById('psimg-' + i);
+    var inp  = document.getElementById('psinput-' + i);
+    if (slot) slot.classList.remove('filled');
+    if (img)  { img.style.display = 'none'; img.src = ''; }
+    if (inp)  inp.value = '';
+    if (slot) {
+      var plus = slot.querySelector('.slot-plus');
+      var lbl  = slot.querySelector('.slot-lbl');
+      if (plus) { plus.style.display = 'block'; plus.textContent = '+'; }
+      if (lbl)  lbl.style.display = 'block';
+    }
+  }
+}
+
+(function() {
+  for (var i = 0; i < 8; i++) {
+    (function(idx) {
+      var slot  = document.getElementById('pslot-' + idx);
+      var inp   = document.getElementById('psinput-' + idx);
+      // Click the slot div → trigger that slot's file input
+      slot.addEventListener('click', function() { inp.click(); });
+      // Handle file selection for this slot
+      inp.addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        if (!file) return;
+        var plus = slot.querySelector('.slot-plus');
+        if (plus) plus.textContent = '…';
+        compressImage(file, 480, 0.65, function(url) {
+          conditionPhotos[idx] = url;
+          var img = document.getElementById('psimg-' + idx);
+          img.src = url;
+          img.style.display = 'block';
+          var p = slot.querySelector('.slot-plus');
+          var l = slot.querySelector('.slot-lbl');
+          if (p) p.style.display = 'none';
+          if (l) l.style.display = 'none';
+          slot.classList.add('filled');
+          // Update counter
+          var count = 0;
+          for (var j = 0; j < 8; j++) { if (conditionPhotos[j]) count++; }
+          uploadCount = count;
+          var countEl = document.getElementById('photo-upload-count');
+          if (countEl) countEl.textContent = count;
         });
-      }
-    });
-  });
-});
+      });
+    })(i);
+  }
+})();
 
 function submitListing() {
   var title     = document.getElementById('b-title').value || 'Untitled Book';
@@ -1509,7 +1587,7 @@ function submitListing() {
     year: year, cls: condition, desc: desc, price: price,
     delivery: delivery, pickup: pickup, photos: uploadCount,
     cover: coverPhotoDataUrl || '',
-    conditionPhotos: conditionPhotos.slice(0, 4),
+    conditionPhotos: conditionPhotos.filter(function(p){ return !!p; }),
     status: isAdminListingMode ? 'approved' : 'pending',
     submittedAt: firebase.firestore.FieldValue.serverTimestamp()
   };
@@ -1526,7 +1604,7 @@ function submitListing() {
       firestoreListings.push({id:newId,title:title,author:author,genre:genre,cls:condition,price:price,seller:'platform',cover:coverPhotoDataUrl||'',desc:desc,year:year});
       isAdminListingMode = false;
       coverPhotoDataUrl = '';
-      conditionPhotos = [];
+      resetPhotoSlots();
       renderHome(); renderBrowse();
       showToast('Platform listing added and live!');
       showPage('admin');
@@ -1535,7 +1613,7 @@ function submitListing() {
     var wasEditing = editingListingId !== null;
     editingListingId = null;
     coverPhotoDataUrl = '';
-    conditionPhotos = [];
+    resetPhotoSlots();
     hasProfile = true;
     showToast(wasEditing ? 'Listing updated — resubmitted for approval' : 'Listing submitted for approval!');
     showPage('sellers');
@@ -1594,9 +1672,27 @@ function editListing(id) {
     document.getElementById('cover-preview-img').src = '';
     document.getElementById('cover-preview-wrap').style.display = 'none';
   }
-  // Reset photo count
-  uploadCount = l.photos || 0;
-  document.getElementById('photo-grid').innerHTML = '';
+  // Restore condition photo slots
+  resetPhotoSlots();
+  if (l.conditionPhotos && l.conditionPhotos.length > 0) {
+    for (var pi = 0; pi < l.conditionPhotos.length && pi < 8; pi++) {
+      if (!l.conditionPhotos[pi]) continue;
+      conditionPhotos[pi] = l.conditionPhotos[pi];
+      var pslot = document.getElementById('pslot-' + pi);
+      var psimg = document.getElementById('psimg-' + pi);
+      if (psimg) { psimg.src = l.conditionPhotos[pi]; psimg.style.display = 'block'; }
+      if (pslot) {
+        pslot.classList.add('filled');
+        var pp = pslot.querySelector('.slot-plus');
+        var pl = pslot.querySelector('.slot-lbl');
+        if (pp) pp.style.display = 'none';
+        if (pl) pl.style.display = 'none';
+      }
+    }
+    uploadCount = l.conditionPhotos.filter(function(p){ return !!p; }).length;
+    var countEl = document.getElementById('photo-upload-count');
+    if (countEl) countEl.textContent = uploadCount;
+  }
   showPage('quality-test');
   goStep(2);
 }
@@ -2539,11 +2635,13 @@ document.getElementById('hero-sell').addEventListener('click', function() { show
 document.getElementById('sell-cta').addEventListener('click', function() {
   editingListingId = null; coverPhotoDataUrl = '';
   document.getElementById('cover-preview-wrap').style.display = 'none';
+  resetPhotoSlots();
   showPage('quality-test');
 });
 document.getElementById('sellers-cta').addEventListener('click', function() {
   editingListingId = null; coverPhotoDataUrl = '';
   document.getElementById('cover-preview-wrap').style.display = 'none';
+  resetPhotoSlots();
   showPage('quality-test');
 });
 document.getElementById('new-listing-btn').addEventListener('click', function() {
