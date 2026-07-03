@@ -1454,7 +1454,8 @@ function goStep(n) {
 document.getElementById('qt1-back').addEventListener('click', function() {
   editingListingId = null; coverPhotoDataUrl = '';
   resetPhotoSlots();
-  showPage('sell');
+  if (isAdminListingMode) { isAdminListingMode = false; showPage('admin'); }
+  else { showPage('sell'); }
 });
 document.getElementById('qt1-next').addEventListener('click', function() { goStep(2); });
 document.getElementById('qt2-back').addEventListener('click', function() { goStep(1); });
@@ -2696,22 +2697,31 @@ document.querySelectorAll('.admin-tab').forEach(function(tab) {
 
 // ─── ADMIN ADD PLATFORM LISTING ────────────────────────────────────────
 document.getElementById('admin-add-listing-btn').addEventListener('click', function() {
-  isAdminListingMode = true;
-  editingListingId = null;
-  coverPhotoDataUrl = '';
-  document.getElementById('cover-preview-wrap').style.display = 'none';
-  document.getElementById('cover-preview-img').src = '';
-  resetPhotoSlots();
-  uploadCount = 0;
-  // Pre-fill seller fields so admin can skip step 1
-  document.getElementById('s-name').value  = 'LIVRARIA.PT';
-  document.getElementById('s-city').value  = 'Lisboa';
-  document.getElementById('s-email').value = 'shop@livraria.pt';
-  document.getElementById('s-phone').value = '';
-  showPage('quality-test');
-  goStep(2); // start on book details, not account
+  try {
+    isAdminListingMode = true;
+    editingListingId = null;
+    coverPhotoDataUrl = '';
+    var cpw = document.getElementById('cover-preview-wrap');
+    var cpi = document.getElementById('cover-preview-img');
+    if (cpw) cpw.style.display = 'none';
+    if (cpi) cpi.src = '';
+    resetPhotoSlots();
+    uploadCount = 0;
+    // Pre-fill seller fields so admin can skip step 1
+    var sn = document.getElementById('s-name');
+    var sc = document.getElementById('s-city');
+    var se = document.getElementById('s-email');
+    var sp = document.getElementById('s-phone');
+    if (sn) sn.value = 'LIVRARIA.PT';
+    if (sc) sc.value = 'Lisboa';
+    if (se) se.value = 'shop@livraria.pt';
+    if (sp) sp.value = '';
+    showPage('quality-test');
+    goStep(2); // start on book details, skip account step
+  } catch(err) {
+    showToast('Error opening listing form: ' + err.message);
+  }
 });
-document.getElementById('qt1-back').removeEventListener('click', function() { showPage('sell'); });
 
 // ─── NAV BUTTON WIRING ─────────────────────────────────────────────────
 document.getElementById('logo').addEventListener('click', function() { showPage('home'); });
