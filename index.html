@@ -1087,53 +1087,7 @@ function isAdminEmail(email) {
 document.addEventListener('DOMContentLoaded', function() {
 
 // ─── DATA ─────────────────────────────────────────────────────────────
-var BOOKS = [
-  {id:1,title:'1984',author:'George Orwell',genre:'Fiction',cls:'B',price:8,seller:'platform',
-   cover:'https://covers.openlibrary.org/b/isbn/9780451524935-L.jpg',
-   desc:'A dystopian masterpiece set in a totalitarian society ruled by Big Brother. Winston Smith\'s quiet rebellion against the Party is one of literature\'s most enduring stories.',year:1949},
-  {id:2,title:'Brave New World',author:'Aldous Huxley',genre:'Science Fiction',cls:'A',price:12,seller:'platform',
-   cover:'https://covers.openlibrary.org/b/isbn/9780060850524-L.jpg',
-   desc:'Citizens engineered to love their own servitude. Huxley\'s vision of a future ruled by pleasure and conformity remains startlingly prescient.',year:1932},
-  {id:3,title:'The Hobbit',author:'J.R.R. Tolkien',genre:'Fantasy',cls:'A',price:15,seller:'private',
-   cover:'https://covers.openlibrary.org/b/isbn/9780345339683-L.jpg',
-   desc:'Bilbo Baggins is swept into an epic quest to reclaim the Lonely Mountain from a dragon, accompanied by thirteen dwarves and a wizard.',year:1937},
-  {id:4,title:'A Game of Thrones',author:'George R.R. Martin',genre:'Fantasy',cls:'B',price:10,seller:'platform',
-   cover:'https://covers.openlibrary.org/b/isbn/9780553103540-L.jpg',
-   desc:'Seven noble families struggle for control of the Iron Throne. Political intrigue, betrayal, and a long-forgotten threat from beyond the Wall.',year:1996},
-  {id:5,title:'The Great Gatsby',author:'F. Scott Fitzgerald',genre:'Fiction',cls:'A',price:9,seller:'private',
-   cover:'https://covers.openlibrary.org/b/isbn/9780743273565-L.jpg',
-   desc:'Nick Carraway narrates the tragic story of Jay Gatsby\'s obsession with Daisy Buchanan, set against the glittering excess of the Jazz Age.',year:1925},
-  {id:6,title:'To Kill a Mockingbird',author:'Harper Lee',genre:'Fiction',cls:'B',price:7,seller:'platform',
-   cover:'https://covers.openlibrary.org/b/isbn/9780061935466-L.jpg',
-   desc:'Through Scout Finch\'s eyes, we see racial injustice and moral courage in Depression-era Alabama. A Pulitzer Prize classic.',year:1960},
-  {id:7,title:'Pride and Prejudice',author:'Jane Austen',genre:'Romance',cls:'A',price:11,seller:'private',
-   cover:'https://covers.openlibrary.org/b/isbn/9780141439518-L.jpg',
-   desc:'Elizabeth Bennet navigates manners, marriage, and misunderstanding — chiefly with the proud and reserved Mr. Darcy. Penguin Classics edition.',year:1813},
-  {id:8,title:'The Catcher in the Rye',author:'J.D. Salinger',genre:'Fiction',cls:'C',price:5,seller:'private',
-   cover:'https://covers.openlibrary.org/b/isbn/9780316769174-L.jpg',
-   desc:'Holden Caulfield\'s voice is as raw and restless as ever in this portrait of adolescent alienation in postwar New York.',year:1951},
-  {id:9,title:'Sapiens',author:'Yuval Noah Harari',genre:'Non-Fiction',cls:'B',price:14,seller:'platform',
-   cover:'https://covers.openlibrary.org/b/isbn/9780062316097-L.jpg',
-   desc:'A sweeping history of humankind from the Stone Age to the present. How did Homo sapiens come to dominate the planet?',year:2011},
-  {id:10,title:'Dune',author:'Frank Herbert',genre:'Science Fiction',cls:'A',price:18,seller:'private',
-   cover:'https://covers.openlibrary.org/b/isbn/9780441013593-L.jpg',
-   desc:'Paul Atreides navigates the politics and ecology of the desert planet Arrakis, home to the universe\'s most precious substance: spice.',year:1965},
-  {id:11,title:'Norwegian Wood',author:'Haruki Murakami',genre:'Fiction',cls:'A',price:13,seller:'platform',
-   cover:'https://covers.openlibrary.org/b/isbn/9780375704024-L.jpg',
-   desc:'A nostalgic and melancholic story of loss and sexuality in 1960s Tokyo. One of Murakami\'s most accessible and beloved novels.',year:1987},
-  {id:12,title:'Crime and Punishment',author:'Fyodor Dostoevsky',genre:'Fiction',cls:'B',price:9,seller:'private',
-   cover:'https://covers.openlibrary.org/b/isbn/9780140449136-L.jpg',
-   desc:'Raskolnikov murders a pawnbroker and then struggles with guilt and paranoia in this psychological tour de force.',year:1866},
-  {id:13,title:'The Alchemist',author:'Paulo Coelho',genre:'Fiction',cls:'A',price:10,seller:'platform',
-   cover:'https://covers.openlibrary.org/b/isbn/9780061122415-L.jpg',
-   desc:'A young shepherd follows his dream of finding treasure near the Egyptian pyramids. A philosophical fable about listening to your heart.',year:1988},
-  {id:14,title:'The Name of the Rose',author:'Umberto Eco',genre:'Mystery',cls:'B',price:11,seller:'private',
-   cover:'https://covers.openlibrary.org/b/isbn/9780156001311-L.jpg',
-   desc:'A monk and his novice investigate a series of mysterious deaths in a 14th-century Italian monastery. Murder, manuscripts, and theology.',year:1980},
-  {id:15,title:'Educated',author:'Tara Westover',genre:'Biography',cls:'A',price:16,seller:'platform',
-   cover:'https://covers.openlibrary.org/b/isbn/9780399590504-L.jpg',
-   desc:'A memoir of growing up in a survivalist family in rural Idaho and ultimately earning a PhD from Cambridge. Extraordinary and urgent.',year:2018}
-];
+var BOOKS = [];
 
 // ─── STATE ─────────────────────────────────────────────────────────────
 var cart = [];
